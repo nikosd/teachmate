@@ -1,0 +1,40 @@
+<% @title = "Login to your account" %>
+
+  <div class="quick-action">
+    <h2><%= @title %></h2>
+    <p class="warning"><%=flash[:warning] %></p>
+    <% form_for User.new, :url => 'login', :method => "post", :html => {:multipart => true} do |f| %>
+      <table>
+      	<tr>
+					<td class="desc">id/email/openid:</td>
+					<td class="right">
+            <input class="text" type="text" name="user[login]"/>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">Password:</td>
+					<td class="right">
+            <input class="text" type="password" name="user[password]"/>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc"></td>
+					<td class="right">
+            <input class="checkbox" value="true" type="checkbox" checked="checked" name="remember_me" id="remember_me"/>
+            &nbsp;<label for="remember_me">Remember me</label>
+					</td>
+				</tr>
+
+
+        <%= render(:partial => 'captcha') %>
+
+        <input type="hidden" name="guess_login" value="login"/>
+
+				<tr><td class="desc"></td>
+				<td><input type="submit" class="submit" value="Login"</td>
+				</tr>
+      </table>
+    <% end %>
+  </div>

@@ -1,0 +1,6 @@
+<% @title = "Create new account" %>
+
+		<% form_for @user, :method => "post", :html => {:multipart => true} do |f| %>
+    <%= render(:partial => 'form', :object => @user, :locals => {:f => f, :title => @title}) %>
+    <% end %>
+

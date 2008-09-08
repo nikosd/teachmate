@@ -1,0 +1,11 @@
+music:
+  search_query: music
+  user: subscriber
+
+cooking:
+  search_query: cooking
+  user: subscriber
+
+sports:
+  search_query: sports
+  user: subscriber

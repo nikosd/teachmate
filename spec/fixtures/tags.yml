@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  string: bass guitar
+
+two:
+  id: 2
+  string: piano
+
+three:
+  id: 3
+  string: violin
+
+four:
+  id: 4
+  string: cooking
+
+five:
+  id: 5
+  string: love people

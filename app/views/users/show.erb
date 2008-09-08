@@ -1,0 +1,143 @@
+<% @title="User Profile" %>
+
+	<div id="profile">
+		
+		<table>
+			<tr>
+				<td class="left"><%= show_avatar(@user) %></td>
+				<td class="right">
+					<h1><span class="black"><%= full_name(@user) %></span> profile</h1>
+					<%= age(@user) %>
+					<%= location(@user) %>
+          <p><a href="#">Mate him</a> or <a href="#">send him a message</a></p>
+				</td>
+			</tr>
+		</table>
+		
+		<table>
+			<tr>
+				<td class="left">Rating:</td>
+				<td class="right">
+					<div id="rating-box" class="positive">
+						<div class="left"><a href="#"><%= image_tag('rating_down.gif', :alt => '-') %></a></div>
+						<div class="center">+300</div>
+						<div class="right"><a href="#"><%= image_tag('rating_up.gif', :alt => '+') %></a></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<div class="tags-wrapper">
+
+			<table>
+				<tr>
+					<td class="left"><span class="match-teach">Can teach:</span></td>
+					<td class="right">
+						<%= taglist(@user.teach_tags) %>
+					</td>
+				</tr>
+			</table>
+
+			<table>
+				<tr>
+					<td class="left">Wants to learn:</td>
+					<td class="right">
+            <%= taglist(@user.learn_tags) %>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<table>
+			<tr>
+				<td class="left">Notes:</td>
+				<td class="right" id="other-info">
+          <%= @user.notes %>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left">More info:</td>
+				<td class="right" id="other-info">
+          <%= @user.more_info %>
+				</td>
+			</tr>
+		</table>
+
+		<table>
+			<tr>
+				<td class="left">Is mate of:</td>
+				<td class="right">
+					<a href="#">Sting</a>, 
+					<strong><a href="#">Arnold Swarzenegger</a></strong>, 
+					<a href="#">Elvis Presley</a>, 
+					<a href="#">Mr. T</a>, 
+					<a href="#">Steven Seagal</a>
+				</td>
+			</tr>
+		</table>
+
+		<hr/>
+
+    <a name="comments"></a>
+		<div id="comments-box">
+			
+
+      
+      <% did_comment = false
+         if !@comments.empty? and params[:show_comments]
+      %>
+        <h2>Comments about <%= full_name(@user) %></h2>
+        <% @comments.each do |comment| %>
+    
+        <% if comment[:author].id == current_logged_in
+            comment_class = 'my-comment'
+            signature = "This is your comment, you can
+            <a href=\"#\" onclick=\"Element.remove('comment_#{comment[:element].id}'); Effect.Appear(\'edit_comment\')\">edit it</a>."
+            did_comment = true
+          else
+            comment_class = 'comment'
+            signature = "wrote #{link_to(full_name(comment[:author]), comment[:author])} at #{comment[:element].updated_at}"
+          end
+        %>
+        <div class="<%= comment_class %>">
+          <div id="comment_<%= comment[:element].id %>">
+            <p><%= comment[:element].body %></p>
+            <p class="info"><%= signature %></p>
+          </div>
+          <% if comment_class = 'my-comment' %>
+          <div id="edit_comment" class="edit-comment" style="display: none">
+            <% form_for comment[:element], :method => "post", :html => {:multipart => true} do |f| %>
+              <%= f.text_area :body, :value => comment[:element].body %>
+              <%= f.hidden_field :id, :value => comment[:element].id %>
+              <input type="submit" class="submit" value="Save Changes"/>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+
+        <% end
+      elsif @comments.empty?
+        %> <h2>Nobody left comments here yet</h2> <%
+      else
+        %><h2><a href="?show_comments=true#comments">Show all comments</a></h2><%
+      end %>
+
+      <% if current_logged_in and !did_comment %>
+        <p class="warning"><%= flash[:err_message] %></p>
+        <a name="comment_form"></a>
+        <% form_for @new_comment, :method => "post", :html => {:multipart => true} do |f| %>
+        <div id="comment-form">
+          <h3>Leave your own comment:</h3>
+          <%= f.text_area :body %>
+          <%= f.hidden_field :user_id, :value => params[:id] %>
+          <input type="submit" class="submit" value="Post comment"/>
+        </div>
+        <% end %>
+      <% end %>
+
+		</div>
+
+	</div>
+

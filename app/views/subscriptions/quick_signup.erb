@@ -1,0 +1,35 @@
+<% @title = "Subscribe for search results" %>
+
+  <div class="quick-action">
+
+  <p class="warning"><%= flash[:warning] %></p>
+
+  <p><small>You're about to subscribe for the updates to the following search query:</small></p>
+  <p>
+    <span class="gray1">I want to learn:</span> <%= params[:search_query][:learn] %><br/>
+    <span class="gray1">I can teach:</span> <%= params[:search_query][:teach] %>
+  </p>
+
+    <% form_for @subscription, :method => "post", :html => {:multipart => true} do |f| %>
+      <table>
+        <tr>
+          <td class="desc">E-mail:</td>
+          <td class="right">
+            <input type="text" name="user[email]" class="text" />
+            <small>Won't be exposed to anyone</small>
+
+            <%= hidden_field(:search_query, :learn, :value => params[:search_query][:learn])%>
+            <%= hidden_field(:search_query, :teach, :value => params[:search_query][:teach])%>
+          </td>
+        </tr>
+
+        <%= render(:partial => 'users/captcha') %>
+        
+        <tr><td class="desc"></td>
+        <td><input type="submit" class="submit" value="Subscribe"/></td>
+        </tr>
+
+      </table>
+    <% end %>
+  </div>
+

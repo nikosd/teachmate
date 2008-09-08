@@ -1,0 +1,12 @@
+owner:
+  id: 1
+  email: email@comment.com
+  
+author_one:
+  id: 2
+
+author_two:
+  id: 3
+
+author_three:
+  id: 4

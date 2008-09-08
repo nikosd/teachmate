@@ -1,0 +1,26 @@
+<% 
+  names = IO.read("#{RAILS_ROOT}/spec/fixtures/names.txt").split(' ')
+  good_usernames = names.slice(0..19)
+  bad_usernames = names.slice(21..25)
+%>
+
+<% good_usernames.each do |name| %>
+
+tagging1_for_<%= name %>:
+  user: <%=name %>
+  tag: bass_guitar
+
+tagging2_for_<%= name %>:
+  user: <%= name %>
+  tag: piano 
+
+tagging_unrelated_for_<%= name %>:
+  user: <%=name %>
+  tag: unrelated_tag 
+
+<% end %>
+
+
+tagging_for_<%= names[20] %>:
+  user: <%= names[20] %>
+  tag: piano

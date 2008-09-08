@@ -1,0 +1,21 @@
+<% 
+  names = IO.read("#{RAILS_ROOT}/spec/fixtures/names.txt").split(' ')
+  good_usernames = names.slice(0..19)
+  bad_usernames = names.slice(21..25)
+%>
+
+<% good_usernames.each do |name| %>
+<%= name %>:
+  first_name: <%= name %>
+  second_name: good_user
+<% end %>
+
+<%= names[20] %>:
+ first_name: <%= names[20] %>
+ second_name: user_with_one_tag
+
+<% bad_usernames.each do |name| %>
+<%= name %>:
+  first_name: <%= name %>
+  second_name: bad_user
+<% end %>

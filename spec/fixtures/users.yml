@@ -1,0 +1,127 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1 
+  first_name: User1
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: Санкт-Петербург
+  region: Северо-запад
+  country: Russia
+
+two:
+  id: 2 
+  first_name: User2
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: Северо-запад
+  country: Russia
+
+three:
+  id: 3 
+  first_name: User3
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: Санкт-Петербург
+  region: ""
+  country: Russia
+
+four:
+  id: 4 
+  first_name: User4
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: Санкт-Петербург
+  region: Северо-запад
+  country: ""
+  
+five:
+  id: 5 
+  first_name: User5
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: Санкт-Петербург
+  region: ""
+  country: ""
+
+six:
+  id: 6 
+  first_name: User6
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: Северо-запад
+  country: ""
+
+seven:
+  id: 7 
+  first_name: User7
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+8:
+  id: 8 
+  first_name: User8
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+9:
+  id: 9 
+  first_name: User9
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+10:
+  id: 10 
+  first_name: User10
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+11:
+  id: 11
+  first_name: User11
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+12:
+  id: 12 
+  first_name: User12
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+13:
+  id: 13
+  first_name: User13
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia
+
+14:
+  id: 14
+  first_name: User14
+  second_name: Snitko
+  birthdate: 1985-10-15
+  city: ""
+  region: ""
+  country: Russia

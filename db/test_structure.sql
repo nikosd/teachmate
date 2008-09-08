@@ -1,0 +1,5 @@
+CREATE TABLE learn_taggings ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_id" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL, "user_id" integer DEFAULT NULL);
+CREATE TABLE schema_info (version integer);
+CREATE TABLE tags ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "string" varchar(256) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
+CREATE TABLE teach_taggings ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_id" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL, "user_id" integer DEFAULT NULL);
+CREATE TABLE users ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "password" varchar(32) DEFAULT NULL, "email" varchar(255) DEFAULT NULL, "first_name" varchar(255) DEFAULT NULL, "second_name" varchar(255) DEFAULT NULL, "birthdate" date DEFAULT NULL, "city" varchar(255) DEFAULT NULL, "region" varchar(255) DEFAULT NULL, "country" varchar(255) DEFAULT NULL, "notes" varchar(255) DEFAULT NULL, "rating" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);

@@ -1,0 +1,161 @@
+		<div id="profile">
+		  <h2 class="aligned"><%= title %></h2>
+      <table>
+
+				<tr><td class="desc"><h3>General info</h3></td>
+				<td></td>
+				</tr>
+
+				<tr>
+					<td class="desc">User Picture:</td>
+					<td class="right">
+						<p><%= show_avatar(@user) %></p>
+						<p><input type="checkbox" name="user[delete_avatar]" id="user[delete_avatar]" value="1"/><label for="user[delete_avatar]">Delete avatar</label></p>
+						<%= file_field :user, :avatar %>
+					</td>
+				</tr>
+
+        <% if params[:action] == 'new' then %>
+				<tr>
+					<td class="desc">Password:</td>
+					<td class="right">
+            <%= f.password_field :password, {:class => "text"} %>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">Type password again (to confirm):</td>
+					<td class="right">
+            <%= f.password_field :password_confirmation, {:class => "text"} %>
+					</td>
+				</tr>
+
+        <% end %>
+
+				<tr>
+					<td class="desc">First Name or nickname:</td>
+					<td class="right">
+            <%= f.text_field :first_name, {:class => "text"} %>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">Second name:</td>
+					<td class="right">
+						<%= f.text_field :second_name, {:class => "text"} %>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">E-mail:</td>
+					<td class="right">
+						<%= f.text_field :email, {:class => "text"} %>
+						<small>Won't be exposed to anyone</small>
+					</td>
+				</tr>
+
+			</table>
+
+			<table>
+
+				<tr>
+					<td class="desc"><strong class="green">I can teach:</strong></td>
+					<td class="right">
+						<%= text_area(:user, :teach_tags_string) %>
+						<small>Just the same as above - one or more words, separated by commas.</small>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc"><strong class="black">I want to learn:</strong></td>
+					<td class="right">
+						<%= text_area(:user, :learn_tags_string) %>
+						<small><span class="gray2">Example:</span> 
+						ruby on rails, snowboarding, bass guitar, music, mathematics, cooking apple pie</small>
+					</td>
+				</tr>
+
+			</table>
+
+			<table>
+
+				<tr><td class="desc"><h3>Location</h3></td>
+				<td></td>
+				</tr>
+
+				<tr>
+					<td class="desc">City:</td>
+					<td class="right">
+            <%= f.text_field :city, {:class => "text"} %>
+						<small>By convention, we suggest to input your city name in your native language</small>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">State or region:</td>
+					<td class="right">
+						<%= f.text_field :region, {:class => "text"} %>
+						<small>Just like the city field, use your native language here</small>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">Country:</td>
+					<td class="right">
+						<%= f.text_field :country, {:class => "text"} %>
+						<small>But we suggest to input country name in English</small>
+					</td>
+				</tr>
+			
+			</table>
+
+			<table>
+
+				<tr><td class="desc"><h3>Other info</h3></td>
+				<td></td>
+				</tr>
+
+				<tr>
+					<td class="desc">Date of birth:</td>
+					<td class="right">
+
+          <%= date_select :user, :birthdate, 
+                 :start_year  => 1901,
+                 :end_year    => 1999,
+                 :order       => [:month, :day, :year]
+          %>
+
+					</td>
+				</tr>
+
+
+				<tr>
+					<td class="desc">Notes:</td>
+					<td class="right">
+						<%= f.text_field :notes, {:class => "text"} %>
+            <small>Up to 100 letters, will be shown in search results page near your name</small>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="desc">More info:</td>
+					<td class="right">
+						<%= text_area(:user, :more_info) %>
+					</td>
+				</tr>
+
+        
+        <%= 
+          if params[:action] == 'new' then
+            render(:partial => 'captcha')
+          end
+        %>
+
+				<tr><td class="desc"></td>
+				<td><input type="submit" class="submit" value="Save"</td>
+				</tr>
+
+
+			</table>
+
+	</div>

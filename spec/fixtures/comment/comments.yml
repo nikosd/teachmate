@@ -1,0 +1,19 @@
+comment_one:
+  body: "hey, this is comment one"
+  user_id: 1
+  author_id: 2
+
+comment_two:
+  body: "hey, this is comment two"
+  user_id: 1
+  author_id: 3
+
+comment_three:
+  body: "hey, this is comment three"
+  user_id: 1
+  author_id: 4
+
+comment_four:
+  body: "hey, this is comment four"
+  user_id: 2
+  author_id: 1

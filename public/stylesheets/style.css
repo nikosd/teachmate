@@ -1,0 +1,122 @@
+body {font-size: 100%; color: #000; font-family: Tahoma, Verdana, sans-serif; margin: 0px 0px 20px 0px;}
+
+/*links*/
+a {color: #0046AF; text-decoration: underline;}
+a:hover {text-decoration: none;} 
+a:visited {color: #4E00AF;}
+a:active {color: #AF0000;} 
+
+/*basic colors*/
+.green, .rating-positive, .match-teach {color: #4AAC0F;}
+.orange, .money {color: #EA7F00;}
+.red, .rating-negative {color: #DB0000;}
+.warning {color: #DB0000;}
+.gray1, #profile h1, #sr-header h2, #profile td.left, .comment p.info, .my-comment p.info, #comments-box h3, form small {color: #959595;}
+.gray2, #comments-box h2, #profile h3, form h3 {color: #B9B9B9;}
+.gray3 {color: #D9D9D9;}
+.black {color: #000;}
+
+/*text formatting*/
+strong {font-weight: bold;}
+h1 {font-size: 180%;}
+h2 {font-size: 120%;}
+h3 {font-size: 110%; margin-bottom: 0.5em;}
+h1, h2, h3 {margin-top: 0px; font-weight: normal;}
+small {font-size: 80%;}
+small.smaller {font-size: 60%;}
+.center {text-align: center;}
+
+img {border: 0px;}
+img.avatar {border: solid 1px #95D3FE;}
+hr {margin: 25px 0px 25px 0px; border: solid 1px #E4E4E4; background: transparent;}
+
+/*forms*/
+input.text, input#captcha, textarea {border: solid 1px #D9D9D9; padding: 3px;} 
+input:focus, textarea:focus {background-color: #FDF3D2;}
+textarea {width: 100%; height: 100px;} 
+input.submit {width: auto;}
+form small {display: block; clear: both;}
+form td {padding-bottom: 15px;}
+form td.desc {width: 175px; text-align: right; text-align: right; padding-right: 20px;}
+form td.right p {margin-top: 0px;}
+form td input.text {width: 65%;}
+form td h3 {font-size: 140%;}
+
+/*some commonly used styles*/
+td {vertical-align: top;}
+#sr-body table, #profile table, .quick-action table {font-size: 80%;}
+
+/*general layout*/
+#header, #bigsearch, .normalsearch, #sr-header, #sr-body table, #sr-pager, #profile table, .aligned {margin: 0px auto 0px auto; width: 700px;}
+
+#header {margin-top: 25px; margin-bottom: 25px; text-align: center; background-image: url('../images/teachmate_logo.gif'); background-position: top; background-repeat: no-repeat; padding-top: 28px;}
+#header .menu {clear: both; margin-top: 10px; font-size: 70%;}
+
+/*Common pages styles*/
+.quick-action, .quick-message {margin: 0px auto 0px auto; width: 400px;}
+.quick-action h1, .quick-action h2 {text-align: center;}
+
+/*mainpage*/
+#bigsearch {font-size: 130%; width: 400px; margin-top: 100px;}
+#bigsearch input {font-size: 130%; padding: 5px;}
+#bigsearch input.text {width: 100%; margin: 0.3em 0px 0.3em 0px;}
+#bigsearch input.submit {}
+#bigsearch p {margin-bottom: 1.3em;}
+
+/*search results*/
+.normalsearch {margin-top: 25px; margin-bottom: 25px; border-top: solid 1px #D9D9D9; border-bottom: solid 1px #D9D9D9;}
+.normalsearch .wrapper {margin: 1em 1.5em 1em 1.5em;}
+.normalsearch .element {width: 215px; float: left; font-size: 75%;}
+.normalsearch .text {width: 180px; clear: both; float: left;}
+.normalsearch input.submit {margin-top: 1.5em; float: right;}
+.normalsearch div.submit {float: right; margin-top: -2px;}
+
+#sr-header h2 {float: left; margin-right: 15px;}
+#sr-header .sortby {float: right; font-size: 75%; padding-top: 0.5em;}
+#sr-header .subscribe {width: 200px; float: left;}
+#sr-header .warning, #sr-header .green {font-size: 70%;} 
+
+#sr-body {margin-top: 0px;}
+#sr-body .item, #sr-body .item2 {margin: 0px 0px 10px 0px; padding: 10px 0px 10px 0px;}
+#sr-body .item2 {background-color: #F5F5F5;}
+
+#sr-body td.avatar {width: 65px;}
+
+#sr-pager {text-align: center; margin: 20px auto 20px auto;}
+#sr-pager a, #sr-pager .current, #sr-pager .dots {margin-left: 0.7em;}
+
+/*profile*/
+#profile {margin-top: 50px;}
+#profile table {margin-top: 15px;}
+#profile td.left {width: 125px; text-align: right; padding-right: 20px;}
+#profile form td.left {width: 170px;}
+#profile h1 {font-size: 180%; margin-bottom: 0.1em;}
+#profile form h2 {margin-bottom: 2em;}
+#profile .tags-wrapper {background-color: #EFEFEF; margin-top: 15px; font-size: 120%; padding: 1px 0px 15px 0px;}
+#profile #other-info {font-family: 'Courier New' monospace; font-size: 120%;}
+
+#rating-box {width: 110px;}
+#rating-box div {float: left; padding: 4px; height: 15px;}
+#rating-box .center {color: #FFF; font-weight: bold; font-size: 11px;}
+#rating-box .left {padding-right: 10px;}
+#rating-box .right {padding-left: 10px; background-position: left;}
+
+#rating-box.positive .left {background: url('../images/ratingbox-pos-left.gif'); background-repeat: no-repeat; background-position: right;}
+#rating-box.positive .right {background: url('../images/ratingbox-pos-right.gif'); background-repeat: no-repeat; background-position: left;}
+#rating-box.negative .left {background: url('../images/ratingbox-neg-left.gif'); background-repeat: no-repeat; background-position: right;}
+#rating-box.negative .right {background: url('../images/ratingbox-neg-right.gif'); background-repeat: no-repeat; background-position: left;}
+
+#rating-box.positive .center {background-color: #85BE34;}
+#rating-box.negative .center {background-color: #B40A0A;}
+
+#comments-box {margin: 0px auto 0px auto; width: 400px; font-size: 75%;}
+#comments-box h2 {text-align: center; font-size: 150%;}
+#comments-box textarea {clear: both;}
+.comment p, .my-comment p {margin: 0px;}
+.comment p.info, .my-comment p.info {font-size: 85%; margin-top: 0.5em;}
+.comment, .my-comment {margin-bottom: 15px; padding: 5px;}
+.my-comment {border: dotted 1px #D9D9D9;}
+.my-comment textarea {clear: both; width: 380px;}
+
+table.subscription {background-color: #D9D9D9; border-spacing: 1px; width: 100%;}
+table.subscription td {background-color: #F5F5F5; padding: 5px;}

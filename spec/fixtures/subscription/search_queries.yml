@@ -1,0 +1,11 @@
+music:
+  learn_string: 'bass guitar, piano'
+  teach_string: 'violin, singing'
+
+cooking:
+  learn_string: 'apple pie'
+  teach_string: 'cake'
+
+sports:
+  learn_string: 'football'
+  teach_string: 'hockey'

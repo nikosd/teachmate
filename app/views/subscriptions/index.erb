@@ -1,0 +1,21 @@
+<% @title = "Subscriptions" %>
+
+<div class="quick-action">
+  <h2><%= @title %></h2>
+
+  <p class="warning"><small><%= flash[:message] %></small></p>
+
+  <table class="subscription">
+    <% @subscriptions.each do |s| %>
+    <tr>
+      <td>
+        Learn: <strong><%= s[:learn_string] %></strong><br/>
+        Teach: <strong><%= s[:teach_string] %></strong>
+      </td>
+      <td>
+        <%= link_to "Delete", subscription_url(s[:element]), :confirm => "Are you sure?", :method => :delete %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

@@ -1,0 +1,41 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  tag_id: 1
+  user_id: 1
+
+two:
+  id: 2
+  tag_id: 2
+  user_id: 1
+
+three:
+  id: 3
+  tag_id: 3
+  user_id: 1
+
+four:
+  id: 4
+  tag_id: 1 # bass guitar
+  user_id: 2
+
+five:
+  id: 5
+  tag_id: 1 # bass guitar
+  user_id: 3
+
+six:
+  id: 6
+  tag_id: 2 # piano
+  user_id: 4
+
+seven:
+  id: 7
+  tag_id: 1 # bass guitar
+  user_id: 5
+
+eight:
+  id: 8
+  tag_id: 2 # piano
+  user_id: 5 # note, user stays the same
