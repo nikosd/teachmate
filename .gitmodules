@@ -1,6 +1,6 @@
 [submodule "vendor/plugins/jiff_auth"]
 	path = vendor/plugins/jiff_auth
-	url = git@github.com:snitko/jiff_auth.git
+	url = git://github.com/snitko/jiff_auth.git
 [submodule "vendor/plugins/captcha"]
 	path = vendor/plugins/captcha
 	url = git://github.com/zendesk/captcha.git
