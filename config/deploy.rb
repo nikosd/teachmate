@@ -17,6 +17,14 @@ role :app, "test-server"
 role :web, "test-server"
 role :db,  "test-server", :primary => true
 
+#this one prevents chmod (which fails for some reason)
+namespace(:deploy) do
+  task :finalize_update, :except => { :no_release => true } do
+    #run "chmod -R g+w #{latest_release}" if fetch(:group_writable, true)
+    puts 'we don\'t set permissions here anymore'
+  end
+end
+
 # custom tasks
 after "deploy", "init_submodules"
 
