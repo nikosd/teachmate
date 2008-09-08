@@ -7,7 +7,7 @@ set :application, "teachmate.org"
 
 set :scm, :git
 set :branch, "master"
-set :repository, "/home/roman/tm.git"
+set :repository, "/var/repos/tm.git"
 set :deploy_to, "/var/www/teachmate"
 # set :deploy_via, :remote_cache
 
