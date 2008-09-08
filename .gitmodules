@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/jiff_auth"]
+	path = vendor/plugins/jiff_auth
+	url = git@github.com:snitko/jiff_auth.git
