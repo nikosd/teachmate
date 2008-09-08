@@ -4,3 +4,6 @@
 [submodule "vendor/plugins/captcha"]
 	path = vendor/plugins/captcha
 	url = git://github.com/zendesk/captcha.git
+[submodule "vendor/plugins/will_paginate"]
+	path = vendor/plugins/will_paginate
+	url = git://github.com/mislav/will_paginate.git
