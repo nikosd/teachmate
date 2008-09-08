@@ -11,7 +11,7 @@ set :repository, "/home/roman/tm.git"
 set :deploy_to, "/var/www/teachmate"
 # set :deploy_via, :remote_cache
 
-set :user, "roman"
+set :user, "deploy"
 
 role :app, "test-server"
 role :web, "test-server"
