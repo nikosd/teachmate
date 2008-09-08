@@ -1,0 +1,8 @@
+.svn/
+.git/
+log/*
+!log
+*.swp
+*.swo
+/milestones.yml
+spec/public
