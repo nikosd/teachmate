@@ -28,12 +28,12 @@ namespace(:deploy) do
   end
 
   task :revert do
-    prev = remote("hello", 'cat previous_release.log') 
+    prev = remote("", 'cat previous_release.log') 
     remote "reverting to previous release", "git checkout #{prev}"
   end
 
   def remote(message, code)
-    puts "#{message}..."
+    puts "#{message}..." unless message.empty?
     `ssh #{SERVER} -l #{USER} \"cd #{DEPLOY_ROOT}/release && #{code}"`
   end
 
