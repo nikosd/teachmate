@@ -1,9 +1,21 @@
 [submodule "vendor/plugins/jiff_auth"]
 	path = vendor/plugins/jiff_auth
 	url = git://github.com/snitko/jiff_auth.git
+
 [submodule "vendor/plugins/captcha"]
 	path = vendor/plugins/captcha
 	url = git://github.com/zendesk/captcha.git
+
 [submodule "vendor/plugins/will_paginate"]
 	path = vendor/plugins/will_paginate
 	url = git://github.com/mislav/will_paginate.git
+
+[submodule "vendor/plugins/rspec"]
+	path = vendor/plugins/rspec
+	url = git://github.com/dchelimsky/rspec.git
+
+[submodule "vendor/plugins/rspec-rails"]
+	path = vendor/plugins/rspec-rails
+	url = git://github.com/dchelimsky/rspec-rails.git
+
+# fixture_scenarious, rspec_plugin, validates_date_time are included in the main repo
