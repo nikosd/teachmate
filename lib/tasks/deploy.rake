@@ -28,7 +28,7 @@ namespace(:deploy) do
       
       remote "checking out #{COMMIT}",      "git checkout #{current_rev}"
       remote "updating submodules",         "git submodule update"
-      remote "migrating DB",                "rake db:migrate"
+      remote "migrating DB",                "rake db:migrate RAILS_ENV=migration"
       remote "restarting mongrels",         "mongrel_cluster_ctl restart"
       
       puts "Running " + remote("", "git describe --tags HEAD").chomp + " now"

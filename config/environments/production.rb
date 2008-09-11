@@ -17,3 +17,8 @@ config.action_view.cache_template_loading            = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+ActionMailer::Base.delivery_method = :test
+ActionMailer::Base.default_charset = 'utf-8'
+
+AVATARS_PATH = "/var/www/teachmate/share/public/avatars"
