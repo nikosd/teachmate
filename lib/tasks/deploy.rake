@@ -21,11 +21,16 @@ namespace(:deploy) do
       `git push --tags`
 
       remote "cloning repo to release dir", "git fetch /var/repos/tm.git && git fetch --tags /var/repos/tm.git"
-      remote "storing previous commit id",  "git rev-parse HEAD > previous_release.log"
+      
+      unless remote("", "git rev-parse HEAD").chomp == current_rev
+        remote "storing previous commit id",  "git rev-parse HEAD > previous_release.log" 
+      end
+      
       remote "checking out #{COMMIT}",      "git checkout #{current_rev}"
       remote "updating submodules",         "git submodule update"
+      remote "restarting mongrels",         "mongrel_cluster_ctl restart"
       
-      puts "The tag is: " + remote("", "git describe --tags HEAD")
+      puts "Running " + remote("", "git describe --tags HEAD").chomp + " now"
     ensure
     end
   end
