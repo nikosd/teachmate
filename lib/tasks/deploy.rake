@@ -28,6 +28,7 @@ namespace(:deploy) do
       
       remote "checking out #{COMMIT}",      "git checkout #{current_rev}"
       remote "updating submodules",         "git submodule update"
+      remote "migrating DB",                "rake db:migrate"
       remote "restarting mongrels",         "mongrel_cluster_ctl restart"
       
       puts "Running " + remote("", "git describe --tags HEAD").chomp + " now"
@@ -38,6 +39,10 @@ namespace(:deploy) do
   task :revert do
     prev = remote("", 'cat previous_release.log') 
     remote "reverting to previous release", "git checkout #{prev}"
+  end
+
+  task :stop do
+    remote "stopping mongrels", "mongrel_cluster_ctl stop"
   end
 
   def remote(message, code)
