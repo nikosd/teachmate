@@ -6,3 +6,4 @@ log/*
 *.swo
 milestones.yml
 spec/public
+config/mongrel_cluster.yml
