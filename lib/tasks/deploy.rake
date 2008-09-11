@@ -23,6 +23,9 @@ namespace(:deploy) do
       remote "cloning repo to release dir", "git fetch /var/repos/tm.git && git fetch --tags /var/repos/tm.git"
       remote "storing previous commit id",  "git rev-parse HEAD > previous_release.log"
       remote "checking out #{COMMIT}",      "git checkout #{current_rev}"
+      remote "updating submodules",         "git submodule update"
+      
+      puts "The tag is: " + remote("", "git describe --tags HEAD")
     ensure
     end
   end
