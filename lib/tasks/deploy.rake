@@ -31,7 +31,7 @@ namespace(:deploy) do
       remote "migrating DB",                "rake db:migrate RAILS_ENV=migration"
       remote "restarting mongrels",         "mongrel_cluster_ctl restart"
       
-      puts "Running " + remote("", "git describe --tags HEAD").chomp + " now"
+      system 'echo "\033[1;32mRunning ' + remote("", "git describe --tags HEAD").chomp + ' now\033[0m"'
     ensure
     end
   end
