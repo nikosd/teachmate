@@ -21,4 +21,4 @@ config.action_view.cache_template_loading            = true
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.default_charset = 'utf-8'
 
-AVATARS_PATH = "/var/www/teachmate/share/public/avatars"
+AVATARS_PATH = "/var/www/teachmate/shared/public/images/avatars"
