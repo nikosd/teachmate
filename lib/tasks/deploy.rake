@@ -26,7 +26,7 @@ namespace(:deploy) do
         remote "storing previous commit id",  "git rev-parse HEAD > previous_release.log" 
       end
       
-      remote "checking out #{COMMIT}",      "git checkout #{current_rev}"
+      remote "checking out #{COMMIT}",      "git checkout -f #{current_rev}"
       remote "updating submodules",         "git submodule update"
       remote "migrating DB",                "rake db:migrate RAILS_ENV=migration"
       remote "restarting mongrels",         "mongrel_cluster_ctl restart"
