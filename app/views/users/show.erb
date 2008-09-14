@@ -92,21 +92,20 @@
         <% @comments.each do |comment| %>
     
         <% if comment[:author].id == current_logged_in
-            comment_class = 'my-comment'
-            signature = "This is your comment, you can
-            <a href=\"#\" onclick=\"Element.remove('comment_#{comment[:element].id}'); Effect.Appear(\'edit_comment\')\">edit it</a>."
+            my_comment = 'id="my_comment"'
+            signature = 'This is your comment, you can <a href="#">edit it</a>.'
             did_comment = true
           else
-            comment_class = 'comment'
+            comment_class = ''
             signature = "wrote #{link_to(full_name(comment[:author]), comment[:author])} at #{comment[:element].updated_at}"
           end
         %>
-        <div class="<%= comment_class %>">
+        <div class="comment" <%= my_comment %>>
           <div id="comment_<%= comment[:element].id %>">
             <p><%= comment[:element].body %></p>
             <p class="info"><%= signature %></p>
           </div>
-          <% if comment_class = 'my-comment' %>
+          <% unless my_comment.empty? %>
           <div id="edit_comment" class="edit-comment" style="display: none">
             <% form_for comment[:element], :method => "post", :html => {:multipart => true} do |f| %>
               <%= f.text_area :body, :value => comment[:element].body %>
