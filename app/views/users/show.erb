@@ -93,7 +93,7 @@
     
         <% if comment[:author].id == current_logged_in
             my_comment = 'id="my_comment"'
-            signature = 'This is your comment, you can <a href="#">edit it</a>.'
+            signature = 'This is your comment, you can <a href="/">edit it</a>.'
             did_comment = true
           else
             comment_class = ''
