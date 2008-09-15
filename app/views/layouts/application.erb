@@ -27,6 +27,8 @@
 
 	</div>
 
+
+  <% unless current_logged_in %>
   <div id="loginbox">
 
     <% form_for User.new, :url => 'login', :method => "post", :html => {:multipart => true} do |f| %>
@@ -71,6 +73,7 @@
     <% end %>
 
   </div>
+  <% end %>
 
 	<%= @content_for_layout %>
 
