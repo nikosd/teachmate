@@ -27,6 +27,51 @@
 
 	</div>
 
+  <div id="loginbox">
+
+    <% form_for User.new, :url => 'login', :method => "post", :html => {:multipart => true} do |f| %>
+      <table>
+        <tr>
+          <td class="desc">Your <b>ID</b> or <b>email</b>:</td>
+          <td class="right">
+            <input class="text" type="text" name="user[login]"/>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="desc">Password:</td>
+          <td class="right">
+            <input class="text" type="password" name="user[password]"/>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="desc"></td>
+          <td class="right">
+            <input class="checkbox" value="true" type="checkbox" checked="checked" name="remember_me" id="remember_me"/>
+            &nbsp;<label for="remember_me">Remember me</label>
+          </td>
+        </tr>
+
+        <tr>
+          <td><label for="captcha">Type the characters you see on the right:<br/></label><input id="captcha" name="captcha" type="text" />
+          </td>
+          <td>
+            <%= captcha_image %>
+            <%= captcha_hidden_text %>
+          </td>
+        </tr>
+
+      <tr><td colspan="2" style="text-align: center; padding-top: 7px;">
+        <input type="hidden" name="guess_login" value="login"/>
+        <input type="submit" class="submit" value="Login"/>
+      </td></tr>
+
+      </table>
+    <% end %>
+
+  </div>
+
 	<%= @content_for_layout %>
 
 </body>
