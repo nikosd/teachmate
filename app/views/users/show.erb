@@ -85,45 +85,58 @@
 			
 
       
-      <% did_comment = false
-         if !@comments.empty? and params[:show_comments]
+      <% did_comment = false 
+      unless @comments.empty?
       %>
-        <h2>Comments about <%= full_name(@user) %></h2>
-        <% @comments.each do |comment| %>
-    
-        <% if comment[:author].id == current_logged_in
-            my_comment = 'id="my_comment"'
-            signature = 'This is your comment, you can <a href="/">edit it</a>.'
-            did_comment = true
-          else
-            comment_class = ''
-            signature = "wrote #{link_to(full_name(comment[:author]), comment[:author])} at #{comment[:element].updated_at}"
-          end
-        %>
-        <div class="comment" <%= my_comment %>>
-          <div id="comment_<%= comment[:element].id %>">
-            <p><%= comment[:element].body %></p>
-            <p class="info"><%= signature %></p>
-          </div>
-          <% unless my_comment.empty? %>
-          <div id="edit_comment" class="edit-comment" style="display: none">
-            <% form_for comment[:element], :method => "post", :html => {:multipart => true} do |f| %>
-              <%= f.text_area :body, :value => comment[:element].body %>
-              <%= f.hidden_field :id, :value => comment[:element].id %>
-              <input type="submit" class="submit" value="Save Changes"/>
+
+        <% unless params[:show_comments] %>
+          <h2><a href="?show_comments=true#comments">Show all comments</a></h2>
+        <% end %>
+
+        <div id="comments" style="display: <%= (params[:show_comments] || 'none') %>;">
+          <h2>Comments about <%= full_name(@user) %></h2>
+          <% @comments.each do |comment| %>
+      
+              
+          <% if comment[:author].id == current_logged_in
+              my_comment = 'id="my_comment"'
+              signature = 'This is your comment, you can <a href="/">edit it</a>.'
+              did_comment = true
+            else
+              comment_class = ''
+              signature = "wrote #{link_to(full_name(comment[:author]), comment[:author])} at #{comment[:element].updated_at}"
+            end
+          %>
+
+
+          <div class="comment" <%= my_comment %>>
+            <div id="comment_<%= comment[:element].id %>">
+              <p><%= comment[:element].body %></p>
+              <p class="info"><%= signature %></p>
+            </div>
+            <% unless my_comment.empty? %>
+            <div id="edit_comment" class="edit-comment" style="display: none">
+              <% form_for comment[:element], :method => "post", :html => {:multipart => true} do |f| %>
+                <%= f.text_area :body, :value => comment[:element].body %>
+                <%= f.hidden_field :id, :value => comment[:element].id %>
+                <input type="submit" class="submit" value="Save Changes"/>
+              <% end %>
+            </div>
             <% end %>
           </div>
-          <% end %>
+
         </div>
 
-        <% end
-      elsif @comments.empty?
-        %> <h2>Nobody left comments here yet</h2> <%
-      else
-        %><h2><a href="?show_comments=true#comments">Show all comments</a></h2><%
-      end %>
 
-      <% if current_logged_in and !did_comment %>
+
+        <% end
+      else @comments.empty?
+        %> <h2>Nobody left comments here yet</h2> <%
+      end
+      %>
+
+
+      <% if !did_comment and current_logged_in %>
         <p class="warning"><%= flash[:err_message] %></p>
         <a name="comment_form"></a>
         <% form_for @new_comment, :method => "post", :html => {:multipart => true} do |f| %>

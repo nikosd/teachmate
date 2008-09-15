@@ -10,4 +10,10 @@ $(function() {
     event.preventDefault();
   });
 
+  $("a[@href*=show_comments]").bind("click", function(event) {
+    $('#comments').show('slow');
+    $(this).hide('slow');
+    event.preventDefault();
+  });
+
 });
