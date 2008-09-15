@@ -6,9 +6,9 @@ class UsersController < ApplicationController
 
   def show
     begin
-    @user = User.find(params[:id])
+      @user = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to(:action => 'new')
+      render(:file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found") and return
     end
     @comments = Comment.find_for_user(@user.id)
     @new_comment  = Comment.new

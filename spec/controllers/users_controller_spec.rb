@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersController do
 
+  fixtures :users
+
   it "should redirect to user profile after creating one" do
     request.env['HTTP_REFERER'] = '/users/new'
 		post 'create', :params => {:user => {:email => 'email@email.com'}}
@@ -21,6 +23,11 @@ describe UsersController do
     post 'show', :id => id, :show_comments => true
     assigns[:comments].should have(3).elements
     response.should render_template('users/show')
+  end
+
+  it "should redirect to 404 if the user is not found" do
+    post 'show', :id => 1000
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
   end
 
 end
