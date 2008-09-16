@@ -13,7 +13,7 @@
     <% form_for @subscription, :method => "post", :html => {:multipart => true} do |f| %>
       <table>
         <tr>
-          <td class="desc">E-mail:</td>
+          <td class="desc">Your e-mail:</td>
           <td class="right">
             <input type="text" name="user[email]" class="text" />
             <small>Won't be exposed to anyone</small>
@@ -32,4 +32,3 @@
       </table>
     <% end %>
   </div>
-

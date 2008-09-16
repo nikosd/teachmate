@@ -1,6 +1,27 @@
 <% @title = "Create new account" %>
 
-		<% form_for @user, :method => "post", :html => {:multipart => true} do |f| %>
-    <%= render(:partial => 'form', :object => @user, :locals => {:f => f, :title => @title}) %>
-    <% end %>
+  <div class="quick-action">
 
+  <h2><%= @title %></h2>
+
+  <p class="warning"><%= flash[:warning] %></p>
+
+    <% form_for @user, :method => "post", :html => {:multipart => true} do |f| %>
+      <table>
+        <tr>
+          <td class="desc">Your e-mail:</td>
+          <td class="right">
+            <input type="text" name="user[email]" class="text" />
+            <small>Won't be exposed to anyone</small>
+          </td>
+        </tr>
+
+        <%= render(:partial => 'users/captcha') %>
+        
+        <tr><td class="desc"></td>
+        <td><input type="submit" class="submit" value="Subscribe"/></td>
+        </tr>
+
+      </table>
+    <% end %>
+  </div>
