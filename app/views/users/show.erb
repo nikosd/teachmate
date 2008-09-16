@@ -114,7 +114,7 @@
               <p><%= comment[:element].body %></p>
               <p class="info"><%= signature %></p>
             </div>
-            <% unless my_comment.empty? %>
+            <% unless my_comment %>
             <div id="edit_comment" class="edit-comment" style="display: none">
               <% form_for comment[:element], :method => "post", :html => {:multipart => true} do |f| %>
                 <%= f.text_area :body, :value => comment[:element].body %>
