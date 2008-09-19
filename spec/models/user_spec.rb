@@ -132,6 +132,12 @@ describe User, "with avatar" do
     @user.avatar_file.columns.should  <= 50
   end
 
+  it "should add error when email is duplicated" do
+    User.create(:email => 'duplicated@email.com')
+    user = User.create(:email => 'duplicated@email.com')
+    user.errors.on(:email).should_not be_empty
+  end
+
   after(:all) do
     #cleaning up
     Dir.foreach(AVATARS_PATH) do |dir|

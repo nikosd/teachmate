@@ -2,11 +2,21 @@
 
   <div class="quick-action">
     <h2><%= @title %></h2>
+
     <p class="warning"><%=flash[:warning] %></p>
+    <p class="error"><%=flash[:error] %></p>
+
+    <% if flash[:error] == 'Login unsuccessful' %>
+      <p class="error"><small>Your id/email and password pair are wrong. You might want to try again
+      or use our <a href="/recover-password">password recovery page</a>, if you forgot the password.</small></p>
+    <% end %>
+
+    <p class="warning"><small><%= flash[:error_msg] %></small></p>
+    
     <% form_for User.new, :url => 'login', :method => "post", :html => {:multipart => true} do |f| %>
       <table>
       	<tr>
-					<td class="desc">id/email/openid:</td>
+					<td class="desc">Your <b>ID</b> or <b>email</b>:</td>
 					<td class="right">
             <input class="text" type="text" name="user[login]"/>
 					</td>

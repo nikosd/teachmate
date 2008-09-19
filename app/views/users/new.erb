@@ -4,14 +4,15 @@
 
   <h2><%= @title %></h2>
 
-  <p class="warning"><%= flash[:warning] %></p>
+    <p class="error"><%= flash[:error] %></p>
+    <%= error_messages_for(:user, :header_message => nil) %>
 
     <% form_for @user, :method => "post", :html => {:multipart => true} do |f| %>
       <table>
         <tr>
           <td class="desc">Your e-mail:</td>
           <td class="right">
-            <input type="text" name="user[email]" class="text" />
+            <%= input(:user, :email, :class => 'text') %>
             <small>Won't be exposed to anyone</small>
           </td>
         </tr>
@@ -19,7 +20,7 @@
         <%= render(:partial => 'users/captcha') %>
         
         <tr><td class="desc"></td>
-        <td><input type="submit" class="submit" value="Subscribe"/></td>
+        <td><input type="submit" class="submit" value="Create account"/></td>
         </tr>
 
       </table>
