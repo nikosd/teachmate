@@ -8,11 +8,10 @@ class ApplicationController < ActionController::Base
     :app_controller   => self,
     :auth_controller  => :users,
     :model            => :user,
-    :captcha_on       => ['login', 'create'],
-    :redirect_on      => {
-      :create => :to_stored
-    }
+    :captcha_on       => ['login', 'create']
   )
+
+  validates_captcha
 
 
   # See ActionController::RequestForgeryProtection for details
