@@ -19,8 +19,7 @@ class User < ActiveRecord::Base
   # that where changed from empty to nil. If remove the next line, it works ok.
   # validates_length_of :notes, :maximum => 100
   
-  validates_uniqueness_of :email
-  validates_presence_of   :email
+  validates_uniqueness_of :email, :allow_nil => true
 
 
 	after_save  :save_learn_tags, :save_teach_tags
