@@ -138,6 +138,6 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 
 .fieldWithErrors input {background-color: #ffc8c8; border: solid 1px #bc1414;}
 .formError {font-size: 100%;}
-.formErrorMessage {margin: 1em 0px 1em 0px; text-align: center;}
-.formErrorMessage h2 {font-size: 95%}
+.quick-action .formErrorMessage {margin: 1em 0px 1em 0px; text-align: center;}
+.quick-action .formErrorMessage h2 {font-size: 95%}
 

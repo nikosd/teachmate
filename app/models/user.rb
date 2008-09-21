@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   # validates_length_of :notes, :maximum => 100
   
   validates_uniqueness_of :email, :allow_nil => true
+  validate_on_create      :validate_email
+  validate_on_update      :validate_email
 
 
 	after_save  :save_learn_tags, :save_teach_tags
@@ -51,7 +53,7 @@ class User < ActiveRecord::Base
 
 	private
 
-  def validate_on_create
+  def validate_email
     if (!email.blank?)
       unless email =~ /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
         errors.add(:email, 'is invalid')

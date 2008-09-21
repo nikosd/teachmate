@@ -21,7 +21,12 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		redirect_to(@user) if @user.update_attributes(params[:user])
+    @user.update_attributes(params[:user])
+    unless @user.errors.empty?
+      render(:action => :edit)
+    else
+		  redirect_to(@user)
+    end
 	end
 
 end
