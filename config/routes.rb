@@ -40,7 +40,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect   'login',            :controller => 'users', :action => 'login'
   map.connect   'logout',           :controller => 'users', :action => 'logout'
-  map.connect   'signup',           :controller => 'users', :action => 'new'
   map.connect   'lost-password',    :controller => 'users', :action => 'lost_password'
   map.connect   'recover-password', :controller => 'users', :action => 'recover_password'
   map.connect   'change-password',  :controller => 'users', :action => 'change_password'

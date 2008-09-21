@@ -2,35 +2,31 @@
 		  <h2 class="aligned"><%= title %></h2>
       <table>
 
+        <% if @error or !@user.errors.empty? %>
+        <tr><td colspan="2">
+          <h2 class="error">We couldn't submit this form due to some errors</h2>
+          <small>We marked them, so please check the form again.</small>
+          <p class="error"><%= @error %></p>
+        </td></tr>
+        <% end %>
+
 				<tr><td class="desc"><h3>General info</h3></td>
 				<td></td>
 				</tr>
 
 				<tr>
-					<td class="desc">User Picture:</td>
+					<td class="desc">Upload your avatar:</td>
 					<td class="right">
-						<p><%= show_avatar(@user) %></p>
-						<p><input type="checkbox" name="user[delete_avatar]" id="user[delete_avatar]" value="1"/><label for="user[delete_avatar]">Delete avatar</label></p>
+						<% edit_only { %><p><%= show_avatar(@user) %></p> <% } %>
+
+						<% edit_only do %>
+            <p><input type="checkbox" name="user[delete_avatar]" id="user[delete_avatar]" value="1"/><label for="user[delete_avatar]">Delete avatar</label></p>
+            <% end %>
+
 						<%= file_field :user, :avatar %>
+            <small>Picture up to 2 Mb is okay. Note it will be scaled to 50x50px if larger.</small>
 					</td>
 				</tr>
-
-        <% if params[:action] == 'new' then %>
-				<tr>
-					<td class="desc">Password:</td>
-					<td class="right">
-            <%= f.password_field :password, {:class => "text"} %>
-					</td>
-				</tr>
-
-				<tr>
-					<td class="desc">Type password again (to confirm):</td>
-					<td class="right">
-            <%= f.password_field :password_confirmation, {:class => "text"} %>
-					</td>
-				</tr>
-
-        <% end %>
 
 				<tr>
 					<td class="desc">First Name or nickname:</td>
@@ -50,7 +46,7 @@
 					<td class="desc">E-mail:</td>
 					<td class="right">
 						<%= f.text_field :email, {:class => "text"} %>
-						<small>Won't be exposed to anyone</small>
+						<%= caption(:email, "Won't be exposed to anyone. We'll use it to send there messages from other users (when someone wants to become your teachmate), to restore your password if you forget it, or to send you updates on your search results if you subscribe to any. Submitting it blank leaves you without these options, but it's still acceptable.") %>
 					</td>
 				</tr>
 
@@ -62,7 +58,8 @@
 					<td class="desc"><strong class="green">I can teach:</strong></td>
 					<td class="right">
 						<%= text_area(:user, :teach_tags_string) %>
-						<small>Just the same as above - one or more words, separated by commas.</small>
+						<small><span class="gray2">Example:</span> 
+						ruby on rails, snowboarding, bass guitar, music, mathematics, cooking apple pie</small>
 					</td>
 				</tr>
 
@@ -70,8 +67,7 @@
 					<td class="desc"><strong class="black">I want to learn:</strong></td>
 					<td class="right">
 						<%= text_area(:user, :learn_tags_string) %>
-						<small><span class="gray2">Example:</span> 
-						ruby on rails, snowboarding, bass guitar, music, mathematics, cooking apple pie</small>
+						<small>Just the same as above - one or more words, separated by commas.</small>
 					</td>
 				</tr>
 
@@ -133,7 +129,7 @@
 					<td class="desc">Notes:</td>
 					<td class="right">
 						<%= f.text_field :notes, {:class => "text"} %>
-            <small>Up to 100 letters, will be shown in search results page near your name</small>
+            <small>Up to 100 letters, will be shown in search results page near your name, no links allowed.</small>
 					</td>
 				</tr>
 
@@ -141,12 +137,13 @@
 					<td class="desc">More info:</td>
 					<td class="right">
 						<%= text_area(:user, :more_info) %>
+            <small>Good place to tell public who you are, post links to your blog, photos or whataver might be of interest to your potential teachmate.</small>
 					</td>
 				</tr>
 
         
         <%= 
-          if params[:action] == 'new' then
+          unless current_logged_in then
             render(:partial => 'captcha')
           end
         %>

@@ -9,7 +9,7 @@ a:active {color: #AF0000;}
 /*basic colors*/
 .green, .rating-positive, .match-teach {color: #4AAC0F;}
 .orange, .money {color: #EA7F00;}
-.red, .rating-negative {color: #DB0000;}
+.red, .rating-negative, .formError {color: #DB0000;}
 .gray1, #profile h1, #sr-header h2, #profile td.left, .comment p.info, .my-comment p.info, #comments-box h3, form small {color: #959595;}
 .gray2, #comments-box h2, #profile h3, form h3 {color: #B9B9B9;}
 .gray3 {color: #D9D9D9;}
@@ -18,7 +18,7 @@ a:active {color: #AF0000;}
 /*text formatting*/
 strong {font-weight: bold;}
 h1 {font-size: 180%;}
-h2 {font-size: 120%;}
+h2 {font-size: 120%; margin-bottom: 0px;}
 h3 {font-size: 110%; margin-bottom: 0.5em;}
 h1, h2, h3 {margin-top: 0px; font-weight: normal;}
 small {font-size: 80%;}
@@ -136,3 +136,4 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .errorExplanation li {font-size: 85%;}
 
 .fieldWithErrors input {background-color: #ffc8c8; border: solid 1px #bc1414;}
+.formError {font-size: 100%;}

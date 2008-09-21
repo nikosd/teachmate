@@ -1,28 +1,5 @@
-<% @title = "Create new account" %>
+<% @title = "Create profile" %>
 
-  <div class="quick-action">
-
-  <h2><%= @title %></h2>
-
-    <p class="error"><%= flash[:error] %></p>
-    <%= error_messages_for(:user, :header_message => nil) %>
-
-    <% form_for @user, :method => "post", :html => {:multipart => true} do |f| %>
-      <table>
-        <tr>
-          <td class="desc">Your e-mail:</td>
-          <td class="right">
-            <%= f.text_field(:email, :class => 'text') %>
-            <small>Won't be exposed to anyone</small>
-          </td>
-        </tr>
-
-        <%= render(:partial => 'users/captcha') %>
-        
-        <tr><td class="desc"></td>
-        <td><input type="submit" class="submit" value="Create account"/></td>
-        </tr>
-
-      </table>
+		<% form_for @user, :method => "post", :html => {:multipart => true} do |f| %>
+    <%= render(:partial => 'form', :object => @user, :locals => {:f => f, :title => @title}) %>
     <% end %>
-  </div>

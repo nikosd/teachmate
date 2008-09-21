@@ -36,4 +36,17 @@ module UsersHelper
 		end.join(', ')
   end
 
+  def edit_only
+    yield if params[:action] == 'edit'
+  end
+
+  def caption(field, text)
+    unless error_message_on(:user, field).empty?
+      t = error_message_on(:user, field)
+    else
+      t = text
+    end
+    "<small>#{t}</small>"
+  end
+
 end
