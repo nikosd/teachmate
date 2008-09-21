@@ -2,13 +2,9 @@
 		  <h2 class="aligned"><%= title %></h2>
       <table>
 
-        <% if @error or !@user.errors.empty? %>
         <tr><td colspan="2">
-          <h2 class="error">We couldn't submit this form due to some errors</h2>
-          <small>We marked them, so please check the form again.</small>
-          <p class="error"><%= @error %></p>
+        <%= form_error %>
         </td></tr>
-        <% end %>
 
 				<tr><td class="desc"><h3>General info</h3></td>
 				<td></td>
@@ -149,7 +145,7 @@
         %>
 
 				<tr><td class="desc"></td>
-				<td><input type="submit" class="submit" value="Save"</td>
+				<td><input type="submit" class="submit" value="Save"/></td>
 				</tr>
 
 

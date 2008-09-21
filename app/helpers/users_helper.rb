@@ -49,4 +49,8 @@ module UsersHelper
     "<small>#{t}</small>"
   end
 
+  def form_error
+    render(:partial => 'form_error', :locals => @error) if @error or !@user.errors.empty?
+  end
+
 end
