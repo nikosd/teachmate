@@ -5,14 +5,13 @@ describe UsersController do
   fixtures :users
 
   it "should redirect to user profile after creating one" do
-    request.env['HTTP_REFERER'] = '/users/new'
-		post 'create', :params => {:user => {:email => 'email@email.com'}}
-    response.should redirect_to('/users/new')
+		put 'create', :user => {:email => 'email@email.com'}
+    response.should redirect_to("/users/#{assigns[:user].id}")
   end
 	
 	it "should redirect to user profile after updating one" do
     id = User.find(:first, :order => "id DESC")
-		post 'update', :id => id, :params => {:user => {:email => 'newemail@email.com'}}
+		post 'update', :id => id, :user => {:email => 'newemail@email.com'}
 		response.should redirect_to(user_url(id))
 	end
 

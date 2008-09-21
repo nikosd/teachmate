@@ -9,24 +9,11 @@
 					<h1><span class="black"><%= full_name(@user) %></span> profile</h1>
 					<%= age(@user) %>
 					<%= location(@user) %>
-          <p><a href="#">Mate him</a> or <a href="#">send him a message</a></p>
+          <p><a href="#">Bookmark this user</a> or <a href="#">send a message</a></p>
 				</td>
 			</tr>
 		</table>
 		
-		<table>
-			<tr>
-				<td class="left">Rating:</td>
-				<td class="right">
-					<div id="rating-box" class="positive">
-						<div class="left"><a href="#"><%= image_tag('rating_down.gif', :alt => '-') %></a></div>
-						<div class="center">+300</div>
-						<div class="right"><a href="#"><%= image_tag('rating_up.gif', :alt => '+') %></a></div>
-					</div>
-				</td>
-			</tr>
-		</table>
-
 		<div class="tags-wrapper">
 
 			<table>
@@ -52,28 +39,15 @@
 		<table>
 			<tr>
 				<td class="left">Notes:</td>
-				<td class="right" id="other-info">
+				<td class="notes">
           <%= @user.notes %>
 				</td>
 			</tr>
 
 			<tr>
 				<td class="left">More info:</td>
-				<td class="right" id="other-info">
+				<td class="more-info">
           <%= @user.more_info %>
-				</td>
-			</tr>
-		</table>
-
-		<table>
-			<tr>
-				<td class="left">Is mate of:</td>
-				<td class="right">
-					<a href="#">Sting</a>, 
-					<strong><a href="#">Arnold Swarzenegger</a></strong>, 
-					<a href="#">Elvis Presley</a>, 
-					<a href="#">Mr. T</a>, 
-					<a href="#">Steven Seagal</a>
 				</td>
 			</tr>
 		</table>

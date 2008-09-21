@@ -100,7 +100,8 @@ td {vertical-align: top;}
 #profile h1 {font-size: 180%; margin-bottom: 0.1em;}
 #profile form h2 {margin-bottom: 2em;}
 #profile .tags-wrapper {background-color: #EFEFEF; margin-top: 15px; font-size: 120%; padding: 1px 0px 15px 0px;}
-#profile #other-info {font-family: 'Courier New' monospace; font-size: 120%;}
+#profile .more-info {}
+#profile .more-info {}
 
 #rating-box {width: 110px;}
 #rating-box div {float: left; padding: 4px; height: 15px;}
