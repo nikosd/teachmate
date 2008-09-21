@@ -50,7 +50,7 @@ module UsersHelper
   end
 
   def form_error
-    render(:partial => 'form_error', :locals => @error) if @error or !@user.errors.empty?
+    render(:partial => 'form_error', :locals => {:error => @error}) if @error or !@user.errors.empty?
   end
 
 end

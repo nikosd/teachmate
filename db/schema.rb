@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.string "teach_string"
   end
 
-  add_index "search_queries", ["learn_string", "teach_string"], :name => "by_query", :unique => true
+  add_index "search_queries", ["learn_string", "teach_string"], :name => "index_search_queries_on_learn_string_and_teach_string", :unique => true
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "user_id"
@@ -59,26 +59,28 @@ ActiveRecord::Schema.define(:version => 12) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "first_name"
-    t.string   "second_name"
+    t.string   "first_name",                :limit => 32
+    t.string   "second_name",               :limit => 32
     t.date     "birthdate"
-    t.string   "city"
-    t.string   "region"
-    t.string   "country"
+    t.string   "city",                      :limit => 32
+    t.string   "region",                    :limit => 32
+    t.string   "country",                   :limit => 32
     t.string   "more_info"
     t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "hashed_password",        :limit => 40
-    t.string   "salt",                   :limit => 40
+    t.string   "hashed_password",           :limit => 40
+    t.string   "salt",                      :limit => 40
     t.string   "openid"
-    t.string   "notes",                  :limit => 100
-    t.string   "password_token",         :limit => 20
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+    t.string   "notes",                     :limit => 100
+    t.string   "password_token",            :limit => 20
     t.datetime "password_token_expires"
     t.string   "avatar"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

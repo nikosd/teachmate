@@ -7,14 +7,14 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :email
       
       #personal
-      t.string  :first_name
-      t.string  :second_name
+      t.string  :first_name,  :limit  => 32
+      t.string  :second_name, :limit => 32
       t.date    :birthdate
 
       #location
-      t.string  :city
-      t.string  :region
-      t.string  :country
+      t.string  :city,    :limit => 32
+      t.string  :region,  :limit => 32
+      t.string  :country, :limit => 32
 
       #other
       t.string  :notes
