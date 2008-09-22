@@ -15,9 +15,9 @@ module UsersHelper
 	end
 
 	def full_name(user)
-		if user.first_name == nil && user.second_name == nil
+		if user.first_name == nil && user.last_name == nil
 			"user id #{user.id}"
-		else fullname = [user.first_name, user.second_name].join(' ')
+		else fullname = [user.first_name, user.last_name].join(' ')
 		end
 	end
 

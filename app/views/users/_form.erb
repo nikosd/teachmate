@@ -36,13 +36,15 @@
 					<td class="desc">First Name or nickname:</td>
 					<td class="right">
             <%= f.text_field :first_name, {:class => "text"} %>
+            <%= caption(:first_name, '') %>
 					</td>
 				</tr>
 
 				<tr>
-					<td class="desc">Second name:</td>
+					<td class="desc">Last name:</td>
 					<td class="right">
-						<%= f.text_field :second_name, {:class => "text"} %>
+						<%= f.text_field :last_name, {:class => "text"} %>
+            <%= caption(:last_name, '') %>
 					</td>
 				</tr>
 
@@ -62,8 +64,8 @@
 					<td class="desc"><strong class="green">I can teach:</strong></td>
 					<td class="right">
 						<%= text_area(:user, :teach_tags_string) %>
-						<small><span class="gray2">Example:</span> 
-						ruby on rails, snowboarding, bass guitar, music, mathematics, cooking apple pie</small>
+            <%= caption(:teach_tags_string, '<span class="gray2">Example:</span> 
+						ruby on rails, snowboarding, bass guitar, music, mathematics, cooking apple pie') %>
 					</td>
 				</tr>
 
@@ -71,7 +73,7 @@
 					<td class="desc"><strong class="black">I want to learn:</strong></td>
 					<td class="right">
 						<%= text_area(:user, :learn_tags_string) %>
-						<small>Just the same as above - one or more words, separated by commas.</small>
+            <%= caption(:learn_tags_string, 'Just the same as above - one or more words, separated by commas.') %>
 					</td>
 				</tr>
 
@@ -87,7 +89,7 @@
 					<td class="desc">City:</td>
 					<td class="right">
             <%= f.text_field :city, {:class => "text"} %>
-						<small>By convention, we suggest to input your city name in your native language</small>
+            <%= caption(:city, 'By convention, we suggest to input your city name in your native language.') %>
 					</td>
 				</tr>
 
@@ -95,7 +97,7 @@
 					<td class="desc">State or region:</td>
 					<td class="right">
 						<%= f.text_field :region, {:class => "text"} %>
-						<small>Just like the city field, use your native language here</small>
+            <%= caption(:region, 'Just like the city field, use your native language here.') %>
 					</td>
 				</tr>
 
@@ -103,7 +105,7 @@
 					<td class="desc">Country:</td>
 					<td class="right">
 						<%= f.text_field :country, {:class => "text"} %>
-						<small>But we suggest to input country name in English</small>
+            <%= caption(:country, 'But we suggest to input country name in English.') %>
 					</td>
 				</tr>
 			
@@ -133,7 +135,7 @@
 					<td class="desc">Notes:</td>
 					<td class="right">
 						<%= f.text_field :notes, {:class => "text"} %>
-            <small>Up to 100 letters, will be shown in search results page near your name, no links allowed.</small>
+            <%= caption(:country, 'Up to 100 letters, will be shown in search results page near your name, no links allowed.') %>
 					</td>
 				</tr>
 
@@ -141,7 +143,7 @@
 					<td class="desc">More info:</td>
 					<td class="right">
 						<%= text_area(:user, :more_info) %>
-            <small>Good place to tell public who you are, post links to your blog, photos or whataver might be of interest to your potential teachmate.</small>
+            <%= caption(:country, 'Good place to tell public who you are, post links to your blog, photos or whataver might be of interest to your potential teachmate.') %>
 					</td>
 				</tr>
 

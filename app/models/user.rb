@@ -23,12 +23,23 @@ class User < ActiveRecord::Base
   validate_on_create      :validate_email
   validate_on_update      :validate_email
 
+  validates_length_of     :email,      :maximum => 32, :allow_nil => true
+  validates_length_of     :first_name, :maximum => 32, :allow_nil => true
+  validates_length_of     :last_name,  :maximum => 32, :allow_nil => true
+  validates_length_of     :city,       :maximum => 32, :allow_nil => true
+  validates_length_of     :region,     :maximum => 32, :allow_nil => true
+  validates_length_of     :country,    :maximum => 32, :allow_nil => true
+  validates_length_of     :more_info,  :maximum => 10240, :allow_nil => true
+  validates_length_of     :notes,      :maximum => 100, :allow_nil => true
+  validates_length_of     :teach_tags_string, :maximum => 10240, :allow_blank => true, :allow_nil => true
+  validates_length_of     :learn_tags_string, :maximum => 10240, :allow_blank => true, :allow_nil => true
+
 
 	after_save  :save_learn_tags, :save_teach_tags
 
 	#	here we make sure all empty? params replaced by nils
-	def before_save
-		[:first_name, :second_name, :city, :region, :country, :more_info, :openid, :notes, :email].each do |param|
+	def before_validation
+		[:first_name, :last_name, :city, :region, :country, :more_info, :openid, :notes, :email].each do |param|
 			self.send("#{param.to_s}=", nil) if !self.send(param.to_s).nil? && self.send(param.to_s).empty?
 		end
 	end
@@ -60,7 +71,6 @@ class User < ActiveRecord::Base
       end
     end
   end
-
 
 	def save_learn_tags
 		self.learn_taggings.delete_all

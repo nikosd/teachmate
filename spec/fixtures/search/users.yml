@@ -7,15 +7,15 @@
 <% good_usernames.each do |name| %>
 <%= name %>:
   first_name: <%= name %>
-  second_name: good_user
+  last_name: good_user
 <% end %>
 
 <%= names[20] %>:
  first_name: <%= names[20] %>
- second_name: user_with_one_tag
+ last_name: user_with_one_tag
 
 <% bad_usernames.each do |name| %>
 <%= name %>:
   first_name: <%= name %>
-  second_name: bad_user
+  last_name: bad_user
 <% end %>

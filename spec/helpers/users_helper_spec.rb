@@ -40,8 +40,8 @@ describe UsersHelper, "with unempty user fields" do
 		helper.full_name(@user).should have_text("User1 Snitko")
 	end
 
-	it "should show user id, if there's no first_name and second_name entered" do
-		@user.update_attributes(:first_name => "", :second_name => "")
+	it "should show user id, if there's no first_name and last_name entered" do
+		@user.update_attributes(:first_name => "", :last_name => "")
 		helper.full_name(@user).should have_text("user id 1")
 	end
 

@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       
       #personal
       t.string  :first_name,  :limit  => 32
-      t.string  :second_name, :limit => 32
+      t.string  :last_name, :limit => 32
       t.date    :birthdate
 
       #location

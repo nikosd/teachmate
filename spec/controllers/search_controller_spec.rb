@@ -10,7 +10,7 @@ describe SearchController do
 
 	it "should find all requested users" do
 		 assigns[:users].length.should == 20
-		 assigns[:users].each {|u| u.second_name.should match(/good_user/)}
+		 assigns[:users].each {|u| u.last_name.should match(/good_user/)}
 	end
 
 	it "should render index.html" do

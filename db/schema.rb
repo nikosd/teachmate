@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 12) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "first_name",                :limit => 32
-    t.string   "second_name",               :limit => 32
+    t.string   "last_name",                 :limit => 32
     t.date     "birthdate"
     t.string   "city",                      :limit => 32
     t.string   "region",                    :limit => 32

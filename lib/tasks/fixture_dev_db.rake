@@ -32,14 +32,14 @@ namespace :db do
     good_usernames = names.slice(0..19)
     bad_usernames = names.slice(21..25)
 
-		good_usernames.each { |name| User.create(:first_name => name, :second_name => "good_user",
+		good_usernames.each { |name| User.create(:first_name => name, :last_name => "good_user",
 		:learn_tags_string => 'bass guitar, piano, sports, kill all humans', :teach_tags_string => 'cooking, love people') }
 
 		# This one creates user, who has only one of learn_tags
 		# and, therefore, should not be included in search results
-		User.create(:first_name => names[20], :second_name => "user_with_one_tag", :learn_tags_string => "bass guitar, piano, sports", :teach_tags_string => "cooking")
+		User.create(:first_name => names[20], :last_name => "user_with_one_tag", :learn_tags_string => "bass guitar, piano, sports", :teach_tags_string => "cooking")
 
-		bad_usernames.each { |name| User.create(:first_name => name, :second_name => "bad_user", :learn_tags_string => 'travelling') }
+		bad_usernames.each { |name| User.create(:first_name => name, :last_name => "bad_user", :learn_tags_string => 'travelling') }
 	end
 
 end

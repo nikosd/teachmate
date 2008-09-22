@@ -28,7 +28,7 @@ describe SearchQuery do
 
 	it "should find users with the given tags" do
 		@search.should have(20).users
-		@search.users.each {|u| u.second_name.should match(/good_user.*/)}
+		@search.users.each {|u| u.last_name.should match(/good_user.*/)}
 	end
 
 	it "should find all tags that found users have" do
@@ -36,7 +36,7 @@ describe SearchQuery do
 	end
 
 	it "should not find user, that has only one requested teach tag" do
-		@search.users.each {|u| u.second_name.should_not have_text("user_with_one_tag")}
+		@search.users.each {|u| u.last_name.should_not have_text("user_with_one_tag")}
 	end
 
 	it "should page results according to per_page" do

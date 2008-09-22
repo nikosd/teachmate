@@ -16,7 +16,6 @@ class CommentsController < ApplicationController
       unless @comment.errors.empty?
         flash[:err_message] = "You can't post an empty comment"
         anchor = '#comment_form'
-        puts 'hello'
       else
         anchor = '#comment_' + @comment.id.to_s
       end

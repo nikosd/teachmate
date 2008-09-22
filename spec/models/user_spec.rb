@@ -8,7 +8,7 @@ describe User do
       :password_confirmation => 'mypass',
       :email      => 'email@email.com',
       :first_name  => 'Roman',
-      :second_name => 'Snitko',
+      :last_name => 'Snitko',
       :birthdate  => '15.10.1985',
       :city       => 'Saint-Petersburg',
       :region     => 'North-West',
@@ -18,6 +18,10 @@ describe User do
     
     @invalid_params = @valid_params
 		@user = User.new()
+
+    class User
+      validates_length_of :teach_tags_string, :maximum => 10, :allow_blank => true, :allow_nil => true
+    end
 
   end
 
@@ -45,11 +49,19 @@ describe User do
 
 
 	it "should save empty params as nil" do
-		@user.update_attributes(:first_name => "", :second_name => "", :email => "")
+		@user.update_attributes(:first_name => "", :last_name => "", :email => "")
 		@user.first_name.should   be_nil
-		@user.second_name.should  be_nil
+		@user.last_name.should    be_nil
     @user.email.should        be_nil
 	end
+
+
+  it "should add errors if tags_string is too long" do
+    @user.teach_tags_string = '0123456789aaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    @user.save
+    @user.valid?.should be_false
+    
+  end
 
 end
 
