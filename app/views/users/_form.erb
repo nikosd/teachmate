@@ -9,7 +9,7 @@
             <li>No HTML allowed in any field.</li>
             <li>No field is required, except captcha.</li>
             <li>No need to create and remember any password now, you can do it later at any time.</li>
-            <li><strong>Your profile will be disabled for public</strong> view, unless your fill "I cant teach" or "I want to learn" fields.</li>
+            <li><strong>Your profile will be disabled for public</strong> view, unless your fill <span class="green">I can teach</span> or <span class="green">I want to learn</span> field.</li>
           </ul>
 
         <%= form_error %>
@@ -127,6 +127,7 @@
                  :end_year    => 1999,
                  :order       => [:month, :day, :year]
           %>
+          <%= caption(:birthdate, 'Will only be used to show your age, not the date itself.') %>
 
 					</td>
 				</tr>
