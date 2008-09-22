@@ -33,10 +33,12 @@ module UsersHelper
   def profile_field(args)
 
     unless args[:value].blank?
+      value = sanitize(args[:value], :tags => args[:allow_tags], :attributes => %w(href))
+      value.gsub!(/\n/, '<br/>') if args[:br]
       return %Q{<tr>
-        <td class="left">#{args[:title]}</td>
+        <td class="left">#{args[:title]}:</td>
         <td class="notes">
-          #{sanitize(args[:value], :tags => args[:allow_tags], :attributes => %w(href))}
+          #{value}
         </td>
       </tr>
       }

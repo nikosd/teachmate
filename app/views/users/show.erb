@@ -54,7 +54,7 @@
 		<table>
 
       <%= profile_field(:title => 'Notes', :value => @user.notes, :allow_tags => []) %>
-      <%= profile_field(:title => 'More info', :value => @user.more_info, :allow_tags => %w(a)) %>
+      <%= profile_field(:title => 'More info', :value => @user.more_info, :allow_tags => %w(a), :br => true) %>
 
 		</table>
 
