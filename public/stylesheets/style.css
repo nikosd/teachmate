@@ -55,7 +55,8 @@ td {vertical-align: top;}
 
 /*Common pages styles*/
 .quick-action, .quick-message {margin: 0px auto 0px auto; width: 400px;}
-.quick-action h1, .quick-action h2 {text-align: center;}
+.quick-action h1, .quick-action h2, .quick-message h2 {text-align: center;}
+.profile-action {margin: 0px auto 0px auto; width: 700px; font-size: 80%;}
 
 /*login box*/
 #loginbox {width: 337px; height: 272px; background: url('../images/login_box.png'); display: none; position: absolute; }

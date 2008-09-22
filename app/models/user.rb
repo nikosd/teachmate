@@ -31,10 +31,10 @@ class User < ActiveRecord::Base
   validates_length_of     :country,    :maximum => 32, :allow_nil => true
   validates_length_of     :more_info,  :maximum => 10240, :allow_nil => true
   validates_length_of     :notes,      :maximum => 100, :allow_nil => true
-  validates_length_of     :teach_tags_string, :maximum => 10240, :allow_blank => true, :allow_nil => true
-  validates_length_of     :learn_tags_string, :maximum => 10240, :allow_blank => true, :allow_nil => true
+  validates_length_of     :teach_tags_string, :maximum => 10240, :allow_blank => true
+  validates_length_of     :learn_tags_string, :maximum => 10240, :allow_blank => true
 
-
+  before_save :set_status
 	after_save  :save_learn_tags, :save_teach_tags
 
 	#	here we make sure all empty? params replaced by nils
@@ -69,6 +69,14 @@ class User < ActiveRecord::Base
       unless email =~ /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
         errors.add(:email, 'is invalid')
       end
+    end
+  end
+
+  def set_status
+    if @teach_tags_string.blank? and @learn_tags_string.blank?
+      self.status = 'disabled' 
+    else
+      self.status = nil
     end
   end
 

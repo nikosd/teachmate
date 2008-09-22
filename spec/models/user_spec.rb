@@ -60,7 +60,11 @@ describe User do
     @user.teach_tags_string = '0123456789aaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     @user.save
     @user.valid?.should be_false
-    
+  end
+
+  it "should set user to disabled, if no tags specified" do
+    @user.update_attributes(:teach_tags_string => '', :learn_tags_string => '')
+    @user.status.should have_text('disabled')
   end
 
 end

@@ -1,6 +1,21 @@
 <% @title="User Profile" %>
 
 	<div id="profile">
+
+  <div class="profile-action">
+    Since this is your profile, you can:
+    <ul>
+      <li><%= link_to("Edit it", :action => 'edit') %></li>
+      <li><%= link_to("Change password", '/change-password') %></li>
+      <li><%= link_to("Manage subscriptions", :controller => :subscriptions, :action => :index) %></li>
+    </ul>
+  </div>
+
+  <% if @user.status == 'disabled' %>
+  <div class="quick-message">
+    <h2>Unfortunately, this profile is disabled for public view.</h2>
+  </div>
+  <% else %>
 		
 		<table>
 			<tr>
@@ -124,6 +139,11 @@
       <% end %>
 
 		</div>
+
+  <%
+    # ends if, which is responsible for displaying disabled account warning
+    end   
+  %>
 
 	</div>
 

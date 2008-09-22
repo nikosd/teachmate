@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 13) do
 
   create_table "comments", :force => true do |t|
     t.string   "body",       :limit => 10000
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.string   "password_token",            :limit => 20
     t.datetime "password_token_expires"
     t.string   "avatar"
+    t.string   "status"
   end
 
   add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
