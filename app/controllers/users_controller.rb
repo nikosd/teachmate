@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     end
     @comments = Comment.find_for_user(@user.id)
     @new_comment  = Comment.new
+
   end
 
 	def edit

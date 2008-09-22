@@ -30,9 +30,23 @@ module UsersHelper
 		image_tag(picture, :class => 'avatar')
 	end
 
+  def profile_field(args)
+
+    unless args[:value].blank?
+      return %Q{<tr>
+        <td class="left">#{args[:title]}</td>
+        <td class="notes">
+          #{sanitize(args[:value], :tags => args[:allow_tags], :attributes => %w(href))}
+        </td>
+      </tr>
+      }
+    end
+
+  end
+
   def taglist(tags)
     tags.map do |t|
-		  %{<a href="#">#{t.string}</a>}
+		  %{<a href="#">#{h t.string}</a>}
 		end.join(', ')
   end
 

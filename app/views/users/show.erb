@@ -21,7 +21,7 @@
 			<tr>
 				<td class="left"><%= show_avatar(@user) %></td>
 				<td class="right">
-					<h1><span class="black"><%= full_name(@user) %></span> profile</h1>
+					<h1><span class="black"><%=h full_name(@user) %></span> profile</h1>
 					<%= age(@user) %>
 					<%= location(@user) %>
           <p><a href="#">Bookmark this user</a> or <a href="#">send a message</a></p>
@@ -44,7 +44,7 @@
 				<tr>
 					<td class="left">Wants to learn:</td>
 					<td class="right">
-            <%= taglist(@user.learn_tags) %>
+            <%=h taglist(@user.learn_tags) %>
 					</td>
 				</tr>
 			</table>
@@ -52,19 +52,10 @@
 		</div>
 
 		<table>
-			<tr>
-				<td class="left">Notes:</td>
-				<td class="notes">
-          <%= @user.notes %>
-				</td>
-			</tr>
 
-			<tr>
-				<td class="left">More info:</td>
-				<td class="more-info">
-          <%= @user.more_info %>
-				</td>
-			</tr>
+      <%= profile_field(:title => 'Notes', :value => @user.notes, :allow_tags => []) %>
+      <%= profile_field(:title => 'More info', :value => @user.more_info, :allow_tags => %w(a)) %>
+
 		</table>
 
 		<hr/>
