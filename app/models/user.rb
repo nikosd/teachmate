@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   include Avatars
 
   # all validations here please
-  validates_date :birthdate, :before => Proc.new {Time.now.years_ago(7).to_date}, :after => '1 Jan 1900', :allow_nil => true
+  validates_date :birthdate, :before => Proc.new {Time.now.years_ago(5).to_date}, :after => '1 Jan 1900', :allow_nil => true
   
   validates_uniqueness_of :email, :allow_nil => true
   validate_on_create      :validate_email

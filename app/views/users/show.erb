@@ -4,14 +4,21 @@
 
   <% if my_profile? %>
   <div class="profile-action">
+
+    <% if flash[:message] %>
+    <p class="green"><%= flash[:message] %></p>
+    <% end %>
+
     Since this is your profile, you can:
     <ul>
       <li><%= link_to("Edit it", :action => 'edit') %></li>
       <li><%= link_to("Change password", '/change-password') %></li>
       <li><%= link_to("Manage subscriptions", :controller => :subscriptions, :action => :index) %></li>
     </ul>
+
   </div>
   <% end %>
+
 
   <% if @user.status == 'disabled' %>
   <div class="quick-message">

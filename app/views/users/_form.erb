@@ -124,7 +124,7 @@
 
           <%= date_select :user, :birthdate, 
                  :start_year  => 1930,
-                 :end_year    => 1999,
+                 :end_year    => 6.years.ago.year,
                  :order       => [:month, :day, :year],
                  :include_blank => true
           %>
