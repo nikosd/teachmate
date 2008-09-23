@@ -15,9 +15,6 @@ class User < ActiveRecord::Base
 
   # all validations here please
   validates_date :birthdate, :before => Proc.new {Time.now.years_ago(7).to_date}, :after => '1 Jan 1900', :allow_nil => true
-  # TODO: this breaks spec for some unknown reasons. It somehow re-fills the fields,
-  # that where changed from empty to nil. If remove the next line, it works ok.
-  # validates_length_of :notes, :maximum => 100
   
   validates_uniqueness_of :email, :allow_nil => true
   validate_on_create      :validate_email
@@ -37,7 +34,7 @@ class User < ActiveRecord::Base
   before_save :set_status
 	after_save  :save_learn_tags, :save_teach_tags
 
-	#	here we make sure all empty? params replaced by nils
+	#	here we make sure all empty? params are replaced by nils
 	def before_validation
 		[:first_name, :last_name, :city, :region, :country, :more_info, :openid, :notes, :email].each do |param|
 			self.send("#{param.to_s}=", nil) if !self.send(param.to_s).nil? && self.send(param.to_s).empty?

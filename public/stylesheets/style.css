@@ -138,6 +138,8 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .errorExmplanation ul {margin: 0px;}
 .errorExplanation li {font-size: 85%;}
 
+
+.birthdate .fieldWithErrors {float: left; border: solid 2px #DB0000;}
 .fieldWithErrors input {background-color: #ffc8c8; border: solid 1px #bc1414;}
 .formError {font-size: 100%;}
 .quick-action .formErrorMessage {margin: 1em 0px 1em 0px; text-align: center;}

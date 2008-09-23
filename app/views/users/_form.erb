@@ -120,12 +120,13 @@
 
 				<tr>
 					<td class="desc">Date of birth:</td>
-					<td class="right">
+					<td class="birthdate">
 
           <%= date_select :user, :birthdate, 
-                 :start_year  => 1800,
+                 :start_year  => 1930,
                  :end_year    => 1999,
-                 :order       => [:month, :day, :year]
+                 :order       => [:month, :day, :year],
+                 :include_blank => true
           %>
           <%= caption(:birthdate, 'Will only be used to show your age, not the date itself.') %>
 
