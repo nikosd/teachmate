@@ -45,11 +45,11 @@ class User < ActiveRecord::Base
 	end
 
 	def learn_tags_string=(t)
-		@learn_tags_string = t
+		@learn_tags_string = t if t
 	end
 
 	def teach_tags_string=(t)
-		@teach_tags_string = t
+		@teach_tags_string = t if t
 	end
 
 	def learn_tags_string
@@ -73,7 +73,8 @@ class User < ActiveRecord::Base
   end
 
   def set_status
-    if @teach_tags_string.blank? and @learn_tags_string.blank?
+    if @teach_tags_string and @learn_tags_string and
+    @teach_tags_string.empty? and @learn_tags_string.empty?
       self.status = 'disabled' 
     else
       self.status = nil
@@ -81,12 +82,12 @@ class User < ActiveRecord::Base
   end
 
 	def save_learn_tags
-		self.learn_taggings.delete_all
+		self.learn_taggings.delete_all if @learn_tags_string
 		self.learn_tags << split_tags_string(@learn_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
 
 	def save_teach_tags
-		self.teach_taggings.delete_all
+		self.teach_taggings.delete_all if @teach_tags_string
 		self.teach_tags << split_tags_string(@teach_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
 

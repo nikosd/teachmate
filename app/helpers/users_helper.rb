@@ -69,4 +69,8 @@ module UsersHelper
     render(:partial => 'form_error', :locals => {:error => @error}) if @error or !@user.errors.empty?
   end
 
+  def my_profile?
+    true if current_logged_in == params[:id].to_i
+  end
+
 end

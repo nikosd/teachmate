@@ -37,13 +37,13 @@ describe User do
     @invalid_params[:birthdate] = 'XIV.X.1985'
     @user.update_attributes(@invalid_params)
     @user.errors[:birthdate].should be
-    #puts user.errors[:birthdate]
+    puts "1. #{@user.errors[:birthdate]}"
 
     #wrong age
     @invalid_params[:birthdate] = Time.now.years_ago(1).to_date
     @user.update_attributes(@invalid_params)
 		@user.errors[:birthdate].should be
-    #puts user.errors[:birthdate]
+    puts "2. #{@user.errors[:birthdate]}"
 
   end
 

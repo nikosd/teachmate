@@ -2,6 +2,7 @@
 
 	<div id="profile">
 
+  <% if my_profile? %>
   <div class="profile-action">
     Since this is your profile, you can:
     <ul>
@@ -10,6 +11,7 @@
       <li><%= link_to("Manage subscriptions", :controller => :subscriptions, :action => :index) %></li>
     </ul>
   </div>
+  <% end %>
 
   <% if @user.status == 'disabled' %>
   <div class="quick-message">
