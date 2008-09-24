@@ -83,7 +83,7 @@
         <% end %>
 
         <div id="comments" style="display: <%= (params[:show_comments] || 'none') %>;">
-          <h2>Comments about <%= full_name(@user) %></h2>
+          <h2>Comments about <%=h full_name(@user) %></h2>
           <% @comments.each do |comment| %>
       
               
@@ -100,10 +100,10 @@
 
           <div class="comment" <%= my_comment %>>
             <div id="comment_<%= comment[:element].id %>">
-              <p><%= comment[:element].body %></p>
+              <p><%=h comment[:element].body %></p>
               <p class="info"><%= signature %></p>
             </div>
-            <% unless my_comment %>
+            <% if my_comment %>
             <div id="edit_comment" class="edit-comment" style="display: none">
               <% form_for comment[:element], :method => "post", :html => {:multipart => true} do |f| %>
                 <%= f.text_area :body, :value => comment[:element].body %>
