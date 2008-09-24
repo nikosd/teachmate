@@ -66,7 +66,7 @@ module UsersHelper
   end
 
   def form_error
-    render(:partial => 'form_error', :locals => {:error => @error}) if @error or !@user.errors.empty?
+    render(:partial => 'form_error') if flash[:error] or !@user.errors.empty?
   end
 
   def my_profile?
