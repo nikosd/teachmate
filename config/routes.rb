@@ -38,6 +38,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
+  map.connect   '/',                :controller => 'static',:action => 'index'
+  map.about     'about',            :controller => 'static',:action => 'about'
+
   map.connect   'login',            :controller => 'users', :action => 'login'
   map.connect   'logout',           :controller => 'users', :action => 'logout'
   map.connect   'lost-password',    :controller => 'users', :action => 'lost_password'

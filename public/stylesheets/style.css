@@ -50,7 +50,7 @@ td {vertical-align: top;}
 /*general layout*/
 #header, #bigsearch, .normalsearch, #sr-header, #sr-body table, #sr-pager, #profile table, .aligned {margin: 0px auto 0px auto; width: 700px;}
 
-#header {margin-top: 25px; margin-bottom: 25px; text-align: center; background-image: url('../images/teachmate_logo.gif'); background-position: top; background-repeat: no-repeat; padding-top: 28px;}
+#header {margin-top: 25px; margin-bottom: 25px; text-align: center;}
 #header .menu {clear: both; margin-top: 10px; font-size: 70%;}
 
 /*Common pages styles*/
