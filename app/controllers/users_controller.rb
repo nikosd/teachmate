@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  @flash_for = {:create => 'Your profile has been created'}
+
   def new
     @user = User.new
     @title = "Create new account"
