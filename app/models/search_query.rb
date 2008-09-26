@@ -59,7 +59,7 @@ class SearchQuery < ActiveRecord::Base
 			end
 
 			User.find(:all, :include => [:teach_taggings],
-			:conditions => ["teach_taggings.tag_id == :next_tag#{users_query}",
+			:conditions => ["teach_taggings.tag_id = :next_tag#{users_query}",
 			{:next_tag => next_tag, :users => users}]
 			)
 		end
