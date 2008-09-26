@@ -9,7 +9,10 @@ describe SearchQuery do
 	end
 
   before(:each) do
-		@search = 
+		
+    # This query actually means:
+    # Find users that have all (not just one of) teach tags and at least one of learn tags.
+    @search = 
 		SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people", :per_page => 50)
     @search.store_query
     @search.run
@@ -17,22 +20,21 @@ describe SearchQuery do
 
 	it "should find taggings" do
 		@search.should have(2).learn_tags
-		@search.learn_tags[0].learn_taggings.length.should == 21
-		@search.learn_tags[1].learn_taggings.length.should == 20
+		@search.learn_tags[0].learn_taggings.should have(21).learn_taggings
+		@search.learn_tags[1].learn_taggings.should have(20).learn_taggings
 
 		@search.should have(2).teach_tags
-		@search.teach_tags.each do |t|
-			t.should have(20).teach_taggings
-		end
+		@search.teach_tags[0].teach_taggings.should have(20).teach_taggings
+		@search.teach_tags[1].teach_taggings.should have(21).teach_taggings
 	end
 
 	it "should find users with the given tags" do
 		@search.should have(20).users
-		@search.users.each {|u| u.last_name.should match(/good_user.*/)}
+    @search.users.each {|u| u.last_name.should match(/good_user.*/)}
 	end
 
 	it "should find all tags that found users have" do
-		@search.should have(5).tags
+		@search.should have(7).tags
 	end
 
 	it "should not find user, that has only one requested teach tag" do
@@ -60,6 +62,67 @@ describe SearchQuery do
     new_query = SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people")
     new_query.store_query
     new_query.id.should == query.id
+  end
+
+end
+
+describe SearchQuery, "with bad params" do
+
+  scenario :search, :root => false
+
+  it "should add errors if there's too much learn tags" do
+    @search = 
+    SearchQuery.new(
+      :teach => "bass guitar, piano",
+      :learn => "cooking, love people, blablah, blah",
+      :per_page => 50
+    )
+    @search.run
+    @search.errors.on(:learn).should_not be_nil
+  end
+
+  it "should add errors if there's too much learn tags" do
+    @search = 
+    SearchQuery.new(
+      :teach => "bass guitar, piano, piano1, piano2, piano3, piano4, piano5, piano6, piano7, piano8, piano9, piano10, piano11, piano12, piano13, piano14, piano15",
+      :learn => "cooking, love people",
+      :per_page => 50
+    )
+    @search.run
+    @search.errors.on(:teach).should_not be_nil
+  end
+
+  it "should add error to base if search query is empty" do
+    @search = SearchQuery.new(:teach => '')
+    @search.run
+    @search.errors.on(:base).should_not be_nil
+  end
+
+
+end
+
+describe SearchQuery, "special cases" do
+
+  scenario :search, :root => false
+
+  it "should search find users only by their teach_tags" do
+    @search = 
+    SearchQuery.new(
+      :learn => "teach",
+      :per_page => 50
+    )
+    @search.run
+    @search.should have(10).users
+  end
+
+  it "should search find users only by their learn_tags" do
+    @search = 
+    SearchQuery.new(
+      :teach => "learn",
+      :per_page => 50
+    )
+    @search.run
+    @search.should have(10).users
   end
 
 end

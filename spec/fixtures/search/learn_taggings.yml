@@ -20,7 +20,23 @@ tagging_unrelated_for_<%= name %>:
 
 <% end %>
 
-
-tagging_for_<%= names[20] %>:
+tagging2_for_<%= names[20] %>:
   user: <%= names[20] %>
   tag: piano
+
+<% bad_usernames.each do |name| %>
+
+tagging_unrelated_for_<%= name %>:
+  user: <%=name %>
+  tag: unrelated_tag
+
+<% end %>
+
+# 'I can teach' only field
+<% good_usernames.slice(0..9).each do |name| %>
+
+tagging_learn_for_<%= name %>:
+  user: <%= name %>
+  tag: learn_only_search
+
+<% end %>

@@ -20,6 +20,7 @@ class SearchQuery < ActiveRecord::Base
 			@per_page = 10
 		end
 	end
+
 	# Inputs:
 	# 1. learn, teach, location
 	# 2. learn, teach, a, b, c
@@ -48,6 +49,9 @@ class SearchQuery < ActiveRecord::Base
 
 	def run
 
+    errors.add(:learn, "Too many tags") and return if @teach.length > 3
+    errors.add(:teach, "Too many tags") and return if @learn.length > 15
+
 		search_tags = Tag.find(:all, :include => [:learn_taggings],
 		:conditions => ["string in (?)", (@learn+@teach)])
 
@@ -57,33 +61,56 @@ class SearchQuery < ActiveRecord::Base
       pair
     end
       
-		@learn_tags.uniq!
-		@teach_tags.uniq!
+    @learn_tags.uniq!
+    @teach_tags.uniq!
+    
+    unless @teach_tags.empty? #Unless user left "I want to learn" blank
+      @teach_users = 
+      @teach_tags.inject('') do |users, next_tag|
 
-		@teach_users = 
-		@teach_tags.inject('') do |users, next_tag|
+        if users.empty?: users_query = ''
+        else users_query = ' AND teach_taggings.user_id in (:users)'
+        end
 
-		  if users.empty?: teach_taggings_query = ''
-			else users_query = ' AND teach_taggings.user_id in (:users)'
-			end
+        find_params = {
+          :include => [:teach_taggings],
+          :conditions => ["teach_taggings.tag_id = :next_tag#{users_query}",
+          {:next_tag => next_tag, :users => users}]
+        }
 
-			User.find(:all, :include => [:teach_taggings],
-			:conditions => ["teach_taggings.tag_id = :next_tag#{users_query}",
-			{:next_tag => next_tag, :users => users}]
-			)
-		end
+        if @learn_tags.empty?
+          @users = User.paginate(:all, find_params.merge({:page => @page, :per_page => @per_page}))
+          @tags = @teach_tags
+        else
+          @users = User.find(:all, find_params)
+        end
 
-		@users 	= User.paginate(:all,
-						:page => @page, :per_page => @per_page,
-						:include => [:teach_taggings, :learn_taggings],
-						:conditions => 
-						["teach_taggings.user_id in (:teach_users) AND learn_taggings.tag_id in (:learn_tags)",
-						{:teach_users => @teach_users, :learn_tags => @learn_tags}]
-						)
+      end
 
-	  @tags = Tag.find(:all, :include => [:teach_taggings, :learn_taggings],
-						:conditions => ["teach_taggings.user_id in (:users) OR learn_taggings.user_id in (:users)", 
-						{:users => @users}])
+      teach_taggings_condition = "teach_taggings.user_id in (:teach_users) AND "
+
+    end
+    
+
+    unless @learn_tags.empty? #Unless user left "I can teach" blank
+      @users 	= User.paginate(:all,
+              :page => @page, :per_page => @per_page,
+              :include => [:teach_taggings, :learn_taggings],
+              :conditions => 
+              ["#{teach_taggings_condition}learn_taggings.tag_id in (:learn_tags)",
+              {:teach_users => @teach_users, :learn_tags => @learn_tags}]
+              )
+      @tags = @learn_tags
+    end
+
+    unless @teach_tags.empty? and @learn_tags.empty?
+      @tags = Tag.find(:all, :include => [:teach_taggings, :learn_taggings],
+              :conditions => ["teach_taggings.user_id in (:users) OR learn_taggings.user_id in (:users)", 
+              {:users => @users}])
+    else
+      errors.add_to_base("Search query can't be blank")
+    end
+
 	end
 
   def store_query

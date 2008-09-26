@@ -15,3 +15,17 @@ tagging2_for_<%= name %>:
   user: <%= name %>
   tag: love_people
 <% end %>
+
+# this is our lucky number 21
+tagging1_for_<%= names[20] %>:
+  user: <%= names[20] %>
+  tag: cooking
+
+# 'I want to learn' only field
+<% good_usernames.slice(0..9).each do |name| %>
+
+tagging_teach_for_<%= name %>:
+  user: <%= name %>
+  tag: teach_only_search
+
+<% end %>

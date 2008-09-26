@@ -10,5 +10,11 @@ cooking:
 love_people:
   string: love people
 
+teach_only_search:
+  string: teach
+
+learn_only_search:
+  string: learn
+
 unrelated_tag:
   string: unrelated tag
