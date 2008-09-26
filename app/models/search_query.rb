@@ -20,20 +20,29 @@ class SearchQuery < ActiveRecord::Base
 			@per_page = 10
 		end
 	end
-	
-	def initialize(arg)
+	# Inputs:
+	# 1. learn, teach, location
+	# 2. learn, teach, a, b, c
+	# 3. 
+	def initialize(options)
 		require 'taggable'
 
-		@page = arg[:page]
-		self.per_page=arg[:per_page]
+    learn, teach, location = options[:learn], options[:teach], options[:location]
+    
+    if options[:a]
+      #...
+    end
+
+		@page = options[:page]
+		self.per_page = options[:per_page]
 
 		# Note, I switched teach/learn tags places. This is because
 		# when someone searches for users, that she can teach 'bass guitar'
 		# (i.e. 'bass guitar' is typed in I_can_teach field) they actually
 		# search for someone who wants to learn bass guitar and have this in their
 		# I_want_to_learn field.
-		@learn = Taggable::ClassMethods.split_tags_string(arg[:teach])
-		@teach = Taggable::ClassMethods.split_tags_string(arg[:learn])
+		@learn = Taggable::ClassMethods.split_tags_string(options[:teach])
+		@teach = Taggable::ClassMethods.split_tags_string(options[:learn])
     super()
 	end
 
