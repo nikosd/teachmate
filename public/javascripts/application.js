@@ -1,7 +1,7 @@
 $(function() {
 
   $("form").submit(function() {
-    $(":submit",this).attr("disabled", "disabled");
+    $(":submit",this).attr("disabled", "disabled").attr("value", "Please wait...");
   });
 
   $("#comments-box #my_comment a").bind("click", function(event) {
