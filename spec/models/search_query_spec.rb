@@ -82,9 +82,13 @@ describe SearchQuery, "with bad params" do
   end
 
   it "should add errors if there's too much learn tags" do
+    one_hundred = []
+    1.upto(101) {|n| one_hundred << n}
+    one_hundred = one_hundred.join(', ')
+    
     search = 
     SearchQuery.new(
-      :teach => "bass guitar, piano, piano1, piano2, piano3, piano4, piano5, piano6, piano7, piano8, piano9, piano10, piano11, piano12, piano13, piano14, piano15",
+      :teach => one_hundred,
       :learn => "cooking, love people",
       :per_page => 50
     )

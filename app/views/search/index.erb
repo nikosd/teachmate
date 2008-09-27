@@ -28,6 +28,8 @@
       <p>
       <% if @search.errors.on(:learn) %>
         You can't submit more than 3 tags in "I want to learn" field
+      <% elsif @search.errors.on(:teach) %>
+        You can't submit more than 100 tags in "I can teach" field
       <% elsif @search.errors.on(:base) %>
         <%= @search.errors.on(:base) %>
       <% end %>

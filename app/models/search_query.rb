@@ -50,7 +50,7 @@ class SearchQuery < ActiveRecord::Base
 	def run
 
     errors.add(:learn, "Too many tags") and return if @teach.length > 3
-    errors.add(:teach, "Too many tags") and return if @learn.length > 15
+    errors.add(:teach, "Too many tags") and return if @learn.length > 100
 
 		search_tags = Tag.find(:all, :include => [:learn_taggings],
 		:conditions => ["string in (?)", (@learn+@teach)])
