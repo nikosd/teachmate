@@ -21,64 +21,56 @@
 		</div>
 	</div>
 
-	<div id="sr-header">
 
-		<h2>Search results</h2>
-    <div class="subscribe">
-        <span class="warning"><%= flash[:subscription_error] %></span>
-        <span class="green"><%= flash[:subscription_ok] %></span>
-        <% unless flash[:subscription_error] || flash[:subscription_ok] 
-            form_for @subscription, :method => "post", :html => {:multipart => true} do |f| %>
-            <%= hidden_field(:search_query, :learn, :value => params[:learn])%>
-            <%= hidden_field(:search_query, :teach, :value => params[:teach])%>
-            <input type="submit" class="submit" value="Subscribe"/>
-        <% 
-            end
-          end 
-        %>
+  <% if @users.empty? %>
+    <div class="aligned">
+      <h2 class="warning">No one was found on your request</h2>
+      <p>You might want to subscribe to this search request,
+      so that you could track users that git your request. Use the button below:</p>  
+
+      <%= render(:partial => 'subscriptions/subscribe_form') %>
+    </div>
+  <% else %>
+
+    <div id="sr-header">
+
+      <h2>Search results</h2>
+      <%= render(:partial => 'subscriptions/subscribe_form') %>
+      <div style="clear: both;"></div>
+
     </div>
 
-		<div class="sortby">
-			<span class="gray2">sort by:</span>&nbsp;&nbsp;
-			date published&nbsp;&nbsp;
-			<span class="gray2">or</span>&nbsp;&nbsp;
-			<a href="#">rating</a>
-		</div>
-		<div style="clear: both;"></div>
+    <div id="sr-body">
+    <% i = "" 
+       @users.each do |user| 
+       if i == "item2":	i = "item"
+       else i = "item2"
+       end
+      %>
+      
+      <div class="<%= i %>">
+        <table><tr>
+          <td class="avatar"><%= show_avatar(user) %></td>
+          <td class="content">
+            <big><%= link_to("#{full_name(user)}", user) %></big><br/>
+            <span class="gray1">can teach:</span> <%= show_tags(user, :teach) %><br/>
+            <span class="gray1">wants to learn:</span> <%= show_tags(user, :learn) %><br/>
+            <%= location(user) %><br/>
+            <span class="gray1">Rating:</span> <span class="rating-positive">+256</span>
+          </td>
+        </tr></table>
+      </div>
 
-	</div>
+    <% end %>
+
+    </div>
+    <div id="sr-pager">
+      <%= will_paginate(@search.users) %>
+    </div>
+
+	<% end %>	
 
 
 
-	<div id="sr-body">
 
-	<% i = "" 
-		 @users.each do |user| 
-	   if i == "item2":	i = "item"
-		 else i = "item2"
-		 end
-		%>
-		
-		<div class="<%= i %>">
-			<table><tr>
-				<td class="avatar"><%= show_avatar(user) %></td>
-				<td class="content">
-					<big><%= link_to("#{full_name(user)}", user) %></big><br/>
-					<span class="gray1">can teach:</span> <%= show_tags(user, :teach) %><br/>
-					<span class="gray1">wants to learn:</span> <%= show_tags(user, :learn) %><br/>
-					<%= location(user) %><br/>
-					<span class="gray1">Rating:</span> <span class="rating-positive">+256</span>
-				</td>
-			</tr></table>
-		</div>
-
-	<% end %>
-
-		
-
-	</div>
-
-	<div id="sr-pager">
-		<%= will_paginate(@search.users) %>
-	</div>
 

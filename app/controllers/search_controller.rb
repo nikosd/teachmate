@@ -5,9 +5,12 @@ class SearchController < ApplicationController
 	def index
 		@search = SearchQuery.new(params)
     @search.run
-		@users = @search.users
+    
+    if @search.errors.empty?
+		  @users = @search.users
+      @subscription = Subscription.new
+    end
 
-    @subscription = Subscription.new
 	end
 
 end

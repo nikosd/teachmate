@@ -71,31 +71,31 @@ describe SearchQuery, "with bad params" do
   scenario :search, :root => false
 
   it "should add errors if there's too much learn tags" do
-    @search = 
+    search = 
     SearchQuery.new(
       :teach => "bass guitar, piano",
       :learn => "cooking, love people, blablah, blah",
       :per_page => 50
     )
-    @search.run
-    @search.errors.on(:learn).should_not be_nil
+    search.run
+    search.errors.on(:learn).should_not be_nil
   end
 
   it "should add errors if there's too much learn tags" do
-    @search = 
+    search = 
     SearchQuery.new(
       :teach => "bass guitar, piano, piano1, piano2, piano3, piano4, piano5, piano6, piano7, piano8, piano9, piano10, piano11, piano12, piano13, piano14, piano15",
       :learn => "cooking, love people",
       :per_page => 50
     )
-    @search.run
-    @search.errors.on(:teach).should_not be_nil
+    search.run
+    search.errors.on(:teach).should_not be_nil
   end
 
   it "should add error to base if search query is empty" do
-    @search = SearchQuery.new(:teach => '')
-    @search.run
-    @search.errors.on(:base).should_not be_nil
+    search = SearchQuery.new(:teach => '')
+    search.run
+    search.errors.on(:base).should_not be_nil
   end
 
 
@@ -106,23 +106,34 @@ describe SearchQuery, "special cases" do
   scenario :search, :root => false
 
   it "should search find users only by their teach_tags" do
-    @search = 
+    search = 
     SearchQuery.new(
       :learn => "teach",
       :per_page => 50
     )
-    @search.run
-    @search.should have(10).users
+    search.run
+    search.should have(10).users
   end
 
   it "should search find users only by their learn_tags" do
-    @search = 
+    search = 
     SearchQuery.new(
       :teach => "learn",
       :per_page => 50
     )
-    @search.run
-    @search.should have(10).users
+    search.run
+    search.should have(10).users
+  end
+
+  it "should not find user when no user has one of submitted teach_tags" do
+    search = 
+    SearchQuery.new(
+      :learn => "cooking, love people, jepp yebrillo",
+      :teach => "bass guitar, piano",
+      :per_page => 50
+    )
+    search.run
+    search.should have(0).users
   end
 
 end

@@ -60,10 +60,15 @@ class SearchQuery < ActiveRecord::Base
       pair[1] << tag if @teach.include?(tag.string)
       pair
     end
+
+    # If one of teach_tags is not found in the tag table, it means that
+    # there's no such user with it an, therefore the search result
+    # should be empty
+    @users = [] and return if @teach_tags.length < @teach.length
       
     @learn_tags.uniq!
     @teach_tags.uniq!
-    
+
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
       @teach_users = 
       @teach_tags.inject('') do |users, next_tag|
@@ -72,6 +77,7 @@ class SearchQuery < ActiveRecord::Base
         else users_query = ' AND teach_taggings.user_id in (:users)'
         end
 
+
         find_params = {
           :include => [:teach_taggings],
           :conditions => ["teach_taggings.tag_id = :next_tag#{users_query}",
@@ -79,14 +85,14 @@ class SearchQuery < ActiveRecord::Base
         }
 
         if @learn_tags.empty?
-          @users = User.paginate(:all, find_params.merge({:page => @page, :per_page => @per_page}))
-          @tags = @teach_tags
+          User.paginate(:all, find_params.merge({:page => @page, :per_page => @per_page}))
         else
-          @users = User.find(:all, find_params)
+          User.find(:all, find_params)
         end
-
       end
 
+      @tags  = @teach_tags
+      @users = @teach_users 
       teach_taggings_condition = "teach_taggings.user_id in (:teach_users) AND "
 
     end
