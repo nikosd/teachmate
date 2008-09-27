@@ -10,6 +10,12 @@ describe SearchQuery do
 
   before(:each) do
 		
+    users = User.find(:all)
+    users.inject(1) do |i, user|
+      user.update_attribute(:created_at, i.minutes.ago)
+      i+1
+    end
+
     # This query actually means:
     # Find users that have all (not just one of) teach tags and at least one of learn tags.
     @search = 
@@ -40,6 +46,24 @@ describe SearchQuery do
 	it "should not find user, that has only one requested teach tag" do
 		@search.users.each {|u| u.last_name.should_not have_text("user_with_one_tag")}
 	end
+
+  # This should be changed in future. We should really
+  # sort users by the time they update their tags.
+  it "should sort users by the time user was created" do
+    #puts @search.users.first.created_at
+    #puts @search.users.last.created_at
+    @search.users.first.created_at.should < @search.users.last.created_at
+    
+    # With only teach_tags submitted
+    new_search = 
+    SearchQuery.new(
+      :learn => "cooking, love people",
+      :per_page => 10
+    )
+    new_search.run
+    new_search.users.first.created_at.should < new_search.users.last.created_at
+
+  end
 
 	it "should page results according to per_page" do
 		search = 
