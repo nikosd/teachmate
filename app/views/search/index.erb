@@ -21,8 +21,19 @@
 		</div>
 	</div>
 
+  <% if @search.errors %>
+    
+    <div class="aligned">
+      <h2 class="warning">An error occured while processing your search request</h2>
+      <p>
+      <% if @search.errors.on(:learn) %>
+        You can't submit more than 3 tags in "I want to learn" field
+      <% elsif @search.errors.on(:base) %>
+        <%= @search.errors.on(:base) %>
+      <% end %>
+    </div>
 
-  <% if @users.empty? %>
+  <% elsif @users.empty? %>
     <div class="aligned">
       <h2 class="warning">No one was found on your request</h2>
       <p>You might want to subscribe to this search request,
