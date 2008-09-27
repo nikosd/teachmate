@@ -88,7 +88,7 @@ class SearchQuery < ActiveRecord::Base
         if @learn_tags.empty? and (@teach_tags.index(next_tag) == @teach_tags.length - 1)
           User.paginate(
             :all, 
-            find_params.merge({:page => @page, :per_page => @per_page, :order => 'users.created_at'})
+            find_params.merge({:page => @page, :per_page => @per_page, :order => 'users.created_at DESC'})
           )
         else
           User.find(:all, find_params)
@@ -109,7 +109,7 @@ class SearchQuery < ActiveRecord::Base
               :conditions => 
               ["#{teach_taggings_condition}learn_taggings.tag_id in (:learn_tags)",
               {:teach_users => @teach_users, :learn_tags => @learn_tags}],
-              :order => 'users.created_at'
+              :order => 'users.created_at DESC'
               )
       @tags = @learn_tags
     end

@@ -52,7 +52,7 @@ describe SearchQuery do
   it "should sort users by the time user was created" do
     #puts @search.users.first.created_at
     #puts @search.users.last.created_at
-    @search.users.first.created_at.should < @search.users.last.created_at
+    @search.users.first.created_at.should > @search.users.last.created_at
     
     # With only teach_tags submitted
     new_search = 
@@ -61,7 +61,7 @@ describe SearchQuery do
       :per_page => 10
     )
     new_search.run
-    new_search.users.first.created_at.should < new_search.users.last.created_at
+    new_search.users.first.created_at.should > new_search.users.last.created_at
 
   end
 

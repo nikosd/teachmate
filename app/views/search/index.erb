@@ -21,7 +21,7 @@
 		</div>
 	</div>
 
-  <% if @search.errors %>
+  <% if !@search.errors.empty? %>
     
     <div class="aligned">
       <h2 class="warning">An error occured while processing your search request</h2>
