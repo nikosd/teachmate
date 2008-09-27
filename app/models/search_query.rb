@@ -84,7 +84,8 @@ class SearchQuery < ActiveRecord::Base
           {:next_tag => next_tag, :users => users}]
         }
 
-        if @learn_tags.empty?
+        # Only paginate on request for the last teach_tag
+        if @learn_tags.empty? and (@teach_tags.index(next_tag) == @teach_tags.length - 1)
           User.paginate(:all, find_params.merge({:page => @page, :per_page => @per_page}))
         else
           User.find(:all, find_params)
@@ -94,7 +95,7 @@ class SearchQuery < ActiveRecord::Base
       @tags  = @teach_tags
       @users = @teach_users 
       teach_taggings_condition = "teach_taggings.user_id in (:teach_users) AND "
-
+  
     end
     
 

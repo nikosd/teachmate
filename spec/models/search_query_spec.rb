@@ -125,6 +125,17 @@ describe SearchQuery, "special cases" do
     search.should have(10).users
   end
 
+
+  it "should not find more than one pages of users" do
+    search = 
+    SearchQuery.new(
+      :learn => "cooking, love people",
+      :per_page => 10
+    )
+    search.run
+    search.users.total_pages.should == 2
+  end
+
   it "should not find user when no user has one of submitted teach_tags" do
     search = 
     SearchQuery.new(
@@ -133,7 +144,6 @@ describe SearchQuery, "special cases" do
       :per_page => 50
     )
     search.run
-    search.should have(0).users
   end
 
 end
