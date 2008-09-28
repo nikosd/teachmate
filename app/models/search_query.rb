@@ -28,14 +28,14 @@ class SearchQuery < ActiveRecord::Base
 	def initialize(options)
 		require 'taggable'
 
-    learn, teach, location = options[:learn], options[:teach], options[:location]
-    
-    if options[:a]
-      #...
-    end
+    #setting to null if empty?
+    options.delete_if {|k,v| v.blank?}
 
 		@page = options[:page]
 		self.per_page = options[:per_page]
+
+    @city, @region, @country = options[:city], options[:region], options[:country]
+    @location = [@city, @region, @country].join(',')
 
 		# Note, I switched teach/learn tags places. This is because
 		# when someone searches for users, that she can teach 'bass guitar'
@@ -44,6 +44,7 @@ class SearchQuery < ActiveRecord::Base
 		# I_want_to_learn field.
 		@learn = Taggable::ClassMethods.split_tags_string(options[:teach])
 		@teach = Taggable::ClassMethods.split_tags_string(options[:learn])
+
     super()
 	end
 
@@ -62,26 +63,37 @@ class SearchQuery < ActiveRecord::Base
     end
 
     # If one of teach_tags is not found in the tag table, it means that
-    # there's no such user with it an, therefore the search result
+    # there's no such user with it and, therefore the search result
     # should be empty
     @users = [] and return if @teach_tags.length < @teach.length
       
     @learn_tags.uniq!
     @teach_tags.uniq!
 
+    # Setting parts of search request
+    # (they'll be empty, if no corresponding options are passed in).
+    placeholders = {}
+    city_query_part     = ' AND city = :city'       and placeholders.merge!({:city => @city})       if @city
+    region_query_part   = ' AND region = :region'   and placeholders.merge!({:region => @regions})  if @region
+    country_query_part  = ' AND country = :country' and placeholders.merge!({:country => @country}) if @country
+    location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
+
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
       @teach_users = 
-      @teach_tags.inject('') do |users, next_tag|
+      @teach_tags.inject(nil) do |users, next_tag|
 
-        if users.empty?: users_query = ''
-        else users_query = ' AND teach_taggings.user_id in (:users)'
+        if users.nil?: users_query_part = '' and users = [] # if running the first query
+        elsif users.empty?: @users = [] and return  # if running n-th time and no users found in previous run
+        else
+          users_query_part = ' AND teach_taggings.user_id in (:users)'
+          location_query_part = nil
         end
-
 
         find_params = {
           :include => [:teach_taggings],
-          :conditions => ["teach_taggings.tag_id = :next_tag#{users_query}",
-          {:next_tag => next_tag, :users => users}]
+          :conditions => ["teach_taggings.tag_id = :next_tag
+          #{users_query_part}#{location_query_part}",
+          {:next_tag => next_tag, :users => users}.merge!(placeholders)]
         }
 
         # Only paginate on request for the last teach_tag

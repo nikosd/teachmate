@@ -1,8 +1,17 @@
 <% 
   names = IO.read("#{RAILS_ROOT}/spec/fixtures/names.txt").split(' ')
-  good_usernames = names.slice(0..19)
+  good_usernames_with_location = names.slice(0..9)
+  good_usernames = names.slice(10..19)
   bad_usernames = names.slice(21..25)
 %>
+
+<% good_usernames_with_location.each do |name| %>
+<%= name %>:
+  first_name: <%= name %>
+  last_name: good_user
+  city: San-Francisco
+  country: US
+<% end %>
 
 <% good_usernames.each do |name| %>
 <%= name %>:

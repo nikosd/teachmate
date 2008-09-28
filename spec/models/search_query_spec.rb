@@ -126,6 +126,12 @@ describe SearchQuery, "with bad params" do
     search.errors.on(:base).should_not be_nil
   end
 
+  it "should find nothing if the first teach_tag doesn't match any users" do
+    search = SearchQuery.new(:learn => 'bad tag, cooking', :per_page => 50)
+    search.run
+    search.users.should have(0).users
+  end
+
 
 end
 
@@ -172,6 +178,37 @@ describe SearchQuery, "special cases" do
       :per_page => 50
     )
     search.run
+  end
+
+end
+
+describe SearchQuery, "with location" do
+
+  scenario :search, :root => false
+
+  it "should find users from submitted location" do
+    search = 
+		SearchQuery.new(
+      :learn => "cooking, love people", 
+      :teach => "bass guitar, piano",
+      :city  => "San-Francisco",
+      :country  => "US",
+      :per_page => 50
+    )
+    search.run
+    search.users.should have(10).users
+  end
+
+  it "should find users from submitted locations (only learn_tags used)" do
+    search = 
+		SearchQuery.new(
+      :teach => "bass guitar, piano",
+      :city  => "San-Francisco",
+      :country  => "US",
+      :per_page => 50
+    )
+    search.run
+    search.users.should have(10).users
   end
 
 end
