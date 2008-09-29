@@ -32,4 +32,12 @@ $(function() {
     $("#locationParams").show("slow");
   });
 
-});
+  // Hints location
+  var target = $("input[@name=learn]").offset();
+  $("#mainpageLearnFieldHint").css("top", target.top - 135).css("left", target.left + 300);
+  $("input[@name=learn]").focus( function(event) {
+    var hint = $("#mainpageLearnFieldHint");
+    $(hint).show();
+  })
+
+})

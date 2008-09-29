@@ -162,3 +162,8 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .quick-action .formErrorMessage {margin: 1em 0px 1em 0px; text-align: center;}
 .quick-action .formErrorMessage h2 {font-size: 95%}
 
+/* hint layer styles */
+.hint {width: 211px; position: absolute; font-size: 11px; display: none;}
+.hint .top {height: 5px; background: url('../images/hint_top.png');}
+.hint .middle {background-color: #ffffff; width: 199px; padding: 5px; border-left: solid 1px #B2B2B2; border-right: solid 1px #B2B2B2;}
+.hint .bottom {height: 41px; background: url('../images/hint_bottom.png');}
