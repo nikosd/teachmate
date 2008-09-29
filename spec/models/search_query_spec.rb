@@ -16,10 +16,17 @@ describe SearchQuery do
       i+1
     end
 
+    @me = User.create!(:first_name => 'hello', :learn_tags_string => 'bass guitar, piano', :teach_tags_string => 'cooking, love people')
+
     # This query actually means:
     # Find users that have all (not just one of) teach tags and at least one of learn tags.
     @search = 
-		SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people", :per_page => 50)
+		SearchQuery.new(
+      :teach => "bass guitar, piano",
+      :learn => "cooking, love people",
+      :logged_in => @me.id,
+      :per_page => 50
+    )
     @search.store_query
     @search.run
   end
@@ -42,6 +49,10 @@ describe SearchQuery do
 	it "should find all tags that found users have" do
 		@search.should have(7).tags
 	end
+
+  it "should exclude user's own profile from results" do
+    @search.users.should_not include(@me)
+  end
 
 	it "should not find user, that has only one requested teach tag" do
 		@search.users.each {|u| u.last_name.should_not have_text("user_with_one_tag")}

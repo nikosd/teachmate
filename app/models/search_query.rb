@@ -34,7 +34,7 @@ class SearchQuery < ActiveRecord::Base
 		@page = options[:page]
 		self.per_page = options[:per_page]
 
-    @city, @region, @country = options[:city], options[:region], options[:country]
+    @city, @region, @country, @me = options[:city], options[:region], options[:country], options[:logged_in]
     @location = [@city, @region, @country].join(',')
 
 		# Note, I switched teach/learn tags places. This is because
@@ -76,7 +76,8 @@ class SearchQuery < ActiveRecord::Base
     city_query_part     = ' AND city = :city'       and placeholders.merge!({:city => @city})       if @city
     region_query_part   = ' AND region = :region'   and placeholders.merge!({:region => @regions})  if @region
     country_query_part  = ' AND country = :country' and placeholders.merge!({:country => @country}) if @country
-    location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
+    me_query_part       = ' AND users.id != :id'    and placeholders.merge!({:id  => @me})          if @me
+    location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}#{me_query_part}"
 
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
       @teach_users = 
