@@ -27,9 +27,9 @@ $(function() {
     }
   );
   
-  $(".normalsearch .locationCaption span").bind("click", function(event) {
+  $(".locationCaption span").bind("click", function(event) {
     $(this).parent().hide();
-    $(".normalsearch #locationParams").show("slow");
+    $("#locationParams").show("slow");
   });
 
 });

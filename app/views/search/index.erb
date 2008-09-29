@@ -6,20 +6,20 @@
       <div id="mainParams">
         <div class="element">
           <div>I want to learn</div>
-          <div><input type="text" class="text" name="learn" value="<%= params[:learn] %>"/></div>
+          <div><input type="text" class="text" name="learn" value="<%=h params[:learn] %>"/></div>
         </div>
         <div class="element">
           <div class="green">I can teach</div>
-          <div><input type="text" class="text" name="teach" value="<%= params[:teach] %>"/></div>
+          <div><input type="text" class="text" name="teach" value="<%=h params[:teach] %>"/></div>
         </div>
         <div class="element">
           <div class="submit"><input type="submit" class="submit" value="New teachmate search"/></div>
         </div>
       </div>
 
-     <p class="locationCaption">From: <span>
-     <%= set_location_link(params[:city], params[:region], params[:country]) || "Set Location" %>
-     </span></p> 
+      <p class="locationCaption">From: <span>
+      <%=h set_location_link(params[:city], params[:region], params[:country]) || "Set Location" %>
+      </span></p> 
 
       <div id="locationParams">
         <div class="element">
@@ -28,7 +28,7 @@
           <div class="gray1">In your native language</div>
         </div>
         <div class="element">
-          <div>Region</div>
+          <div>Region or State</div>
           <div><input type="text" class="text" name="region" value="<%= params[:region] %>"/></div>
         </div>
         <div class="element">
@@ -64,7 +64,7 @@
     <div class="aligned">
       <h2 class="warning">No one was found on your request</h2>
       <p>You might want to subscribe to this search request,
-      so that you could track users that git your request. Use the button below:</p>  
+      so that you could track users that fit your request. Use the button below:</p>  
 
       <%= render(:partial => 'subscriptions/subscribe_form') %>
     </div>

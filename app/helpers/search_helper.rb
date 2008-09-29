@@ -22,12 +22,12 @@ module SearchHelper
 	end
 
   def set_location_link(*options)
-    options.delete_if {|option| option.blank?}
-    unless options.empty?
-      options.join(', ')
-    else
-      nil
+    if options.empty? and @user
+      options = [@user.city, @user.region, @user.country]
     end
+    options.delete_if {|option| option.blank?}
+    return options.join(', ') unless options.empty?
+    nil
   end
 
 end

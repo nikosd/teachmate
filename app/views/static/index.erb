@@ -18,6 +18,27 @@
 				</small>
 			</p>
 
+      <p class="locationCaption">From: <span>
+      <%= set_location_link || "Set Location" %>
+      </span></p> 
+
+      <div id="locationParams">
+        <div class="element">
+          <div>City</div>
+          <div><input type="text" class="text" name="city" value="<%=h get_value_of(@user, :city) %>"/></div>
+          <div class="gray1">In your native language</div>
+        </div>
+        <div class="element">
+          <div>Region or State</div>
+          <div><input type="text" class="text" name="region" value="<%=h get_value_of(@user, :region) %>"/></div>
+        </div>
+        <div class="element">
+          <div>Country</div>
+          <div><input type="text" class="text" name="country" value="<%=h get_value_of(@user, :country) %>"/></div>
+          <div class="gray1">In English</div>
+        </div>
+      </div>
+
 			<p style="text-align: center">
 				<input class="submit" type="submit" value="Find a teachmate"/> 
 			</p>

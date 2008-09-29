@@ -14,6 +14,11 @@ module UsersHelper
 		"<span class=\"gray1\">from</span> #{string}" if !string.empty?
 	end
 
+  def get_value_of(user, method)
+    result = user.send(method) if @user
+    return result if result 
+  end
+
 	def full_name(user)
 		if user.first_name == nil && user.last_name == nil
 			"user id #{user.id}"
