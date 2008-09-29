@@ -110,6 +110,7 @@ class SearchQuery < ActiveRecord::Base
       @tags  = @teach_tags
       @users = @teach_users 
       teach_taggings_condition = "teach_taggings.user_id in (:teach_users) AND "
+      location_query_part = nil
   
     end
     
@@ -119,8 +120,8 @@ class SearchQuery < ActiveRecord::Base
               :page => @page, :per_page => @per_page,
               :include => [:teach_taggings, :learn_taggings],
               :conditions => 
-              ["#{teach_taggings_condition}learn_taggings.tag_id in (:learn_tags)",
-              {:teach_users => @teach_users, :learn_tags => @learn_tags}],
+              ["#{teach_taggings_condition}learn_taggings.tag_id in (:learn_tags)#{location_query_part}",
+              {:teach_users => @teach_users, :learn_tags => @learn_tags}.merge!(placeholders)],
               :order => 'users.created_at DESC'
               )
       @tags = @learn_tags
@@ -128,7 +129,8 @@ class SearchQuery < ActiveRecord::Base
 
     unless @teach_tags.empty? and @learn_tags.empty?
       @tags = Tag.find(:all, :include => [:teach_taggings, :learn_taggings],
-              :conditions => ["teach_taggings.user_id in (:users) OR learn_taggings.user_id in (:users)", 
+              :conditions => ["teach_taggings.user_id in (:users) OR 
+              learn_taggings.user_id in (:users)", 
               {:users => @users}])
     else
       errors.add_to_base("Search query can't be blank")
