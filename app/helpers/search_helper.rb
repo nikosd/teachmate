@@ -21,4 +21,13 @@ module SearchHelper
 		end
 	end
 
+  def set_location_link(*options)
+    options.delete_if {|option| option.blank?}
+    unless options.empty?
+      options.join(', ')
+    else
+      nil
+    end
+  end
+
 end

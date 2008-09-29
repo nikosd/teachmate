@@ -2,17 +2,42 @@
 	<div class="normalsearch">
 		<div class="wrapper">
 			<form action="" method="get"/>
-			<div class="element">
-				<div>I want to learn</div>
-				<div><input type="text" class="text" name="learn" value="<%= params[:learn] %>"/></div>
-			</div>
-			<div class="element">
-				<div class="green">I can teach</div>
-				<div><input type="text" class="text" name="teach" value="<%= params[:teach] %>"/></div>
-			</div>
-			<div class="element">
-				<div class="submit"><input type="submit" class="submit" value="New teachmate search"/></div>
-			</div>
+      
+      <div id="mainParams">
+        <div class="element">
+          <div>I want to learn</div>
+          <div><input type="text" class="text" name="learn" value="<%= params[:learn] %>"/></div>
+        </div>
+        <div class="element">
+          <div class="green">I can teach</div>
+          <div><input type="text" class="text" name="teach" value="<%= params[:teach] %>"/></div>
+        </div>
+        <div class="element">
+          <div class="submit"><input type="submit" class="submit" value="New teachmate search"/></div>
+        </div>
+      </div>
+
+     <p class="locationCaption">From: <span>
+     <%= set_location_link(params[:city], params[:region], params[:country]) || "Set Location" %>
+     </span></p> 
+
+      <div id="locationParams">
+        <div class="element">
+          <div>City</div>
+          <div><input type="text" class="text" name="city" value="<%= params[:city] %>"/></div>
+          <div class="gray1">In your native language</div>
+        </div>
+        <div class="element">
+          <div>Region</div>
+          <div><input type="text" class="text" name="region" value="<%= params[:region] %>"/></div>
+        </div>
+        <div class="element">
+          <div>Country</div>
+          <div><input type="text" class="text" name="country" value="<%= params[:country] %>"/></div>
+          <div class="gray1">In English</div>
+        </div>
+      </div>
+
       </form>
 
 

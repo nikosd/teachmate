@@ -26,5 +26,10 @@ $(function() {
       event.preventDefault();
     }
   );
+  
+  $(".normalsearch .locationCaption span").bind("click", function(event) {
+    $(this).parent().hide();
+    $(".normalsearch #locationParams").show("slow");
+  });
 
 });

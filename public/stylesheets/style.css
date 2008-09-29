@@ -10,7 +10,7 @@ a:active {color: #AF0000;}
 .green, .rating-positive, .match-teach {color: #4AAC0F;}
 .orange, .money {color: #EA7F00;}
 .red, .rating-negative, .formError {color: #DB0000;}
-.gray1, #profile h1, #sr-header h2, #profile td.left, .comment p.info, .my-comment p.info, #comments-box h3, form small {color: #959595;}
+.gray1, #profile h1, #sr-header h2, #profile td.left, .comment p.info, .my-comment p.info, #comments-box h3, form small, .normalsearch .locationCaption {color: #959595;}
 .gray2, #comments-box h2, #profile h3, form h3 {color: #B9B9B9;}
 .gray3 {color: #D9D9D9;}
 .black {color: #000;}
@@ -75,7 +75,15 @@ td {vertical-align: top;}
 /*search results*/
 .normalsearch {margin-top: 25px; margin-bottom: 25px; border-top: solid 1px #D9D9D9; border-bottom: solid 1px #D9D9D9;}
 .normalsearch .wrapper {margin: 1em 1.5em 1em 1.5em;}
+.normalsearch #mainParams {clear: both; height: 3em;}
+.normalsearch #locationParams {clear: both; width: 390px; margin: 1em auto 0px auto; height: 30px; font-size: 85%; display: none;}
+.normalsearch #locationParams .element {width: 130px;}
+.normalsearch #locationParams .text {width: 100px; padding: 2px;}
+.normalsearch .locationCaption {font-size: 80%; margin: 0.2em 0px 0px 0px;}
+.normalsearch .locationCaption span {color: #0046AF; border-bottom: dotted 1px #0046AF; cursor: pointer;}
+
 .normalsearch .element {width: 215px; float: left; font-size: 75%;}
+.normalsearch .element div {clear: both;}
 .normalsearch .text {width: 180px; clear: both; float: left;}
 .normalsearch input.submit {margin-top: 1.5em; float: right;}
 .normalsearch div.submit {float: right; margin-top: -2px;}
