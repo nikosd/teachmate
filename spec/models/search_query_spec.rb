@@ -89,14 +89,13 @@ describe SearchQuery do
 	end
 
   it "should save my query if it's not already in DB, otherwise just get the existing query ID" do
-    query = SearchQuery.find(
-      :first, 
-      :conditions => "teach_string = 'bass guitar, piano' and learn_string = 'cooking, love people'"
-    )
-
-    new_query = SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people")
+    query = SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people", :city => "San-Francisco", :region => "CA", :country => "US")
+    query.store_query
+    new_query = SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people", :city => "San-Francisco", :region => "CA", :country => "US")
     new_query.store_query
+
     new_query.id.should == query.id
+    query.location.should have_text('San-Francisco,CA,US')
   end
 
 end

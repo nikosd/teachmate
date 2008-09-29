@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 13) do
+ActiveRecord::Schema.define(:version => 14) do
 
   create_table "comments", :force => true do |t|
     t.string   "body",       :limit => 10000
@@ -31,9 +31,10 @@ ActiveRecord::Schema.define(:version => 13) do
   create_table "search_queries", :force => true do |t|
     t.string "learn_string"
     t.string "teach_string"
+    t.string "location",     :limit => 100
   end
 
-  add_index "search_queries", ["learn_string", "teach_string"], :name => "index_search_queries_on_learn_string_and_teach_string", :unique => true
+  add_index "search_queries", ["learn_string", "teach_string", "location"], :name => "index_search_queries_on_learn_string_and_teach_string_and_location", :unique => true
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "user_id"

@@ -143,6 +143,7 @@ class SearchQuery < ActiveRecord::Base
     #switching learn/teach tags again to save the query
     self.learn_string = @teach.sort.join(", ")
     self.teach_string = @learn.sort.join(", ")
+    self.location     = @location
     if found_query = self.class.find(
       :first,
       :conditions => ['learn_string = (?) and teach_string = (?)', self.learn_string, self.teach_string]
