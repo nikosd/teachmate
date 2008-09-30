@@ -22,13 +22,20 @@ class SubscriptionsController < ApplicationController
         query = SearchQuery.new(params[:search_query])
         query.store_query
         # I wish I could detect errors when writing 'query.subscriptions << subscription'
-        subscription = Subscription.create(:user_id => current_logged_in, :search_query_id => query.id)
+        if query.errors.empty?
+          subscription = Subscription.create(:user_id => current_logged_in, :search_query_id => query.id)
 
-        unless subscription.errors.empty?
-          flash[:subscription_error] = "You've already subscribed to that search query."
-        else 
-          flash[:subscription_ok] = "Done, we'll be sending you updates every day."
+          unless subscription.errors.empty?
+            flash[:subscription_error] = "You've already subscribed to that search query."
+          else 
+            flash[:subscription_ok] = "Done, we'll be sending you updates every day."
+          end
+
+        else
+          flash[:subscription_error] = 'Location elements (city, region and country) cannot contain commas!'
         end
+
+
 
         redirect_to_stored
       end

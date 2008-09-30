@@ -142,6 +142,18 @@ describe SearchQuery, "with bad params" do
     search.users.should have(0).users
   end
 
+  it "should not save each location element if its value contains ,(comma)" do
+    search = SearchQuery.new(
+      :learn => 'bad tag, cooking',
+      :city => 'City,with a wrong name',
+      :region => 'region,with a wrong name',
+      :country => 'country,with a wrong name'
+    )
+    search.store_query
+    search.errors.on(:city).should_not be_nil
+    search.errors.on(:region).should_not be_nil
+    search.errors.on(:country).should_not be_nil
+  end
 
 end
 

@@ -2,7 +2,8 @@
 
   <div class="quick-action">
 
-  <p class="warning"><%= flash[:warning] %></p>
+  <p class="warning"><%= flash[:error] %></p>
+  <p class="warning"><%= error_messages_for(:search_query) %></p>
 
   <p><small>You're about to subscribe for the updates to the following search query:</small></p>
   <p>

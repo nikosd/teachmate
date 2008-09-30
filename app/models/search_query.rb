@@ -9,7 +9,11 @@
 class SearchQuery < ActiveRecord::Base
 
   has_many :subscriptions
-	attr_reader :users, :learn_tags, :teach_tags, :tags, :per_page
+	attr_reader :users, :learn_tags, :teach_tags, :location, :city, :region, :country, :tags, :per_page
+
+  validates_format_of :city,    :with => /\A[^,]+\Z/, :allow_blank => true
+  validates_format_of :region,  :with => /\A[^,]+\Z/, :allow_blank => true
+  validates_format_of :country, :with => /\A[^,]+\Z/, :allow_blank => true
 
 	def per_page=(number)
 		begin
@@ -146,7 +150,7 @@ class SearchQuery < ActiveRecord::Base
     self.location     = @location
     if found_query = self.class.find(
       :first,
-      :conditions => ['learn_string = (?) and teach_string = (?)', self.learn_string, self.teach_string]
+      :conditions => ['learn_string = (?) and teach_string = (?) and location = (?)', self.learn_string, self.teach_string, self.location]
     ) then
       self.id = found_query.id
     else
