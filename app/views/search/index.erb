@@ -17,8 +17,8 @@
         </div>
       </div>
 
-      <p class="locationCaption">From: <span>
-      <%=h set_location_link(params[:city], params[:region], params[:country]) || "Set Location" %>
+      <p class="locationCaption">Search in: <span>
+      <%=h location_string(params[:city], params[:region], params[:country]) || "set location" %>
       </span></p> 
 
       <div id="locationParams">

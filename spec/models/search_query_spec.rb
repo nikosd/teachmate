@@ -33,12 +33,12 @@ describe SearchQuery do
 
 	it "should find taggings" do
 		@search.should have(2).learn_tags
-		@search.learn_tags[0].learn_taggings.should have(21).learn_taggings
-		@search.learn_tags[1].learn_taggings.should have(20).learn_taggings
+		@search.learn_tags[0].learn_taggings.should have(22).learn_taggings
+		@search.learn_tags[1].learn_taggings.should have(21).learn_taggings
 
 		@search.should have(2).teach_tags
-		@search.teach_tags[0].teach_taggings.should have(20).teach_taggings
-		@search.teach_tags[1].teach_taggings.should have(21).teach_taggings
+		@search.teach_tags[0].teach_taggings.should have(21).teach_taggings
+		@search.teach_tags[1].teach_taggings.should have(22).teach_taggings
 	end
 
 	it "should find users with the given tags" do

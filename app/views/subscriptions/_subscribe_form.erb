@@ -5,6 +5,9 @@
               form_for @subscription, :method => "post", :html => {:multipart => true} do |f| %>
               <%= hidden_field(:search_query, :learn, :value => params[:learn])%>
               <%= hidden_field(:search_query, :teach, :value => params[:teach])%>
+              <%= hidden_field(:search_query, :city, :value => params[:city])%>
+              <%= hidden_field(:search_query, :region, :value => params[:region])%>
+              <%= hidden_field(:search_query, :country, :value => params[:country])%>
               <input type="submit" class="submit" value="Subscribe"/>
           <% 
               end

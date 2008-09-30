@@ -21,7 +21,7 @@ module SearchHelper
 		end
 	end
 
-  def set_location_link(*options)
+  def location_string(*options)
     if options.empty? and @user
       options = [@user.city, @user.region, @user.country]
     end

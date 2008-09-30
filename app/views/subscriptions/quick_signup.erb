@@ -6,8 +6,18 @@
 
   <p><small>You're about to subscribe for the updates to the following search query:</small></p>
   <p>
-    <span class="gray1">I want to learn:</span> <%= params[:search_query][:learn] %><br/>
-    <span class="gray1">I can teach:</span> <%= params[:search_query][:teach] %>
+
+    <% skip_blank(@learn) do |value| %>
+      <span class="gray1">I want to learn:</span> <%=h value %><br/>
+    <% end %>
+
+    <% skip_blank(@teach) do |value| %>
+      <span class="gray1">I can teach:</span> <%=h value %><br/>
+    <% end %>
+
+    <% skip_blank(location_string(@city, @region, @country)) do |value| %>
+      <span class="gray1">In:</span> <%=h value %><br/>
+    <% end %>
   </p>
 
     <% form_for @subscription, :method => "post", :html => {:multipart => true} do |f| %>
@@ -18,8 +28,11 @@
             <input type="text" name="user[email]" class="text" />
             <small>Won't be exposed to anyone</small>
 
-            <%= hidden_field(:search_query, :learn, :value => params[:search_query][:learn])%>
-            <%= hidden_field(:search_query, :teach, :value => params[:search_query][:teach])%>
+            <%= hidden_field(:search_query, :learn,   :value => sanitize(@learn))%>
+            <%= hidden_field(:search_query, :teach,   :value => sanitize(@teach))%>
+            <%= hidden_field(:search_query, :city,    :value => sanitize(@city))%>
+            <%= hidden_field(:search_query, :region,  :value => sanitize(@region))%>
+            <%= hidden_field(:search_query, :country, :value => sanitize(@country))%>
           </td>
         </tr>
 

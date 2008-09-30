@@ -9,4 +9,8 @@ module ApplicationHelper
       end
     end
 
+    def skip_blank(value)
+      yield(value) unless value.blank?
+    end
+
 end

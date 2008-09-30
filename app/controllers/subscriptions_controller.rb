@@ -34,6 +34,11 @@ class SubscriptionsController < ApplicationController
       end
 
       unless current_logged_in  
+        @city    = params[:search_query][:city] 
+        @region  = params[:search_query][:region]
+        @country = params[:search_query][:country]
+        @teach   = params[:search_query][:teach]
+        @learn   = params[:search_query][:learn]
         render(:template => "subscriptions/quick_signup")
       end
     end

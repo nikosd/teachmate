@@ -1,7 +1,11 @@
 class StaticController < ApplicationController
 
   def index
-    @user = User.find(current_logged_in) if current_logged_in
+    begin
+      @user = User.find(current_logged_in) if current_logged_in
+    rescue
+      @user = nil
+    end
   end
 
   def about
