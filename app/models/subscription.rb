@@ -32,4 +32,11 @@ class Subscription < ActiveRecord::Base
     
     end
   end
+
+  def validate_on_create
+    if User.find_by_id(user_id).subscriptions.length >= 10 
+      errors.add(:user, "You can't have more than 10 subscriptions")
+    end
+  end
+
 end

@@ -8,8 +8,14 @@ end
 
 describe SubscriptionsController, "adding new subscription" do
 
+  scenario :subscription, :root => false
+
+  before(:all) do
+    @user_id = User.find_by_email('email@subscription.com').id
+  end
+
   it "should redirect to search results page if new subscription added: logged in user" do
-    session[:user] = 1
+    session[:user] = @user_id
     session[:return_to] = 'http://test.host/search?learn=subscription+learn&teach=subscription+teach'
     post 'create', :search_query => {:learn => 'subscription learn', :teach =>'subscription teach'}
     response.flash[:subscription_error].should be_nil
@@ -32,7 +38,7 @@ describe SubscriptionsController, "adding new subscription" do
         :learn => 'subscription learn', 
         :teach =>'subscription teach'  
       },
-      :user => {:email => 'email@subscription.com'}
+      :user => {:email => 'controller@subscription.com'}
     )
     
     User.find_by_email('email@subscription.com').should_not be_nil
@@ -41,10 +47,11 @@ describe SubscriptionsController, "adding new subscription" do
   end
 
   it "should warn user, if he's already subscribed to that query" do
-    session[:user] = 1
+    session[:user] = @user_id
     post 'create', :search_query => {:learn => 'already subscribed', :teach =>'already subscribed'}
     post 'create', :search_query => {:learn => 'already subscribed', :teach =>'already subscribed'}
-    response.flash[:subscription_error].should_not be_nil
+    assigns[:subscription].errors.on(:search_query_id).should be
+    response.flash[:subscription_error].should be
   end
 
   it "should warn user, if he's email is invalid (empty)" do
@@ -67,7 +74,7 @@ describe SubscriptionsController, "adding new subscription" do
     response.should redirect_to('http://test.host/search?learn=subscription+learn&city=Bad,cityname')
   end
 
-  it "should display error if email is already user" do
+  it "should display error if email is already used" do
     User.create(:email => 'email@in.use')
     post(
       'create',

@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
   validates_captcha
 
   before_filter :set_return_to, :except => [:create]
-  before_filter :should_be_logged_in, :only => [:index]
+  before_filter :should_be_logged_in, :only => [:index, :destroy]
 
   # When the request comes
   # 1. Check if the user is logged in.
@@ -47,7 +47,12 @@ class SubscriptionsController < ApplicationController
         
         # This 'else' should definetely mean that such a subscription already exists
         else
-          flash[:subscription_error] = "You've already subscribed to that request."
+          if @subscription.errors.on(:user)
+            flash[:subscription_error] = "You can't subscribe to more than 10 search requests"
+          end
+          if @subscription.errors.on(:search_query_id)
+            flash[:subscription_error] = "You've already subscribed to that search request"
+          end
         end
         redirect_to_stored and return
       end
