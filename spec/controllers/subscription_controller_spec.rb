@@ -53,7 +53,19 @@ describe SubscriptionsController, "adding new subscription" do
       :search_query => {:learn => 'subscription learn', :teach =>'subscription teach'},
       :user         => {:email =>''}
     )
-    response.flash[:warning].should have_text("You're email is invalid")
+    assigns[:user].errors.on(:email).should_not be_nil
+
+
+  end
+
+  it "should not register user unless his search query is valid" do
+    post(
+      'create',
+      :search_query => {:learn => 'subscription learn', :teach =>'subscription teach', :city => 'Bad,city name'},
+      :user         => {:email =>'hello@email.com'}
+    )
+    session[:user].should be_nil
+    response.should render_template("subscriptions/quick_signup")
   end
 
 end

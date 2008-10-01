@@ -7,23 +7,29 @@ class SubscriptionsController < ApplicationController
 
   def create
     if request.post?
+
+      # The following 2 lines should happen in any case
       @subscription = Subscription.new
-      if params[:user] && current_logged_in.nil?
+      @query = SearchQuery.new(params[:search_query])
+
+      if params[:user] and current_logged_in.nil?
         return(false) unless(should_be_captcha_validated)
-        user = User.create(params[:user])
-        if user.email
-          session[:user] = user.id
+        @user = User.create(params[:user])
+
+        # Not doing anything without an email and a valid search query
+        if @user.email and @query.valid?
+          session[:user] = @user.id
         else
-          flash[:warning] = "You're email is invalid"
+          @user.errors.add(:email, "could not be blank") unless @user.email
         end
       end
 
       if current_logged_in
-        query = SearchQuery.new(params[:search_query])
-        query.store_query
+        
+        @query.store_query
         # I wish I could detect errors when writing 'query.subscriptions << subscription'
-        if query.errors.empty?
-          subscription = Subscription.create(:user_id => current_logged_in, :search_query_id => query.id)
+        if @query.valid?
+          subscription = Subscription.create(:user_id => current_logged_in, :search_query_id => @query.id)
 
           unless subscription.errors.empty?
             flash[:subscription_error] = "You've already subscribed to that search query."
@@ -35,9 +41,7 @@ class SubscriptionsController < ApplicationController
           flash[:subscription_error] = 'Location elements (city, region and country) cannot contain commas!'
         end
 
-
-
-        redirect_to_stored
+        redirect_to_stored and return
       end
 
       unless current_logged_in  
@@ -46,8 +50,13 @@ class SubscriptionsController < ApplicationController
         @country = params[:search_query][:country]
         @teach   = params[:search_query][:teach]
         @learn   = params[:search_query][:learn]
-        render(:template => "subscriptions/quick_signup")
       end
+    end
+
+    unless current_logged_in
+      render(:template => "subscriptions/quick_signup")
+    else
+      redirect(:back)
     end
   end
 
