@@ -24,12 +24,16 @@ class SubscriptionsController < ApplicationController
       @search_query = SearchQuery.new(params[:search_query])
       return unless validate_search_query # this redirects back to search request if false
 
+      # Environment for quick_signup
+      @subscription = Subscription.new
+      @teach = @search_query.learn.join(', ')
+      @learn = @search_query.teach.join(', ')
+      
       if params[:user]
-        should_be_captcha_validated
+        return unless should_be_captcha_validated
         @user = User.new(:email => params[:user][:email])
         @user.errors.add(:email, "can't be blank") if @user.email.blank?
-        if @user.errors.empty?
-          @user.save
+        if @user.errors.empty? and @user.save
           session[:user] = @user.id
           redirect_to_stored and return
         end
@@ -43,7 +47,7 @@ class SubscriptionsController < ApplicationController
         
         # This 'else' should definetely mean that such a subscription already exists
         else
-          flash[:subscription_error] = "You've already subscribed to that request"
+          flash[:subscription_error] = "You've already subscribed to that request."
         end
         redirect_to_stored and return
       end
@@ -67,15 +71,15 @@ class SubscriptionsController < ApplicationController
 
   def should_be_captcha_validated
     unless captcha_validated?
-      flash[:error] = "Sorry, the letters you entered don't match the ones on the picture, try again"
-      render(:template => "subscriptions/quick_signup") and return
+      flash.now[:error] = "Sorry, the letters you entered don't match the ones on the picture, try again."
+      render(:template => "subscriptions/quick_signup") and return(false)
     end
     return true
   end
 
   def validate_search_query
     unless @search_query.valid?
-      flash[:subscription_error] = "Your search request is invalid. You can't subscribe to it"
+      flash[:subscription_error] = "Your search request is invalid. You can't subscribe to it."
       redirect_to_stored and return(false) # when it's false, caller 'returns' and breaks the create method
     end
     return true

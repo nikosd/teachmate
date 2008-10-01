@@ -9,7 +9,7 @@
 class SearchQuery < ActiveRecord::Base
 
   has_many :subscriptions
-	attr_reader :users, :learn_tags, :teach_tags, :location, :city, :region, :country, :tags, :per_page
+	attr_reader :users, :learn_tags, :teach_tags, :learn, :teach, :location, :city, :region, :country, :tags, :per_page
 
   validates_format_of :city,    :with => /\A[^,]+\Z/, :allow_blank => true
   validates_format_of :region,  :with => /\A[^,]+\Z/, :allow_blank => true

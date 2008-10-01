@@ -67,6 +67,17 @@ describe SubscriptionsController, "adding new subscription" do
     response.should redirect_to('http://test.host/search?learn=subscription+learn&city=Bad,cityname')
   end
 
+  it "should display error if email is already user" do
+    User.create(:email => 'email@in.use')
+    post(
+      'create',
+      :search_query => {:learn => 'subscription learn'},
+      :user         => {:email =>'email@in.use'}
+    )
+    assigns[:user].errors.on(:email).should_not be_nil
+    response.should render_template('subscriptions/quick_signup')
+  end
+
 end
 
 describe SubscriptionsController, "managing subscriptions" do
