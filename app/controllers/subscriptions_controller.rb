@@ -5,58 +5,51 @@ class SubscriptionsController < ApplicationController
   before_filter :set_return_to, :except => [:create]
   before_filter :should_be_logged_in, :only => [:index]
 
+  # When the request comes
+  # 1. Check if the user is logged in.
+  #   1) Check for search_query validity
+  #     * redirect back if not valid
+  #   2) Save subscription
+  #   3) Redirect back to search results page
+  # 2. If unllogged in
+  #   1) Check for search_query validity
+  #     * redirect back if not valid
+  #   2) Show quick signup form
+  #   3) Check if email and captcha are valid
+  #   4) Save subscription
+  #   5) Redirect back to search results page
   def create
     if request.post?
 
-      # The following 2 lines should happen in any case
-      @subscription = Subscription.new
-      @query = SearchQuery.new(params[:search_query])
+      @search_query = SearchQuery.new(params[:search_query])
+      return unless validate_search_query # this redirects back to search request if false
 
-      if params[:user] and current_logged_in.nil?
-        return(false) unless(should_be_captcha_validated)
-        @user = User.create(params[:user])
-
-        # Not doing anything without an email and a valid search query
-        if @user.email and @query.valid?
+      if params[:user]
+        should_be_captcha_validated
+        @user = User.new(:email => params[:user][:email])
+        @user.errors.add(:email, "can't be blank") if @user.email.blank?
+        if @user.errors.empty?
+          @user.save
           session[:user] = @user.id
-        else
-          @user.errors.add(:email, "could not be blank") unless @user.email
+          redirect_to_stored and return
         end
       end
-
+      
       if current_logged_in
+        @search_query.store_query
+        @subscription = Subscription.create(:user_id => current_logged_in, :search_query_id => @search_query.id)
+        if @subscription.valid?
+          flash[:subscription_ok] = "Done. You will receive emails with updates for this search request daily."
         
-        @query.store_query
-        # I wish I could detect errors when writing 'query.subscriptions << subscription'
-        if @query.valid?
-          subscription = Subscription.create(:user_id => current_logged_in, :search_query_id => @query.id)
-
-          unless subscription.errors.empty?
-            flash[:subscription_error] = "You've already subscribed to that search query."
-          else 
-            flash[:subscription_ok] = "Done, we'll be sending you updates every day."
-          end
-
+        # This 'else' should definetely mean that such a subscription already exists
         else
-          flash[:subscription_error] = 'Location elements (city, region and country) cannot contain commas!'
+          flash[:subscription_error] = "You've already subscribed to that request"
         end
-
         redirect_to_stored and return
       end
 
-      unless current_logged_in  
-        @city    = params[:search_query][:city] 
-        @region  = params[:search_query][:region]
-        @country = params[:search_query][:country]
-        @teach   = params[:search_query][:teach]
-        @learn   = params[:search_query][:learn]
-      end
-    end
+      render(:template => 'subscriptions/quick_signup')
 
-    unless current_logged_in
-      render(:template => "subscriptions/quick_signup")
-    else
-      redirect(:back)
     end
   end
 
@@ -74,8 +67,16 @@ class SubscriptionsController < ApplicationController
 
   def should_be_captcha_validated
     unless captcha_validated?
-      flash[:warning] = "Sorry, the letters you entered don't match the ones on the picture, try again"
-      render(:template => "subscriptions/quick_signup") and return false
+      flash[:error] = "Sorry, the letters you entered don't match the ones on the picture, try again"
+      render(:template => "subscriptions/quick_signup") and return
+    end
+    return true
+  end
+
+  def validate_search_query
+    unless @search_query.valid?
+      flash[:subscription_error] = "Your search request is invalid. You can't subscribe to it"
+      redirect_to_stored and return(false) # when it's false, caller 'returns' and breaks the create method
     end
     return true
   end

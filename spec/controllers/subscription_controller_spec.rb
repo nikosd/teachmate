@@ -54,18 +54,17 @@ describe SubscriptionsController, "adding new subscription" do
       :user         => {:email =>''}
     )
     assigns[:user].errors.on(:email).should_not be_nil
-
-
   end
 
   it "should not register user unless his search query is valid" do
+    session[:return_to] = 'http://test.host/search?learn=subscription+learn&city=Bad,cityname'
     post(
       'create',
-      :search_query => {:learn => 'subscription learn', :teach =>'subscription teach', :city => 'Bad,city name'},
+      :search_query => {:learn => 'subscription learn', :city => 'Bad,cityname'},
       :user         => {:email =>'hello@email.com'}
     )
     session[:user].should be_nil
-    response.should render_template("subscriptions/quick_signup")
+    response.should redirect_to('http://test.host/search?learn=subscription+learn&city=Bad,cityname')
   end
 
 end
