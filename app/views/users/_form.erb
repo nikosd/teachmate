@@ -92,7 +92,7 @@
 					<td class="desc">City:</td>
 					<td class="right">
             <%= f.text_field :city, {:class => "text"} %>
-            <%= caption(:city, 'By convention, we suggest to input your city name in your native language.') %>
+            <%= caption(:city, 'By convention, we suggest to input your city name in your native language. No comma symbols (,) allowed.') %>
 					</td>
 				</tr>
 
@@ -100,7 +100,7 @@
 					<td class="desc">State or region:</td>
 					<td class="right">
 						<%= f.text_field :region, {:class => "text"} %>
-            <%= caption(:region, 'Just like the city field, use your native language here.') %>
+            <%= caption(:region, 'Just like the city field, use your native language here. No comma symbols (,) allowed.') %>
 					</td>
 				</tr>
 
@@ -108,7 +108,7 @@
 					<td class="desc">Country:</td>
 					<td class="right">
 						<%= f.text_field :country, {:class => "text"} %>
-            <%= caption(:country, 'But we suggest to input country name in English.') %>
+            <%= caption(:country, 'But we suggest to input country name in English. No comma symbols (,) allowed.') %>
 					</td>
 				</tr>
 			

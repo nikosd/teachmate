@@ -65,6 +65,13 @@ describe User do
     @user.status.should have_text('disabled')
   end
 
+  it "should bot allow ,(comma) in city, region or country" do
+    @user.update_attributes(:city => 'bad,city', :region => 'bad,region', :country => 'bad,country')
+    @user.errors.on(:city).should     be
+    @user.errors.on(:region).should   be
+    @user.errors.on(:country).should  be
+  end
+
 end
 
 describe User, "with tags" do

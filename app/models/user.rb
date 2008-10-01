@@ -19,17 +19,18 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :allow_nil => true
   validate_on_create      :validate_email
   validate_on_update      :validate_email
-
-  validates_length_of     :email,      :maximum => 32, :allow_nil => true
-  validates_length_of     :first_name, :maximum => 32, :allow_nil => true
-  validates_length_of     :last_name,  :maximum => 32, :allow_nil => true
-  validates_length_of     :city,       :maximum => 32, :allow_nil => true
-  validates_length_of     :region,     :maximum => 32, :allow_nil => true
-  validates_length_of     :country,    :maximum => 32, :allow_nil => true
   validates_length_of     :more_info,  :maximum => 10240, :allow_nil => true
   validates_length_of     :notes,      :maximum => 100, :allow_nil => true
   validates_length_of     :teach_tags_string, :maximum => 10240, :allow_blank => true
   validates_length_of     :learn_tags_string, :maximum => 10240, :allow_blank => true
+
+  [:email, :first_name, :last_name, :city, :region, :country].each do |field|
+    validates_length_of field, :maximum => 32, :allow_nil => true
+  end
+
+  [:city, :region, :country].each do |field|
+    validates_format_of field, :with => /\A[^,]+\Z/, :allow_blank => true
+  end
 
   before_save :set_status
 	after_save  :save_learn_tags, :save_teach_tags
