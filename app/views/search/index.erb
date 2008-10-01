@@ -18,7 +18,7 @@
       </div>
 
       <p class="locationCaption">Search in: <span>
-      <%=h location_string(params[:city], params[:region], params[:country]) || "set location" %>
+      <%=h location_string([params[:city], params[:region], params[:country]]) || "set location" %>
       </span></p> 
 
       <div id="locationParams">

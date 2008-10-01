@@ -9,8 +9,9 @@
     <% @subscriptions.each do |s| %>
     <tr>
       <td>
-        Learn: <strong><%= s[:learn_string] %></strong><br/>
-        Teach: <strong><%= s[:teach_string] %></strong>
+        <% skip_blank(s[:learn_string]) {|value| %>Learn: <strong><%=h value %></strong><br/><% } %>
+        <% skip_blank(s[:teach_string]) {|value| %>Teach: <strong><%=h value %></strong><br/><% } %>
+        <% skip_blank(location_string(s[:location])) {|value| %>Location: <strong><%=h value %></strong><% } %>
       </td>
       <td>
         <%= link_to "Delete", subscription_url(s[:element]), :confirm => "Are you sure?", :method => :delete %>

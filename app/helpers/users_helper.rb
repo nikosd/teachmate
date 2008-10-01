@@ -14,6 +14,15 @@ module UsersHelper
 		"<span class=\"gray1\">from</span> #{string}" if !string.empty?
 	end
 
+  def location_string(options)
+    if options.empty? and @user
+      options = [@user.city, @user.region, @user.country]
+    end
+    options.delete_if {|option| option.blank?}
+    return options.join(', ') unless options.empty?
+    nil
+  end
+
   def get_value_of(user, method)
     result = user.send(method) if @user
     return result if result 

@@ -24,6 +24,7 @@ class Subscription < ActiveRecord::Base
           {
             :learn_string => query.learn_string,
             :teach_string => query.teach_string,
+            :location     => [query.city, query.region, query.country],
             :element => s
           }
         ) if query

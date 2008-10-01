@@ -21,13 +21,4 @@ module SearchHelper
 		end
 	end
 
-  def location_string(*options)
-    if options.empty? and @user
-      options = [@user.city, @user.region, @user.country]
-    end
-    options.delete_if {|option| option.blank?}
-    return options.join(', ') unless options.empty?
-    nil
-  end
-
 end

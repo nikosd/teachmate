@@ -98,6 +98,15 @@ describe SearchQuery do
     query.location.should have_text('San-Francisco,CA,US')
   end
 
+  it "should set city, region and country attributes after finding query in DB" do
+    query = SearchQuery.new(:teach => 'hello', :city => 'Miami', :region => 'Florida', :country => 'US')
+    query.store_query
+    found_query = SearchQuery.find(query.id)
+    found_query.city.should     have_text('Miami')
+    found_query.region.should   have_text('Florida')
+    found_query.country.should  have_text('US')
+  end
+
 end
 
 describe SearchQuery, "with bad params" do

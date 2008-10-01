@@ -9,7 +9,7 @@
 class SearchQuery < ActiveRecord::Base
 
   has_many :subscriptions
-	attr_reader :users, :learn_tags, :teach_tags, :learn, :teach, :location, :city, :region, :country, :tags, :per_page
+	attr_reader :users, :learn_tags, :teach_tags, :learn, :teach, :city, :region, :country, :tags, :per_page
 
   validates_format_of :city,    :with => /\A[^,]+\Z/, :allow_blank => true
   validates_format_of :region,  :with => /\A[^,]+\Z/, :allow_blank => true
@@ -25,10 +25,6 @@ class SearchQuery < ActiveRecord::Base
 		end
 	end
 
-	# Inputs:
-	# 1. learn, teach, location
-	# 2. learn, teach, a, b, c
-	# 3. 
 	def initialize(options)
 		require 'taggable'
 
@@ -145,8 +141,8 @@ class SearchQuery < ActiveRecord::Base
 
   def store_query
     #switching learn/teach tags again to save the query
-    self.learn_string = @teach.sort.join(", ")
-    self.teach_string = @learn.sort.join(", ")
+    self.learn_string = @teach.sort.join(", ") unless @teach.blank?
+    self.teach_string = @learn.sort.join(", ") unless @learn.blank?
     self.location     = @location
     if found_query = self.class.find(
       :first,
@@ -156,6 +152,10 @@ class SearchQuery < ActiveRecord::Base
     else
       self.save
     end
+  end
+  
+  def after_find
+    @city, @region, @country = self.location.split(',') if self.location
   end
 
 end

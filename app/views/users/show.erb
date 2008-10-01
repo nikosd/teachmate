@@ -32,7 +32,9 @@
 				<td class="right">
 					<h1><span class="black"><%=h full_name(@user) %></span> profile</h1>
 					<%= age(@user) %>
-					<%= location(@user) %>
+					<% skip_blank(location_string([@user.city, @user.region, @user.country])) do |value| %>
+            <span class="gray1">from </span><%=h value %>
+          <% end %>
           <p><a href="#">Bookmark this user</a> or <a href="#">send a message</a></p>
 				</td>
 			</tr>
