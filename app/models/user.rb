@@ -84,11 +84,12 @@ class User < ActiveRecord::Base
   end
 
   def set_status
-    if @teach_tags_string and @learn_tags_string and
-    @teach_tags_string.empty? and @learn_tags_string.empty?
-      self.status = 'disabled' 
-    else
-      self.status = nil
+    if @teach_tags_string and @learn_tags_string
+      if @teach_tags_string.empty? and @learn_tags_string.empty?
+        self.status = 'disabled' 
+      else 
+        self.status = nil
+      end
     end
   end
 
