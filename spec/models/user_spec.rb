@@ -88,12 +88,19 @@ describe User, "with tags" do
 	end
 	
 	it "should update tags" do
-		@user = User.create(:learn_tags_string => "jepp, yebrillo, popyatchsa")
+		User.create(:learn_tags_string => "jepp, yebrillo, popyatchsa")
 		Tag.find_by_string('jepp').should_not be_nil
 		Tag.find_by_string('yebrillo').should_not be_nil
 		Tag.find_by_string('popyatchsa').should_not be_nil
 		Tag.find_by_string('fdjgfdsjgffffs').should be_nil
 	end
+
+  it "should downcase tags, when before save" do
+    @user.update_attributes(:learn_tags_string => 'Jepp2, YeBrIllO2, POPYATCHSA2')
+		Tag.find_by_string('jepp2').should_not be_nil
+		Tag.find_by_string('yebrillo2').should_not be_nil
+		Tag.find_by_string('popyatchsa2').should_not be_nil
+  end
 
 end
 

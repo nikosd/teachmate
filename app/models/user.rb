@@ -80,12 +80,18 @@ class User < ActiveRecord::Base
   end
 
 	def save_learn_tags
-		self.learn_taggings.delete_all if @learn_tags_string
+		if @learn_tags_string
+      self.learn_taggings.delete_all
+      @learn_tags_string.downcase!
+    end
 		self.learn_tags << split_tags_string(@learn_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
 
 	def save_teach_tags
-		self.teach_taggings.delete_all if @teach_tags_string
+    if @teach_tags_string
+		  self.teach_taggings.delete_all
+      @teach_tags_string.downcase!
+    end
 		self.teach_tags << split_tags_string(@teach_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
 
