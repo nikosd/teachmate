@@ -14,7 +14,7 @@ module UsersHelper
 		"<span class=\"gray1\">from</span> #{string}" if !string.empty?
 	end
 
-  def location_string(options)
+  def location_string(options=[])
     if options.empty? and @user
       options = [@user.city, @user.region, @user.country]
     end

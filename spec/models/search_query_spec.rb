@@ -111,16 +111,24 @@ describe SearchQuery, "special cases" do
     new_query.store_query
 
     new_query.id.should == query.id
-    query.location.should have_text('San-Francisco,CA,US')
+    query.location.should have_text('san-francisco,ca,us')
   end
 
   it "should set city, region and country attributes after finding query in DB" do
     query = SearchQuery.new(:teach => 'hello', :city => 'Miami', :region => 'Florida', :country => 'US')
     query.store_query
     found_query = SearchQuery.find(query.id)
-    found_query.city.should     have_text('Miami')
-    found_query.region.should   have_text('Florida')
-    found_query.country.should  have_text('US')
+    found_query.city.should     have_text('miami')
+    found_query.region.should   have_text('florida')
+    found_query.country.should  have_text('us')
+  end
+
+  it "should downcase all search options" do
+    query = SearchQuery.new(:teach => "Bass guitar, pIano", :learn => "Cooking, Love pEOple", :city => "San-Francisco", :country => "US")
+    query.city.should have_text('san-francisco')
+    query.country.should have_text('us')
+    query.learn.should have_text(['bass guitar', 'piano'])
+    query.teach.should have_text(['cooking', 'love people'])
   end
 
 end

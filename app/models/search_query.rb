@@ -30,6 +30,8 @@ class SearchQuery < ActiveRecord::Base
 
     #setting to null if empty?
     options.delete_if {|k,v| v.blank?}
+    #downcasing
+    options.each {|k,v| options[k]=v.chars.downcase if v.kind_of?(String)}
 
 		@page = options[:page]
 		self.per_page = options[:per_page]
