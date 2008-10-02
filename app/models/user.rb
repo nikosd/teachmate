@@ -58,11 +58,19 @@ class User < ActiveRecord::Base
 	end
 
 	def learn_tags_string
-		join_tags_to_string(self.learn_tags)
+    if errors.on(:learn_tags_string)
+      @learn_tags_string
+    else
+		  join_tags_to_string(self.learn_tags)
+    end
 	end
 
 	def teach_tags_string
-		join_tags_to_string(self.teach_tags)
+    if errors.on(:teach_tags_string)
+      @teach_tags_string
+    else
+		  join_tags_to_string(self.teach_tags)
+    end
 	end
 
 
