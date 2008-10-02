@@ -19,10 +19,6 @@ describe User do
     @invalid_params = @valid_params
 		@user = User.new()
 
-    class User
-      validates_length_of :teach_tags_string, :maximum => 10, :allow_blank => true, :allow_nil => true
-    end
-
   end
 
   it "should NOT create user with invalid email" do
@@ -55,15 +51,14 @@ describe User do
 
 
   it "should add errors if tags_string is too long" do
-    @user.teach_tags_string = '0123456789aaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    string = ''
+    1.upto(2001) {string += 'w'}
+    @user.teach_tags_string =  string
     @user.save
-    @user.valid?.should be_false
+    @user.errors.on(:teach_tags_string).should be
   end
 
-  it "should set user to disabled, if no tags specified" do
-    @user.update_attributes(:teach_tags_string => '', :learn_tags_string => '')
-    @user.status.should have_text('disabled')
-  end
+
 
   it "should bot allow ,(comma) in city, region or country" do
     @user.update_attributes(:city => 'bad,city', :region => 'bad,region', :country => 'bad,country')
@@ -112,6 +107,26 @@ describe User, "with tags" do
 		Tag.find_by_string('jepp2').should_not be_nil
 		Tag.find_by_string('yebrillo2').should_not be_nil
 		Tag.find_by_string('popyatchsa2').should_not be_nil
+  end
+
+  it "should add errors if learn_tags or teach_tags contain more than 100 tags" do
+    string = ''
+    1.upto(101) {|i| string += "tag#{i}, "}
+    @user.teach_tags_string = string
+    @user.learn_tags_string = string
+    @user.save
+    @user.errors.on(:teach_tags_string).should be
+    @user.errors.on(:learn_tags_string).should be
+  end
+
+  it "should set user to disabled, if no tags specified" do
+    @user.update_attributes(:teach_tags_string => '', :learn_tags_string => '')
+    @user.status.should have_text('disabled')
+  end
+
+  it "should not allow identical tags" do
+    @user.update_attributes(:teach_tags_string => 'tag, tag')
+    @user.teach_tags.should have(1).tag
   end
 
 end

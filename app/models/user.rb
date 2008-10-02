@@ -17,12 +17,9 @@ class User < ActiveRecord::Base
   validates_date :birthdate, :before => Proc.new {Time.now.years_ago(5).to_date}, :after => '1 Jan 1900', :allow_nil => true
   
   validates_uniqueness_of :email, :allow_nil => true
-  validate_on_create      :validate_email
-  validate_on_update      :validate_email
+  validate                :validate_tags_string, :validate_tags, :validate_email
   validates_length_of     :more_info,  :maximum => 10240, :allow_nil => true
   validates_length_of     :notes,      :maximum => 100, :allow_nil => true
-  validates_length_of     :teach_tags_string, :maximum => 10240, :allow_blank => true
-  validates_length_of     :learn_tags_string, :maximum => 10240, :allow_blank => true
 
   [:email, :first_name, :last_name, :city, :region, :country].each do |field|
     validates_length_of field, :maximum => 32, :allow_nil => true
@@ -44,10 +41,20 @@ class User < ActiveRecord::Base
 
 	def learn_tags_string=(t)
 		@learn_tags_string = t if t
+    if t and t.length < 2000
+      @learn_tags_string.chars.downcase!
+      @learn_tags_collection = split_tags_string(@learn_tags_string)
+      @learn_tags_collection.uniq!
+    end
 	end
 
 	def teach_tags_string=(t)
 		@teach_tags_string = t if t
+    if t and t.length < 2000
+      @teach_tags_string.chars.downcase! 
+      @teach_tags_collection = split_tags_string(@teach_tags_string)
+      @teach_tags_collection.uniq!
+    end
 	end
 
 	def learn_tags_string
@@ -77,6 +84,28 @@ class User < ActiveRecord::Base
     end
   end
 
+  def validate_tags_string
+    if @teach_tags_string
+      errors.add(
+        :teach_tags_string, "Too long, no more than 2000 characters allowed"
+      ) if @teach_tags_string.length > 2000
+    end
+    if @learn_tags_string
+      errors.add(
+        :learn_tags_string, "Too long, no more than 2000 characters allowed"
+      ) if @learn_tags_string.length > 2000
+    end
+  end
+
+  def validate_tags
+    errors.add(
+      :teach_tags_string, "Too many tags, no more than 100 tags allowed"
+    ) if @teach_tags_collection and @teach_tags_collection.length > 100
+    errors.add(
+      :learn_tags_string, "Too many tags, no more than 100 tags allowed"
+    ) if @learn_tags_collection and @learn_tags_collection.length > 100
+  end
+
   def downcase_location
     [:city, :region, :country].each do |attribute|
       write_attribute(attribute, read_attribute(attribute).chars.downcase) if read_attribute(attribute)
@@ -94,19 +123,17 @@ class User < ActiveRecord::Base
   end
 
 	def save_learn_tags
-		if @learn_tags_string
-      self.learn_taggings.delete_all
-      @learn_tags_string.chars.downcase!
+    if @learn_tags_collection
+      self.learn_taggings.delete_all 
+		  self.learn_tags << @learn_tags_collection.map {|t| Tag.find_or_create_by_string(t)}
     end
-		self.learn_tags << split_tags_string(@learn_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
 
 	def save_teach_tags
-    if @teach_tags_string
-		  self.teach_taggings.delete_all
-      @teach_tags_string.chars.downcase!
+    if @teach_tags_collection
+      self.teach_taggings.delete_all 
+		  self.teach_tags << @teach_tags_collection.map {|t| Tag.find_or_create_by_string(t)}
     end
-		self.teach_tags << split_tags_string(@teach_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
 
 
