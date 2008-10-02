@@ -29,6 +29,7 @@ describe Taggable::InstanceMethods do
 
     @simple_tagsLine = "tag1, tag2, tag3,some tag with spaces"
     @complicated_tagsLine = ",tag1,, tag2  ,0tag3,    some tag with spaces,"
+    @tagsLine_with_newlines = "tag1, tag2, \n tag3\n, tag4"
     @tagRegExp = /\A((\w+\s)+\w+|\w+)\Z/
 
 
@@ -41,6 +42,10 @@ describe Taggable::InstanceMethods do
 	it "should split a complicated tags line" do
 		@taggable.split_tags_string(@complicated_tagsLine).each {|tag| tag.should have_text(@tagRegExp)}
 	end
+
+  it "should split a tags line with new line symbols" do
+    @taggable.split_tags_string(@tagsLine_with_newlines).should == ['tag1', 'tag2', 'tag3', 'tag4']
+  end
 
 	it "should join a tags array into a single line" do
 		tagsarr = @taggable.split_tags_string(@complicated_tagsLine).map {|t| Tag.new(:string => t)}

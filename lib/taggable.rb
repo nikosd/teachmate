@@ -9,7 +9,7 @@ module Taggable
 	module ClassMethods
 	
 		def self.split_tags_string(s)
-			(s || "").sub(/^[,\s]+/,'').sub(/[,\s]+$/,'').gsub(/,+/,',').split(/\s*,\s*/)
+			x = (s || "").sub(/\A[,\s]+/,'').sub(/[,\s]+\Z/,'').gsub(/[\s\n]*,+[\s\n]*/,',').split(/,/)
 		end
 
 	end
