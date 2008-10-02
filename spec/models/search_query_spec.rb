@@ -10,12 +10,6 @@ describe SearchQuery do
 
   before(:each) do
 		
-    users = User.find(:all)
-    users.inject(1) do |i, user|
-      user.update_attribute(:created_at, i.minutes.ago)
-      i+1
-    end
-
     @me = User.create!(:first_name => 'hello', :learn_tags_string => 'bass guitar, piano', :teach_tags_string => 'cooking, love people')
 
     # This query actually means:
@@ -58,12 +52,33 @@ describe SearchQuery do
 		@search.users.each {|u| u.last_name.should_not have_text("user_with_one_tag")}
 	end
 
+end
+
+describe SearchQuery, "special cases" do
+
+  scenario :search, :root => false
+
   # This should be changed in future. We should really
   # sort users by the time they update their tags.
   it "should sort users by the time user was created" do
-    #puts @search.users.first.created_at
-    #puts @search.users.last.created_at
-    @search.users.first.created_at.should > @search.users.last.created_at
+
+    users = User.find(:all)
+    users.inject(1) do |i, user|
+      user.update_attribute(:created_at, i.minutes.ago)
+      i+1
+    end
+
+    search = 
+		SearchQuery.new(
+      :teach => "bass guitar, piano",
+      :learn => "cooking, love people",
+      :per_page => 50
+    )
+    search.run
+
+    #puts search.users.first.created_at
+    #puts search.users.last.created_at
+    search.users.first.created_at.should > search.users.last.created_at
     
     # With only teach_tags submitted
     new_search = 
@@ -75,6 +90,7 @@ describe SearchQuery do
     new_search.users.first.created_at.should > new_search.users.last.created_at
 
   end
+
 
 	it "should page results according to per_page" do
 		search = 

@@ -18,11 +18,4 @@ describe SearchHelper do
     tags1.should include_text('unrelated tag')
 	end
 
-  it "should display location" do
-    location_string(['', '', '']).should be_nil
-    location_string(['San-Francisco', '', '']).should have_text('San-Francisco')
-    location_string(['San-Francisco', 'CA', '']).should have_text('San-Francisco, CA')
-    location_string(['San-Francisco', 'CA', 'US']).should have_text('San-Francisco, CA, US')
-  end
-
 end

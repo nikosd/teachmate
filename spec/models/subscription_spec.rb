@@ -4,7 +4,7 @@ describe Subscription do
 
   scenario :subscription, :root => false
 
-  before(:all) do
+  before(:each) do
     @user_id = User.find_by_email('email@subscription.com').id
   end
 
