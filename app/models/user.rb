@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     validates_format_of field, :with => /\A[^,]+\Z/, :allow_blank => true
   end
 
-  before_save :set_status
+  before_save :set_status, :downcase_location
 	after_save  :save_learn_tags, :save_teach_tags
 
 	#	here we make sure all empty? params are replaced by nils
@@ -59,6 +59,13 @@ class User < ActiveRecord::Base
 	end
 
 
+  def city
+    read_attribute(:city).chars.capitalize if read_attribute(:city)
+  end
+  def country
+    read_attribute(:country).chars.capitalize if read_attribute(:country)
+  end
+
 
 	private
 
@@ -67,6 +74,12 @@ class User < ActiveRecord::Base
       unless email =~ /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
         errors.add(:email, 'is invalid')
       end
+    end
+  end
+
+  def downcase_location
+    [:city, :region, :country].each do |attribute|
+      write_attribute(attribute, read_attribute(attribute).chars.downcase) if read_attribute(attribute)
     end
   end
 
@@ -82,7 +95,7 @@ class User < ActiveRecord::Base
 	def save_learn_tags
 		if @learn_tags_string
       self.learn_taggings.delete_all
-      @learn_tags_string.downcase!
+      @learn_tags_string.chars.downcase!
     end
 		self.learn_tags << split_tags_string(@learn_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end
@@ -90,7 +103,7 @@ class User < ActiveRecord::Base
 	def save_teach_tags
     if @teach_tags_string
 		  self.teach_taggings.delete_all
-      @teach_tags_string.downcase!
+      @teach_tags_string.chars.downcase!
     end
 		self.teach_tags << split_tags_string(@teach_tags_string).map {|t| Tag.find_or_create_by_string(t)}
 	end

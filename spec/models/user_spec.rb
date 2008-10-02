@@ -72,6 +72,18 @@ describe User do
     @user.errors.on(:country).should  be
   end
 
+  it "should downcase city, region and country before save" do
+    @user.update_attributes(:city => 'Saint-Petersburg', :region => 'North-West', :country => 'Russia')
+    
+    @user.send(:read_attribute, :city).should have_text('saint-petersburg')
+    @user.send(:read_attribute, :region).should have_text('north-west')
+    @user.send(:read_attribute, :country).should have_text('russia')
+
+    @user.city.should have_text("Saint-petersburg")
+    @user.region.should have_text("north-west")
+    @user.country.should have_text("Russia")
+  end
+
 end
 
 describe User, "with tags" do

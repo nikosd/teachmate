@@ -58,5 +58,6 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
 
   CAPTCHA_SALT = 'b889c6a1026fb7fe2308b8f0f4f90a9789555faf1cd9248b79686'
+  $KCODE = 'u'
 
 end
