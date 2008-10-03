@@ -25,7 +25,7 @@ describe SearchProxyController, "with logged in user" do
     session[:user] = @user.id
     @user.update_attributes(:city => "San-Francisco", :region => "CA", :country => "US")
     get "index", :tag => 'hello', :tag_type => 'learn'
-    response.should redirect_to('/search?city=san-francisco&country=us&learn=hello&region=ca&teach=bass+guitar%2C+piano%2C+some+other+shit')
+    response.should redirect_to('/search?city=San-francisco&country=US&learn=hello&region=CA&teach=bass+guitar%2C+piano%2C+some+other+shit')
   end
 
   after(:all) do

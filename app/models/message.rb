@@ -14,7 +14,7 @@ class Message < ActiveRecord::Base
   end
 
   def after_create
-    UserMailer.deliver_user_message(:from => self.user.email, :to => @recipient.email, :body => self.body) if self.valid?
+    UserMailer.deliver_user_message(:sender => self.user, :to => @recipient.email, :body => self.body) if self.valid?
   end
 
   private

@@ -75,7 +75,7 @@ describe User do
     @user.send(:read_attribute, :country).should have_text('russia')
 
     @user.city.should have_text("Saint-petersburg")
-    @user.region.should have_text("north-west")
+    @user.region.should have_text("North-west")
     @user.country.should have_text("Russia")
   end
 
