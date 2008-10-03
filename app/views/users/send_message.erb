@@ -1,0 +1,19 @@
+<% @title = "Send message to #{full_name(@recipient)}" %>
+
+  <div class="quick-action">
+    <h2><%= @title %></h2>
+
+    <% skip_blank(error_message_on(:message, :base)) do |error| %>
+      <p class="warning"><%= error %></p>
+    <% end %>
+
+    <br/>
+    
+    <% form_tag '/send-message', :method => "post", :html => {:multipart => true} do -%>
+      <%= text_area :message, :body %>
+      <%= caption(:body, "Message will be sent to users email with your email in 'from' field", :message) %>
+      <%= hidden_field :message, :recipient, :value => @recipient.id %>
+      <p><input type="submit" value="Send message"/></p>
+    <% end -%>
+
+  </div>

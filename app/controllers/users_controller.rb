@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   @flash_for = {:create => 'Your profile has been created'}
+  before_filter :should_be_logged_in, :only => ['change_password', 'logout', 'edit', 'send_message']
 
   def new
     @user = User.new
@@ -31,5 +32,27 @@ class UsersController < ApplicationController
 		  redirect_to(@user)
     end
 	end
+
+  def send_message
+    
+    begin
+      @user = User.find(current_logged_in)
+      @recipient = User.find(params[:message][:recipient])
+    rescue
+      render(:file => 'public/500.html') and return
+    end
+    
+    if request.post?
+      @message = @user.messages.create(
+        :recipient_id => params[:message][:recipient], 
+        :body => params[:message][:body]
+      ) 
+      if @message.valid?
+        flash[:message] = "Message successfully sent"
+        redirect_to(@recipient) and return
+      end
+    end
+    render
+  end
 
 end

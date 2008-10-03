@@ -2,13 +2,12 @@
 
 	<div id="profile">
 
-  <% if my_profile? %>
+  
   <div class="profile-action">
 
-    <% if flash[:message] %>
-    <p class="green"><%= flash[:message] %></p>
-    <% end %>
+    <% skip_blank(flash[:message]) { |value| %> <p class="green"><%= value %></p> <% } %>
 
+    <% if my_profile? %>
     Since this is your profile, you can:
     <ul>
       <li><%= link_to("Edit it", :action => 'edit') %></li>
@@ -16,8 +15,10 @@
       <li><%= link_to("Manage subscriptions", :controller => :subscriptions, :action => :index) %></li>
     </ul>
 
+    <% end %>
+
   </div>
-  <% end %>
+  
 
 
   <% if @user.status == 'disabled' %>

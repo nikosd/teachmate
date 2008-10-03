@@ -70,9 +70,9 @@ module UsersHelper
     yield if params[:action] == 'edit'
   end
 
-  def caption(field, text)
-    unless error_message_on(:user, field).empty?
-      t = error_message_on(:user, field)
+  def caption(field, text, model = :user)
+    unless error_message_on(model, field).empty?
+      t = error_message_on(model, field)
     else
       t = text
     end

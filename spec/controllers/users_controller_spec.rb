@@ -30,3 +30,41 @@ describe UsersController do
   end
 
 end
+
+describe UsersController, "sending messages" do
+
+  before(:each) do
+    @invalid_message_mock = mock("Valid Message")
+    @invalid_message_mock.should_receive(:valid?).any_number_of_times.and_return(false)
+    @valid_message_mock = mock("Invalid Message")
+    @valid_message_mock.should_receive(:valid?).any_number_of_times.and_return(true)
+  end
+
+  it "should render send-message page if any errors occured while sending the message" do 
+    message_mock = mock('Message')
+    message_mock.should_receive(:create).and_return(@invalid_message_mock)
+    user_mock = mock('User')
+    user_mock.should_receive(:messages).and_return(message_mock)
+    User.should_receive(:find).twice.and_return(user_mock)
+
+    session[:user] = 1
+    post 'send_message', :message => {:recipient_id => 2, :body => 'well, hello'}
+    response.should render_template('users/send_message')
+  end
+
+  it "should render send-message page if any errors occured while sending the message" do 
+    sender = User.find(2)
+    message_mock = mock('Message')
+    message_mock.should_receive(:create).and_return(@valid_message_mock)
+    user_mock = mock('User')
+    user_mock.should_receive(:messages).and_return(message_mock)
+    User.should_receive(:find).twice.and_return(user_mock, sender)
+
+    request.env["HTTP_REFERER"] = 'http://test.host/users/1'
+
+    session[:user] = 1
+    post 'send_message', :message => {:recipient_id => 2, :body => 'well, hello'}
+    response.should redirect_to('http://test.host/users/2')
+  end
+
+end
