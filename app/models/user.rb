@@ -75,14 +75,22 @@ class User < ActiveRecord::Base
 
 
   def city
-    read_attribute(:city).chars.capitalize if read_attribute(:city)
+    capitalize_location(read_attribute(:city)) if read_attribute(:city)
+  end
+  def region
+    capitalize_location(read_attribute(:region)) if read_attribute(:region)
   end
   def country
-    read_attribute(:country).chars.capitalize if read_attribute(:country)
+    capitalize_location(read_attribute(:country)) if read_attribute(:country)
   end
 
 
 	private
+
+  def capitalize_location(name)
+    return name.chars.upcase if name.length <= 3
+    return name.chars.capitalize
+  end
 
   def validate_email
     if (!email.blank?)

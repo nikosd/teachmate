@@ -4,10 +4,10 @@ class SearchProxyController < ApplicationController
 
     if current_logged_in
       @user = User.find(current_logged_in)
-      teach   = @user.teach_tags_string        if @user.teach_tags_string
-      city    = @user.city.chars.downcase      if @user.city
-      region  = @user.region.chars.downcase    if @user.region
-      country = @user.country.chars.downcase   if @user.country
+      teach   = @user.teach_tags_string if @user.teach_tags_string
+      city    = @user.city              if @user.city
+      region  = @user.region            if @user.region
+      country = @user.country           if @user.country
     end
 
     case params[:tag_type]
