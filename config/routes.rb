@@ -46,5 +46,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect   'lost-password',    :controller => 'users', :action => 'lost_password'
   map.connect   'recover-password', :controller => 'users', :action => 'recover_password'
   map.connect   'change-password',  :controller => 'users', :action => 'change_password'
+  map.searchproxy 'searchp',        :controller => 'search_proxy'
 
 end

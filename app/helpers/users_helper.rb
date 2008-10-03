@@ -60,9 +60,9 @@ module UsersHelper
 
   end
 
-  def taglist(tags)
+  def taglist(tags, type)
     tags.map do |t|
-		  %{<a href="#">#{h t.string}</a>}
+		  link_to(h(t.string), :controller => :search_proxy, :action => :index, :tag => t.string, :tag_type => type.to_s)
 		end.join(', ')
   end
 
