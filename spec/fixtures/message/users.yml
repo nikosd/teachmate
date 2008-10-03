@@ -1,0 +1,17 @@
+sender_with_email:
+  id: 1
+  first_name: sender with email
+  email: sender@messages.com
+
+sender_without_email:
+  id: 2 
+  first_name: sender without email
+
+recipient_with_email:
+  id: 3
+  first_name: recipient with email
+  email: recipient@messages.com
+
+recipient_without_email:
+  id: 4
+  first_name: recipient without email

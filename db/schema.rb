@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 14) do
+ActiveRecord::Schema.define(:version => 15) do
 
   create_table "comments", :force => true do |t|
     t.string   "body",       :limit => 10000
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 14) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "recipient_id"
+    t.string   "body",         :limit => 5000
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "search_queries", :force => true do |t|
@@ -82,7 +90,7 @@ ActiveRecord::Schema.define(:version => 14) do
     t.string   "status"
   end
 
-  add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
 
 end

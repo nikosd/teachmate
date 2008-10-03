@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many  :learn_tags, :through => :learn_taggings, :source => :tag
   has_many  :subscriptions
   has_many  :comments
+  has_many  :messages
 
 	acts_as_taggable
   include Avatars
