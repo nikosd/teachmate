@@ -76,10 +76,10 @@ class SearchQuery < ActiveRecord::Base
     # (they'll be empty, if no corresponding options are passed in).
     placeholders = {}
     city_query_part     = ' AND city = :city'       and placeholders.merge!({:city => @city})       if @city
-    region_query_part   = ' AND region = :region'   and placeholders.merge!({:region => @regions})  if @region
+    region_query_part   = ' AND region = :region'   and placeholders.merge!({:region => @region})   if @region
     country_query_part  = ' AND country = :country' and placeholders.merge!({:country => @country}) if @country
     me_query_part       = ' AND users.id != :id'    and placeholders.merge!({:id  => @me})          if @me
-    location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}#{me_query_part}"
+    location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
 
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
       @teach_users = 
@@ -95,7 +95,7 @@ class SearchQuery < ActiveRecord::Base
         find_params = {
           :include => [:teach_taggings],
           :conditions => ["teach_taggings.tag_id = :next_tag
-          #{users_query_part}#{location_query_part}",
+          #{users_query_part}#{location_query_part}#{me_query_part}",
           {:next_tag => next_tag, :users => users}.merge!(placeholders)]
         }
 
@@ -157,7 +157,9 @@ class SearchQuery < ActiveRecord::Base
   end
   
   def after_find
-    @city, @region, @country = self.location.split(',') if self.location
+    @city, @region, @country = self.location.split(',') if self.location and self.location != ',,'
+		@learn = self.learn_string.split(", ") if self.learn_string
+		@teach = self.teach_string.split(", ") if self.teach_string
   end
 
 end

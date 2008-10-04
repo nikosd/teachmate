@@ -1,0 +1,17 @@
+bass_guitar:
+  string: bass guitar
+
+piano:
+  string: piano
+
+apple_pie:
+  string: cooking
+
+violin:
+  string: violin
+
+singing:
+  string: singing
+
+cake:
+  string: cake

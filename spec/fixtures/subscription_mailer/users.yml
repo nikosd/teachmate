@@ -1,0 +1,17 @@
+<% 1.upto(250) do |i| %>
+user_<%=i%>:
+  first_name: mailer candidate
+  email: subscription<%=i%>@mailer.com
+  city: san-francisco
+  region: ca
+  country: us
+<% end %>
+
+<% 251.upto(270) do |i| %>
+user_<%=i%>:
+  first_name: regular_user
+  email: subscription<%=i%>@mailer.com
+  city: san-francisco
+  region: ca
+  country: us
+<% end %>

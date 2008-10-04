@@ -1,0 +1,15 @@
+<% 251.upto(260) do |i| %>
+tagging1_for_user<%=i%>:
+  user: user_<%=i%>
+  tag: bass_guitar
+
+tagging2_for_<%=i%>:
+  user: user_<%=i %>
+  tag: piano
+<% end %>
+
+<% 261.upto(270) do |i| %>
+tagging_for_user<%=i%>:
+  user: user_<%=i%>
+  tag: apple_pie
+<% end %>

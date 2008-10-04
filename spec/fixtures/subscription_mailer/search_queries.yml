@@ -1,0 +1,16 @@
+music:
+  id: 1
+  learn_string: 'bass guitar, piano'
+  teach_string: 'violin, singing'
+  location: 'san-francisco,ca,us'
+
+cooking:
+  id: 2
+  learn_string: 'apple pie'
+  teach_string: 'cake'
+  location: 'san-francisco,ca,us'
+
+sports:
+  id: 3
+  learn_string: 'football'
+  teach_string: 'hockey'
