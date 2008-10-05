@@ -1,10 +1,10 @@
 <% 1.upto(100) do |i| %>
 mail_candidate_<%=i%>a:
-  user: candidate_user_<%=i%>
+  user: user_<%=i%>
   search_query_id: 1
 
 mail_candidate_<%=i%>b:
-  user: candidate_user_<%=i%>
+  user: user_<%=i%>
   search_query_id: 2
 <% end %>
 
