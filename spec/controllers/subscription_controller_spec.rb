@@ -100,4 +100,16 @@ describe SubscriptionsController, "managing subscriptions" do
     response.should render_template('index')
   end
 
+  it "should not delete a subscription that does not belong to the user" do
+    subscription = mock("subscription to delete")
+    subscription.should_receive(:user_id).once.and_return(2)
+    Subscription.should_receive(:find).once.and_return(subscription)
+
+    request.env["HTTP_REFERER"] = 'http://test.host/subscriptions'
+    session[:user] = 1
+    
+    post 'destroy', :subscription => {:id => 2}
+    flash[:error].should_not be_nil
+  end
+
 end

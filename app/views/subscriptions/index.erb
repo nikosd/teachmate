@@ -3,7 +3,17 @@
 <div class="quick-action">
   <h2><%= @title %></h2>
 
-  <p class="warning"><small><%= flash[:message] %></small></p>
+  <% skip_blank(flash[:message]) do |message| %>
+    <p class="warning"><small><%= message %></small></p>
+  <% end %>
+
+  <% skip_blank(flash[:error]) do |error| %>
+    <p class="warning"><small><%= error %></small></p>
+  <% end %>
+
+  <% if @subscriptions.blank? %>
+    <p class="center">You don't have any subscriptions yet</p>
+  <% end %>
 
   <table class="subscription">
     <% @subscriptions.each do |s| %>

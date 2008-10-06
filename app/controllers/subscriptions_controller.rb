@@ -67,8 +67,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    Subscription.delete(params[:id])
-    flash[:message] = "The subscription was removed."
+    subscription = Subscription.find(params[:id])
+    if subscription and subscription.user_id == current_logged_in
+      subscription.destroy
+      flash[:message] = "The subscription was removed."
+    else
+      flash[:error] = "You don't have permission to delete this subscription"
+    end
     redirect_to :back
   end
 
