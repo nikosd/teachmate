@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string "location",     :limit => 100
   end
 
-  add_index "search_queries", ["learn_string", "teach_string", "location"], :name => "index_search_queries_on_learn_string_and_teach_string_and_location", :unique => true
+  add_index "search_queries", ["learn_string", "teach_string", "location"], :name => "learn_teach_location", :unique => true
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "user_id"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "status"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end
