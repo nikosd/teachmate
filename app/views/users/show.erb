@@ -36,7 +36,8 @@
 					<% skip_blank(location_string([@user.city, @user.region, @user.country])) do |value| %>
             <span class="gray1">from </span><%=h value %>
           <% end %>
-          <p><a href="#">Bookmark this user</a> or <a href="#">send a message</a></p>
+          <p><a href="#">Bookmark this user</a> or 
+          <a href="#" id="userMessageLink">send a message</a></p>
 				</td>
 			</tr>
 		</table>
@@ -154,3 +155,27 @@
 
 	</div>
 
+<div class="userMessageForm">
+  <div class="hint" id="userMessageForm">
+    <div class="top">
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </div>
+
+    <div class="middle">
+      
+      <div class="left"></div>
+      <div class="center">
+        
+      </div>
+      <div class="right"></div>
+    </div>
+
+    <div class="bottom">
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </div>
+  </div>
+</div>

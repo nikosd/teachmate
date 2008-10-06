@@ -186,9 +186,8 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .hint .bottom .right  {background-image: url('../images/hint_bottom_right.png'); height: 6px;}
 .hint img.arrow       {margin: -2px 0px 0px 20px;}
 
-.height150 .hint {height: 150px;}
-.height150 .hint .middle .left, .height150 .hint .middle .center, .height150 .hint .middle .right {height: 138px;}
-
 .height100 .hint {height: 100px;}
-/* - 12px */
-.height100 .hint .middle .left, .height100 .hint .middle .center, .height100 .hint .middle .right {height: 88px;}
+.height100 .hint .middle .left, .height100 .hint .middle .center, .height100 .hint .middle .right {height: 88px;} /* -12px */
+
+.userMessageForm .hint {height: 150px;}
+.userMessageForm .hint .middle .left, .userMessageForm .hint .middle .center, .userMessageForm .hint .middle .right {height: 138px;} /* -12px */

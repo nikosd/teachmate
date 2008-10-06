@@ -31,21 +31,40 @@ $(function() {
     $(this).parent().hide();
     $("#locationParams").show("slow");
   });
+  
+  //hints
 
-  // Hints location and functions
+  //mainpage hint
   var target = $("input[@name=learn]").offset();
   $("#mainpageLearnFieldHint").css("top", target.top - 140).css("left", target.left + 200);
-  $("input[@name=learn]").focus( function(event) {
-//    alert($.cookie("mainpageLearnFieldHint"));
+  $("input[@name=learn]").focus(function(event) {
     if (!($.cookie('mainpageLearnFieldHint'))) {
       $("#mainpageLearnFieldHint").show();
     }
-  })
-  
+  });
+
+  //message form in user profile
+  var target = $("#userMessageLink").offset();
+  $("#userMessageForm").css("top", target.top - 140).css("left", target.left + 200);
+  $("#userMessageLink").toggle(
+    function(event) {
+      $("#userMessageForm").show();
+      event.preventDefault();
+    },
+    function(event) {
+      $("#userMessageForm").hide();
+      event.preventDefault();
+    }
+  );
+
+  // hiding all hints
   $(".hint img.close").bind("click", function(event) {
     var target = $(this).parent().parent().parent()
     $(target).hide();
     $.cookie($(target).attr('id'), 'disable');
   });
+
+
+
 
 })
