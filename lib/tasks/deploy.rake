@@ -1,7 +1,7 @@
 namespace(:deploy) do
 
   APP_NAME = "teachmate"
-  SERVER = 'tm-server'
+  SERVER = 'teachmate-test'
   USER   = 'deploy'
   DEPLOY_ROOT = "/var/www/#{APP_NAME}"
   
