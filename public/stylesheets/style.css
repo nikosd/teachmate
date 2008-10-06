@@ -170,11 +170,12 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .hint .left, .hint .center, .hint .right {float: left;}
 .hint .left, .hint .right {width: 6px;}
 .hint .top, .hint .bottom {height: 5px;}
+.hint .center, .hint .middle {background-color: #FFFFFF;}
 
 .hint .top    .left   {background-image: url('../images/hint_top_left.png'); height: 6px;}
 .hint .top    .center {border-top: solid 1px #C4C4C4; height: 5px;}
 .hint .top    .right  {background-image: url('../images/hint_top_right.png'); height: 6px;}
-.hint .top .right img {margin: 5px 0px 0px -20px; cursor: pointer;}
+.hint img.close       {cursor: pointer; float: right; margin: -13px -3px 0px 0px;}
 
 .hint .middle .left   {border-left: solid 1px #C4C4C4; padding-top: 15px;}
 .hint .middle .center {padding: 15px 5px 0px 5px; width: 256px;}

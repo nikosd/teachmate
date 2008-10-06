@@ -52,12 +52,14 @@
     <div class="top">
       <div class="left"></div>
       <div class="center"></div>
-      <div class="right"><%= image_tag('hint_close_button.png', :alt => '[x]') %></div>
+      <div class="right"></div>
     </div>
 
     <div class="middle">
+      
       <div class="left"></div>
       <div class="center">
+        <%= image_tag('hint_close_button.png', :class => 'close', :alt => '[x]') %>
         We recommend<br/><strong>only input one tag in this field</strong><br/>
         (<i>'cooking apple pie'</i> is okay,<br/><i>'cooking, mathematics'</i> is worse), since it will try to find only people that have both tags.
       </div>

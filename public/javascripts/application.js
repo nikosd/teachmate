@@ -32,12 +32,20 @@ $(function() {
     $("#locationParams").show("slow");
   });
 
-  // Hints location
+  // Hints location and functions
   var target = $("input[@name=learn]").offset();
-  $("#mainpageLearnFieldHint").css("top", target.top - 135).css("left", target.left + 300);
+  $("#mainpageLearnFieldHint").css("top", target.top - 140).css("left", target.left + 200);
   $("input[@name=learn]").focus( function(event) {
-    var hint = $("#mainpageLearnFieldHint");
-    $(hint).show();
+//    alert($.cookie("mainpageLearnFieldHint"));
+    if (!($.cookie('mainpageLearnFieldHint'))) {
+      $("#mainpageLearnFieldHint").show();
+    }
   })
+  
+  $(".hint img.close").bind("click", function(event) {
+    var target = $(this).parent().parent().parent()
+    $(target).hide();
+    $.cookie($(target).attr('id'), 'disable');
+  });
 
 })
