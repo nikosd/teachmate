@@ -1,3 +1,10 @@
+# Order in which to execute methods:
+#   .new
+#   .find_subscriptions(1.day.ago)
+#   .slice(:divider => 24)
+#   .find_search_queries
+#   .mail
+
 class SubscriptionMailer
 
   attr_reader :subscriptions, :search_queries, :last_run
@@ -68,54 +75,59 @@ class SubscriptionMailer
     @search_queries.each do |sq|
       current_search_query = sq if last_search_query == sq.id
     end if last_search_query
-    current_search_query.run
 
-    # collecting subscriptions for current search_query
-    # limiting their number to @number_of_mails
     mails = []
+    if current_search_query
 
-    while mails.size < @number_of_mails
+      current_search_query.run
 
-      # if there's no more subscriptions for the current searchquery
-      # switch to the next query
-      subscriptions_to_delete = []
-      @subscriptions.each_index do |i|
-        break if mails.size >= @number_of_mails
-          if @subscriptions[i].search_query_id == current_search_query.id
-            mails << {:subscription => @subscriptions[i], :results => current_search_query.users}
-            subscriptions_to_delete << i
+      # collecting subscriptions for current search_query
+      # limiting their number to @number_of_mails  
+
+      while mails.size < @number_of_mails
+
+        # if there's no more subscriptions for the current searchquery
+        # switch to the next query
+        subscriptions_to_delete = []
+        @subscriptions.each_index do |i|
+          break if mails.size >= @number_of_mails
+            if @subscriptions[i].search_query_id == current_search_query.id
+              mails << {:subscription => @subscriptions[i], :results => current_search_query.users}
+              subscriptions_to_delete << i
+            end
+          
+          # this fires on the last run
+          if i == @subscriptions.size - 1
+            @search_queries.delete(current_search_query)
+            current_search_query = @search_queries.first
+            subscriptions_to_delete.each { |index| @subscriptions.delete_at(index) }
           end
-        
-        # this fires on the last run
-        if i == @subscriptions.size - 1
-          @search_queries.delete(current_search_query)
-          current_search_query = @search_queries.first
-          subscriptions_to_delete.each { |index| @subscriptions.delete_at(index) }
+        end
+
+        break if @subscriptions.empty?
+      end
+
+
+      # collecting users for all mails
+      user_ids = []
+      mails.each { |m| user_ids <<  m[:subscription].user_id }
+      users = User.find(:all, :conditions => ['id in (?)', user_ids])
+      
+      # adding user models to mails' each element's hash
+      mails.each_index do |i|
+        users.each do |u|
+          if u.id == mails[i][:subscription].user_id
+            #puts "Sending search results to #{u.email}"
+            UserMailer.deliver_search_subscription(
+              :user => u, :results => mails[i][:results]
+            )
+            Subscription.record_timestamps = false
+            mails[i][:subscription].update_attribute(:updated_at, Time.now)
+            Subscription.record_timestamps = true
+          end
         end
       end
 
-      break if @subscriptions.empty?
-    end
-
-
-    # collecting users for all mails
-    user_ids = []
-    mails.each { |m| user_ids <<  m[:subscription].user_id }
-    users = User.find(:all, :conditions => ['id in (?)', user_ids])
-    
-    # adding user models to mails' each element's hash
-    mails.each_index do |i|
-      users.each do |u|
-        if u.id == mails[i][:subscription].user_id
-          #puts "Sending search results to #{u.email}"
-          UserMailer.deliver_search_subscription(
-            :user => u, :results => mails[i][:results]
-          )
-          Subscription.record_timestamps = false
-          mails[i][:subscription].update_attribute(:updated_at, Time.now)
-          Subscription.record_timestamps = true
-        end
-      end
     end
 
     if current_search_query
@@ -123,11 +135,14 @@ class SubscriptionMailer
     else
       last_search_query = nil
     end
+
     write_last_run(
       :last_search_query => last_search_query,
       :mails_sent => mails.size,
       :mails_left => @subscriptions_size - mails.size
     )
+    
+
 
   end 
 

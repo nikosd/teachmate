@@ -160,6 +160,9 @@ class SearchQuery < ActiveRecord::Base
     @city, @region, @country = self.location.split(',') if self.location and self.location != ',,'
 		@learn = self.learn_string.split(", ") if self.learn_string
 		@teach = self.teach_string.split(", ") if self.teach_string
+
+    @learn = [] if @learn.nil?
+    @teach = [] if @teach.nil?
   end
 
 end

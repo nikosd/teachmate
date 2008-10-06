@@ -27,4 +27,8 @@ class UserMailer < ActionMailer::Base
       @body         = {:message => options[:body], :sender_description => sender_description, :sender => sender}
     end
 
+    def search_subscription(options)
+      puts "Okay, delivering mail here"
+    end
+
 end

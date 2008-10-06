@@ -235,6 +235,15 @@ describe SearchQuery, "special cases" do
     search.run
   end
 
+  it "should assign emty array to @teach and @learn after find, if they're nil" do
+    SearchQuery.new(
+      :learn => "assigning empty array test"
+    ).store_query
+
+    SearchQuery.find_by_learn_string("assigning empty array test").teach.should == []
+
+  end
+
 end
 
 describe SearchQuery, "with location" do
