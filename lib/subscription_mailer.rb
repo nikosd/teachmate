@@ -28,7 +28,7 @@ class SubscriptionMailer
       # m1      - what's left of previous run
       # n2      - subscriptions we're going to fire this time
       # m2      - total subsciptions this time
-      # divider - the number we divide for all subscriptions
+      # divider - the number we divide all subscriptions for
       #
       # The following code says this:
       #   

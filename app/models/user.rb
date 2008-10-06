@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
 	end
 
 	def learn_tags_string
-    if errors.on(:learn_tags_string)
+    if !self.valid? or new_record?
       @learn_tags_string
     else
 		  join_tags_to_string(self.learn_tags)
@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
 	end
 
 	def teach_tags_string
-    if errors.on(:teach_tags_string)
+    if !self.valid? or new_record?
       @teach_tags_string
     else
 		  join_tags_to_string(self.teach_tags)
