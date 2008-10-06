@@ -162,8 +162,32 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .quick-action .formErrorMessage {margin: 1em 0px 1em 0px; text-align: center;}
 .quick-action .formErrorMessage h2 {font-size: 95%}
 
-/* hint layer styles */
-.hint {width: 211px; position: absolute; font-size: 11px; display: none;}
-.hint .top {height: 5px; background: url('../images/hint_top.png');}
-.hint .middle {background-color: #ffffff; width: 199px; padding: 5px; border-left: solid 1px #B2B2B2; border-right: solid 1px #B2B2B2;}
-.hint .bottom {height: 41px; background: url('../images/hint_bottom.png');}
+
+/* hints styles */
+.hint {font-size: 10px; width: 280px; display: none; position: absolute;}
+.hint .center {text-align: left; width: 268px;}
+.hint .top, .hint .middle, .hint .bottom {clear: both;}
+.hint .left, .hint .center, .hint .right {float: left;}
+.hint .left, .hint .right {width: 6px;}
+.hint .top, .hint .bottom {height: 5px;}
+
+.hint .top    .left   {background-image: url('../images/hint_top_left.png'); height: 6px;}
+.hint .top    .center {border-top: solid 1px #C4C4C4; height: 5px;}
+.hint .top    .right  {background-image: url('../images/hint_top_right.png'); height: 6px;}
+.hint .top .right img {margin: 5px 0px 0px -20px; cursor: pointer;}
+
+.hint .middle .left   {border-left: solid 1px #C4C4C4; padding-top: 15px;}
+.hint .middle .center {padding: 15px 5px 0px 5px; width: 256px;}
+.hint .middle .right  {border-right: solid 1px #C4C4C4; padding-top: 15px;}
+
+.hint .bottom .left   {background-image: url('../images/hint_bottom_left.png'); height: 6px;}
+.hint .bottom .center {border-bottom: solid 1px #C4C4C4; height: 5px;}
+.hint .bottom .right  {background-image: url('../images/hint_bottom_right.png'); height: 6px;}
+.hint img.arrow       {margin: -2px 0px 0px 20px;}
+
+.height150 .hint {height: 150px;}
+.height150 .hint .middle .left, .height150 .hint .middle .center, .height150 .hint .middle .right {height: 138px;}
+
+.height100 .hint {height: 100px;}
+/* - 12px */
+.height100 .hint .middle .left, .height100 .hint .middle .center, .height100 .hint .middle .right {height: 88px;}

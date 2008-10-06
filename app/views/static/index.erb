@@ -44,11 +44,31 @@
 			</p>
 	
 		</form>
+  </div>
 
 <!-- Hints -->
-<div class="hint" id="mainpageLearnFieldHint">
-  <div class="top"></div>
-  <div class="middle">We recommend<br/><strong>only input one tag in this field</strong><br/>
-  (<i>'cooking apple pie'</i> is okay,<br/><i>'cooking, mathematics'</i> is worse), since it will try to find only people that have both tags.</div>
-  <div class="bottom"></div>
+<div class="height100">
+  <div class="hint" id="mainpageLearnFieldHint">
+    <div class="top">
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"><%= image_tag('hint_close_button.png', :alt => '[x]') %></div>
+    </div>
+
+    <div class="middle">
+      <div class="left"></div>
+      <div class="center">
+        We recommend<br/><strong>only input one tag in this field</strong><br/>
+        (<i>'cooking apple pie'</i> is okay,<br/><i>'cooking, mathematics'</i> is worse), since it will try to find only people that have both tags.
+      </div>
+      <div class="right"></div>
+    </div>
+
+    <div class="bottom">
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </div>
+    <%= image_tag('hint_arrow.png', :class => 'arrow') %>
+  </div>
 </div>
