@@ -91,8 +91,8 @@
           <td class="avatar"><%= show_avatar(user) %></td>
           <td class="content">
             <big><%= link_to("#{full_name(user)}", user) %></big><br/>
-            <span class="gray1">can teach:</span> <%= show_tags(user, :teach) %><br/>
-            <span class="gray1">wants to learn:</span> <%= show_tags(user, :learn) %><br/>
+            <% skip_blank(show_tags(user, :teach)) { |tags| %> <span class="gray1">can teach:</span> <%= tags %><br/> <% } %>
+            <% skip_blank(show_tags(user, :learn)) { |tags| %> <span class="gray1">wants to learn:</span> <%= tags %><br/> <% } %>
             <%= location(user) %>
             <% skip_blank(user.notes) { |notes| %> <span class="green">Notes:</span> <%= notes %> <% } %>
           </td>
