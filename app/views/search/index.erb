@@ -93,8 +93,8 @@
             <big><%= link_to("#{full_name(user)}", user) %></big><br/>
             <span class="gray1">can teach:</span> <%= show_tags(user, :teach) %><br/>
             <span class="gray1">wants to learn:</span> <%= show_tags(user, :learn) %><br/>
-            <%= location(user) %><br/>
-            <span class="gray1">Rating:</span> <span class="rating-positive">+256</span>
+            <%= location(user) %>
+            <% skip_blank(user.notes) { |notes| %> <span class="green">Notes:</span> <%= notes %> <% } %>
           </td>
         </tr></table>
       </div>
