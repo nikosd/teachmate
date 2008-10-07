@@ -20,7 +20,7 @@
       <span class="gray1">I can teach:</span> <%=h value %><br/>
     <% end %>
 
-    <% skip_blank(location_string(@search_query.city, @search_query.region, @search_query.country)) do |value| %>
+    <% skip_blank(location_string([@search_query.city, @search_query.region, @search_query.country])) do |value| %>
       <span class="gray1">In:</span> <%=h value %><br/>
     <% end %>
   </p>
