@@ -24,7 +24,7 @@ class Message < ActiveRecord::Base
     self.class.find(:first, :conditions => ['user_id = (?)', self.user_id], :order => 'created_at DESC')
 
     errors.add_to_base(
-      "You can't send messages that often, please wait for a while"
+      "You're not allowed to send messages that often, please wait for a while"
     ) if last_message and last_message.created_at > 10.minutes.ago
   end
 
