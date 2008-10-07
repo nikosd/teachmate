@@ -63,7 +63,7 @@ describe UsersController, "sending messages" do
     request.env["HTTP_REFERER"] = 'http://test.host/users/1'
 
     session[:user] = 1
-    post 'send_message', :message => {:recipient_id => 2, :body => 'well, hello'}
+    post 'send_message', :message => {:recipient => 2, :body => 'well, hello'}
     response.should redirect_to('http://test.host/users/2')
   end
 

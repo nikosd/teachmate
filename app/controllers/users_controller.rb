@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   @flash_for = {:create => 'Your profile has been created'}
-  before_filter :should_be_logged_in, :only => ['change_password', 'logout', 'edit', 'send_message']
 
   def new
     @user = User.new
@@ -34,10 +33,12 @@ class UsersController < ApplicationController
 	end
 
   def send_message
-    
+    return unless should_be_logged_in
+
     begin
       @user = User.find(current_logged_in)
       @recipient = User.find(params[:message][:recipient])
+      raise if @recipient.id == current_logged_in
     rescue
       render(:file => 'public/500.html') and return
     end

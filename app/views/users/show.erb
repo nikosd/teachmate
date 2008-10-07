@@ -36,8 +36,17 @@
 					<% skip_blank(location_string([@user.city, @user.region, @user.country])) do |value| %>
             <span class="gray1">from </span><%=h value %>
           <% end %>
-          <p><a href="#">Bookmark this user</a> or 
-          <a href="#" id="userMessageLink">send a message</a></p>
+          
+          <% unless my_profile? %>
+          <p>
+          <%= link_to(
+            "send this user a message",
+            send_message_path(:message => {:recipient => @user.id}), :id => 'userMessageLink'
+          ) %>
+          </p>
+          
+          <% end %>
+
 				</td>
 			</tr>
 		</table>
