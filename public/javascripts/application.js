@@ -4,6 +4,9 @@ $(function() {
     $(":submit",this).attr("disabled", "disabled").attr("value", "Please wait...");
   });
 
+  //enables buttons, when user clicks "back" button in browser
+  $(":submit").attr("disabled", "")
+
   $("#comments-box #my_comment a").bind("click", function(event) {
     $(this).parent().parent().empty();
     $("#edit_comment").show("slow");
