@@ -26,6 +26,8 @@ small {font-size: 80%;}
 small.smaller {font-size: 60%;}
 .center {text-align: center;}
 
+li {margin-bottom: 0.5em;}
+
 img {border: 0px;}
 img.avatar {border: solid 1px #95D3FE;}
 hr {margin: 25px 0px 25px 0px; border: solid 1px #E4E4E4; background: transparent;}

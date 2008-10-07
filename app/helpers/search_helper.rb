@@ -15,8 +15,10 @@ module SearchHelper
 				end
 			end
 		end
-
-    tags_matched.concat(tags).slice(0..9).join(', ')
+    
+    result =  tags_matched.concat(tags)
+    more = '...' if result.size > 10
+    "#{result.slice(0..9).join(', ')} #{more}"
 	end
 
 end
