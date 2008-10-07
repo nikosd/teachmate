@@ -6,7 +6,7 @@ class CreateComments < ActiveRecord::Migration
       t.column    :author_id, :integer
       t.timestamps
     end
-    add_index :comments, [:user_id, :author_id], :unique => true
+    add_index :comments, [:user_id, :author_id], :unique => true, :name => 'user_author'
   end
 
   def self.down

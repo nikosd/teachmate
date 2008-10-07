@@ -5,7 +5,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.column :search_query_id,  :integer
       t.timestamps
     end
-    add_index :subscriptions, [:user_id, :search_query_id], :unique => true
+    add_index :subscriptions, [:user_id, :search_query_id], :unique => true, :name => 'user_and_search_query'
   end
 
   def self.down

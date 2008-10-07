@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["user_id", "author_id"], :name => "index_comments_on_user_id_and_author_id", :unique => true
+  add_index "comments", ["user_id", "author_id"], :name => "user_author", :unique => true
 
   create_table "learn_taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.datetime "updated_at"
   end
 
-  add_index "subscriptions", ["user_id", "search_query_id"], :name => "index_subscriptions_on_user_id_and_search_query_id", :unique => true
+  add_index "subscriptions", ["user_id", "search_query_id"], :name => "user_and_search_query", :unique => true
 
   create_table "tags", :force => true do |t|
     t.string   "string",     :limit => 256
