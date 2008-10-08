@@ -70,7 +70,7 @@ class SubscriptionsController < ApplicationController
     subscription = Subscription.find(params[:id])
     if subscription and subscription.user_id == current_logged_in
       subscription.destroy
-      flash[:message] = "The subscription was removed."
+      flash[:message] = "The subscription has been removed."
     else
       flash[:error] = "You don't have permission to delete this subscription"
     end
@@ -89,7 +89,7 @@ class SubscriptionsController < ApplicationController
 
   def validate_search_query
     unless @search_query.valid?
-      flash[:subscription_error] = "Your search request is invalid. You can't subscribe to it."
+      flash[:subscription_error] = "Your search request is invalid. You can't subscribe for it."
       redirect_to_stored and return(false) # when it's false, caller 'returns' and breaks the create method
     end
     return true

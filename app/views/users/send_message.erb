@@ -11,7 +11,7 @@
     
     <% form_tag '/send-message', :method => "post", :html => {:multipart => true} do -%>
       <%= text_area :message, :body %>
-      <%= caption(:body, "Message will be sent to users email with your email in 'from' field", :message) %>
+      <%= caption(:body, "Message will be sent to user's email with your email in \"from\" field", :message) %>
       <%= hidden_field :message, :recipient, :value => @recipient.id %>
       <p><input type="submit" value="Send message"/></p>
     <% end -%>
