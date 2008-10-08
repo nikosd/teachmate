@@ -110,7 +110,8 @@
               did_comment = true
             else
               comment_class = ''
-              signature = "wrote #{link_to(full_name(comment[:author]), comment[:author])} at #{comment[:element].updated_at}"
+              comment_time = comment[:element].updated_at.strftime('%b %d %Y, %H:%M')
+              signature = "wrote #{link_to(full_name(comment[:author]), comment[:author])} on #{comment_time}"
             end
           %>
 
