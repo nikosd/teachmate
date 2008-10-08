@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "city",                      :limit => 32
     t.string   "region",                    :limit => 32
     t.string   "country",                   :limit => 32
-    t.string   "more_info"
     t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -84,6 +83,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "notes",                     :limit => 100
+    t.text     "more_info",                 :limit => 100
     t.string   "password_token",            :limit => 20
     t.datetime "password_token_expires"
     t.string   "avatar"
