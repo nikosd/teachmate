@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "notes",                     :limit => 100
-    t.text     "more_info",                 :limit => 100
+    t.text     "more_info"
     t.string   "password_token",            :limit => 20
     t.datetime "password_token_expires"
     t.string   "avatar"

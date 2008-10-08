@@ -54,6 +54,7 @@ class SearchQuery < ActiveRecord::Base
 
     errors.add(:learn, "Too many tags") and return if @teach.length > 3
     errors.add(:teach, "Too many tags") and return if @learn.length > 100
+    errors.add_to_base("Search query can't be blank") and return if @learn.empty? and @teach.empty?
 
 		search_tags = Tag.find(:all, :include => [:learn_taggings],
 		:conditions => ["string in (?)", (@learn+@teach)])
@@ -135,8 +136,6 @@ class SearchQuery < ActiveRecord::Base
               :conditions => ["teach_taggings.user_id in (:users) OR 
               learn_taggings.user_id in (:users)", 
               {:users => @users}])
-    else
-      errors.add_to_base("Search query can't be blank")
     end
 
 	end
