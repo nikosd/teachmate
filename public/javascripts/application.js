@@ -1,4 +1,30 @@
-$(function() {
+jQuery(function($) {
+  
+  var $DEBUG = !true
+  
+  var optional_exceptional = function(name, func){
+    try {
+      return func();
+    } catch(e) {
+      if ($DEBUG) alert(name + " failed due to:\n" + e)
+      return null;
+    }
+  }
+
+  var optional = function(name, obj, func){
+    if (obj) {
+      try {
+        return func(obj);
+      } catch(e) {
+        if ($DEBUG) alert(name + " failed due to:\n" + e)
+        return null;
+      }
+    } else {
+      if ($DEBUG) alert(name + " failed due to:\n" + e)
+      return null;
+    }
+  }
+
 
   $("form").submit(function() {
     $(":submit",this).attr("disabled", "disabled").attr("value", "Please wait...");
@@ -37,36 +63,38 @@ $(function() {
   
   //hints
 
-  //mainpage hint
-  var target = $("input[@name=learn]").offset();
-  $("#mainpageLearnFieldHint").css("top", target.top - 140).css("left", target.left + 200);
-  $("input[@name=learn]").focus(function(event) {
-    if (!($.cookie('mainpageLearnFieldHint'))) {
-      $("#mainpageLearnFieldHint").show();
-    }
-  });
+  optional("mainpage initialization", $("input[@name=learn]"), function(obj) {
+    var target = obj.offset();
+    $("#mainpageLearnFieldHint").css("top", target.top - 140).css("left", target.left + 200);
+    $("input[@name=learn]").focus(function(event) {
+      if (!($.cookie('mainpageLearnFieldHint'))) {
+        $("#mainpageLearnFieldHint").show();
+      }
+    });
+  })
 
-  //message form in user profile
-  var target = $("#userMessageLink").offset();
-  $("#userMessageForm").css("top", target.top - 140).css("left", target.left + 200);
-  $("#userMessageLink").toggle(
-    function(event) {
-      $("#userMessageForm").show();
-      event.preventDefault();
-    },
-    function(event) {
-      $("#userMessageForm").hide();
-      event.preventDefault();
-    }
-  );
-
-  // hiding all hints
-  $(".hint img.close").bind("click", function(event) {
-    var target = $(this).parent().parent().parent()
-    $(target).hide();
-    $.cookie($(target).attr('id'), 'disable');
-  });
-
+  optional("message form in user profile", $("#userMessageLink"), function(obj) {
+    var target = obj.offset();
+    $("#userMessageForm").css("top", target.top - 140).css("left", target.left + 200);
+    $("#userMessageLink").toggle(
+      function(event) {
+        $("#userMessageForm").show();
+        event.preventDefault();
+      },
+      function(event) {
+        $("#userMessageForm").hide();
+        event.preventDefault();
+      }
+    );
+  })
+  
+  optional("hiding all hints", $(".hint img.close"), function(obj){
+    obj.bind("click", function(event) {
+      var target = $(this).parent().parent().parent()
+      $(target).hide();
+      $.cookie($(target).attr('id'), 'disable');
+    });
+  })
 
 
 
