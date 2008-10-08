@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     begin
       @user = User.find(current_logged_in)
       @recipient = User.find(params[:message][:recipient])
-      raise if @recipient.id == current_logged_in
+      raise if !@recipient and @recipient.id == current_logged_in
     rescue
       render(:file => 'public/500.html') and return
     end

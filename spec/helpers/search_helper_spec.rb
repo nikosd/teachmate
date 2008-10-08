@@ -24,7 +24,7 @@ describe SearchHelper do
     @search = SearchQuery.new(:learn => 'cooking', :city => 'Los-Angeles')
     @search.run
     
-    p show_tags(@search.users[0], :teach).split(', ').length.should == 10
+    show_tags(@search.users[0], :teach).split(', ').length.should == 10
 
   end
 
