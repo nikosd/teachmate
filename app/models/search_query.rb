@@ -69,7 +69,7 @@ class SearchQuery < ActiveRecord::Base
     # there's no such user with it and, therefore the search result
     # should be empty
     @users = [] and return if @teach_tags.length < @teach.length
-      
+
     @learn_tags.uniq!
     @teach_tags.uniq!
 
@@ -83,6 +83,7 @@ class SearchQuery < ActiveRecord::Base
     location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
 
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
+
       @teach_users = 
       @teach_tags.inject(nil) do |users, next_tag|
 
@@ -95,9 +96,8 @@ class SearchQuery < ActiveRecord::Base
 
         find_params = {
           :include => [:teach_taggings],
-          :conditions => ["teach_taggings.tag_id = :next_tag
-          #{users_query_part}#{location_query_part}#{me_query_part}",
-          {:next_tag => next_tag, :users => users}.merge!(placeholders)]
+          :conditions => ["teach_taggings.tag_id = :next_tag #{users_query_part}#{location_query_part}#{me_query_part}",
+          {:next_tag => next_tag.id, :users => users}.merge!(placeholders)]
         }
 
         # Only paginate on request for the last teach_tag
@@ -118,7 +118,6 @@ class SearchQuery < ActiveRecord::Base
   
     end
     
-
     unless @learn_tags.empty? #Unless user left "I can teach" blank
       @users 	= User.paginate(:all,
               :page => @page, :per_page => @per_page,
@@ -142,8 +141,8 @@ class SearchQuery < ActiveRecord::Base
 
   def store_query
     #switching learn/teach tags again to save the query
-    self.learn_string = @teach.sort.join(", ") unless @teach.blank?
-    self.teach_string = @learn.sort.join(", ") unless @learn.blank?
+    self.learn_string = @learn.sort.join(", ") unless @learn.blank?
+    self.teach_string = @teach.sort.join(", ") unless @teach.blank?
     self.location     = @location
     if found_query = self.class.find(
       :first,

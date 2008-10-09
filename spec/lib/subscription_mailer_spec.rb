@@ -14,17 +14,20 @@ describe SubscriptionMailer do
     # Just updating updated_at field manually
     Subscription.record_timestamps = false
     subscriptions = Subscription.find(:all)
+    m = 0
     subscriptions.inject(1) do |i, sub|
       if sub.search_query_id < 3
         sub.update_attribute(:updated_at, 1.day.ago - i.minutes)
       else
         sub.update_attribute(:updated_at, Time.now)
+        sub.user.update_attribute(:created_at, 1.day.ago - i.minutes) if m < 5
+        m += 1
       end
       i+1
     end
 
-    @s_mailer = SubscriptionMailer.new 
-    @s_mailer.find_subscriptions(1.day.ago)
+    @s_mailer = SubscriptionMailer.new(1.day.ago)
+    @s_mailer.find_subscriptions
   end
 
   it "should find all subscriptions that were updated more than 1 day ago" do
@@ -52,10 +55,15 @@ describe SubscriptionMailer do
 
     @s_mailer.slice(:divider => 24)
     @s_mailer.find_search_queries
-    @s_mailer.mail
+    @s_mailer.each_message do |email, content| 
+      content[:found_users].size.should > 0
+      content[:found_users].size.should <= 5
+      content[:found_users].each { |found_user| found_user.created_at.should > 1.day.ago }
+      UserMailer.deliver_search_subscription(:email => email, :content => content)
+    end
 
-    new_s_mailer = SubscriptionMailer.new
-    new_s_mailer.find_subscriptions(1.day.ago)
+    new_s_mailer = SubscriptionMailer.new(1.day.ago)
+    new_s_mailer.find_subscriptions
     new_s_mailer.should have(230).subscriptions 
   end
 
@@ -65,38 +73,37 @@ describe SubscriptionMailer do
 
     @s_mailer.slice(:divider => 2)
     @s_mailer.find_search_queries
-    @s_mailer.mail
+    @s_mailer.each_message { |email, content| UserMailer.deliver_search_subscription(:email => email, :content => content) }
 
     last_run = @s_mailer.read_last_run
     last_run[:last_search_query].should == 2
-    last_run[:mails_sent].should == 125
-    last_run[:mails_left].should == 125
+    last_run[:checked].should == 125
+    last_run[:left].should == 125
 
-    new_s_mailer = SubscriptionMailer.new
-    new_s_mailer.find_subscriptions(1.day.ago)
+    new_s_mailer = SubscriptionMailer.new(1.day.ago)
+    new_s_mailer.find_subscriptions
     new_s_mailer.slice(:divider => 2)
     new_s_mailer.find_search_queries
-    new_s_mailer.mail
+    new_s_mailer.each_message { |email, content| UserMailer.deliver_search_subscription(:email => email, :content => content) }
 
     last_run = new_s_mailer.read_last_run
     last_run[:last_search_query].should be_nil
-    last_run[:mails_sent].should == 125
-    last_run[:mails_left].should == 0
+    last_run[:checked].should == 125
+    last_run[:left].should == 0
 
   end
 
   it "should handle increasing number of subscriptions" do
 
     UserMailer.should_receive(:deliver_search_subscription).any_number_of_times
-    
 
     # run 1
     @s_mailer.slice(:divider => 3)
     @s_mailer.find_search_queries
-    @s_mailer.mail
+    @s_mailer.each_message { |email, content| UserMailer.deliver_search_subscription(:email => email, :content => content) }
 
-    @s_mailer.last_run[:mails_sent].should == 84
-    @s_mailer.last_run[:mails_left].should == 166
+    @s_mailer.last_run[:checked].should == 84
+    @s_mailer.last_run[:left].should == 166
 
     # run 2 - now adding 30 new subscriptions
     
@@ -112,15 +119,17 @@ describe SubscriptionMailer do
     end
     
 
-    @s_mailer.find_subscriptions(1.day.ago)
+    @s_mailer.find_subscriptions
     @s_mailer.slice(:divider => 3)
     @s_mailer.find_search_queries
-    @s_mailer.mail
+    @s_mailer.each_message { |email, content| UserMailer.deliver_search_subscription(:email => email, :content => content) }
 
-    @s_mailer.last_run[:mails_sent].should == 95
-    @s_mailer.last_run[:mails_left].should == 100
+    @s_mailer.last_run[:checked].should == 95
+    @s_mailer.last_run[:left].should == 100
 
   end
+
+
 
   after(:each) do
     File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run.log", 'w').close

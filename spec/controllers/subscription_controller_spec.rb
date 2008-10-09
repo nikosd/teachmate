@@ -20,7 +20,7 @@ describe SubscriptionsController, "adding new subscription" do
     post 'create', :search_query => {:learn => 'subscription learn', :teach =>'subscription teach'}
     response.flash[:subscription_error].should be_nil
     response.flash[:subscription_ok].should_not be_nil
-    SearchQuery.find(:first, :conditions => "learn_string = 'subscription learn'").should_not be_nil
+    SearchQuery.find(:first, :conditions => "learn_string = 'subscription teach'").should_not be_nil
     response.should redirect_to('http://test.host/search?learn=subscription+learn&teach=subscription+teach')
   end
 

@@ -5,14 +5,19 @@ namespace(:subscription) do
   require 'subscription_mailer'
 
   task :mail do
-    mailer = SubscriptionMailer.new
+    mailer = SubscriptionMailer.new(1.day.ago)
 
-    mailer.find_subscriptions(1.day.ago)
+    mailer.find_subscriptions
     mailer.slice(:divider => 24)
     mailer.find_search_queries
-    mailer.mail
+    mailer.each_message do |email, content|
+      UserMailer.deliver_search_subscription(
+        :email => email,
+        :content => content
+      ) unless content[:found_users].empty?
+    end
 
-    puts "Mails sent: #{mailer.last_run[:mails_sent]}"
+    puts "Checked this time: #{mailer.last_run[:checked]}"
   end
 
 end

@@ -1,5 +1,7 @@
 class UserMailer < ActionMailer::Base
 
+    helper :application, :users
+
     def signup(user)
 
     end
@@ -28,7 +30,31 @@ class UserMailer < ActionMailer::Base
     end
 
     def search_subscription(options)
-      puts "Okay, delivering mail here"
+      
+      search_query = options[:content][:search_query]
+      search_query_location = "Search in: #{
+        [search_query.city, search_query.region, search_query.country].join(', ')
+      }\n" unless search_query.location == ',,'
+
+      if search_query.users.size > 10
+        number_of_users = 10
+      else
+        number_of_users = options[:content][:found_users].size
+      end
+
+      @subject    = "Updates on you search query from TeachMate.org"
+      @recipients = options[:email]
+      @from       = "no-reply@teachmate.org"
+      @sent_on    = Time.now
+      @body       = {:search_query => {
+          :learn => search_query.learn_string,
+          :teach => search_query.teach_string,
+          :location => search_query_location
+        },
+        :users => options[:content][:found_users],
+        :number_of_users => number_of_users  
+      }
+
     end
 
 end
