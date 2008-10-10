@@ -80,7 +80,7 @@
 		<table>
 
       <%= profile_field(:title => 'Notes', :value => @user.notes, :allow_tags => []) %>
-      <%= profile_field(:title => 'More info', :value => @user.more_info, :allow_tags => %w(a), :br => true) %>
+      <%= wrap_urls profile_field(:title => 'More info', :value => @user.more_info, :allow_tags => [], :br => true) %>
 
 		</table>
 

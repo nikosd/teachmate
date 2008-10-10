@@ -79,6 +79,10 @@ module UsersHelper
     "<small>#{t}</small>"
   end
 
+  def wrap_urls(string)
+    string.gsub(/(http:\/\/.+?)(\s|\n)/, '<a href="\1">\1</a>\2') if string
+  end
+
   def form_error
     render(:partial => 'form_error') if flash[:error] or !@user.errors.empty?
   end

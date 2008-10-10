@@ -29,6 +29,15 @@ describe UsersHelper, "with unempty user fields" do
 		helper.full_name(@user).should have_text("user id 1")
 	end
 
+  it "should wrap urls with <a></a> tags" do
+    string = "Hi, here's my blog http://blog.snitko.ru and here's my tiny little homepage http://snitko.ru
+    I like google!"
+
+    helper.wrap_urls(string).should have_text(
+    'Hi, here\'s my blog <a href="http://blog.snitko.ru">http://blog.snitko.ru</a> and here\'s my tiny little homepage <a href="http://snitko.ru">http://snitko.ru</a>
+    I like google!')
+  end
+
 end
 
 describe UsersHelper, "with empty user fields" do
