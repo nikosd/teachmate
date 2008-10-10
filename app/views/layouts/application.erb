@@ -39,6 +39,9 @@
 	</div>
 
 
+	<%= @content_for_layout %>
+
+
   <% unless current_logged_in %>
   <div id="loginbox">
 
@@ -59,10 +62,9 @@
         </tr>
 
         <tr>
-          <td class="desc"></td>
-          <td class="right">
-            <input class="checkbox" value="true" type="checkbox" checked="checked" name="remember_me" id="remember_me"/>
-            &nbsp;<label for="remember_me">Remember me</label>
+          <td class="desc">&nbsp;</td>
+          <td class="right" style="text-align: left;">
+            <input class="checkbox" value="true" type="checkbox" checked="checked" name="remember_me" id="remember_me"/> <label for="remember_me">Remember me</label>
           </td>
         </tr>
 
@@ -85,8 +87,6 @@
 
   </div>
   <% end %>
-
-	<%= @content_for_layout %>
 
 </body>
 </html>
