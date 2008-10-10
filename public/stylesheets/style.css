@@ -62,9 +62,10 @@ td {vertical-align: top;}
 .aligned {font-size: 80%;}
 
 /*login box*/
-#loginbox {width: 337px; height: 272px; background: url('../images/login_box.png'); display: none; position: absolute; }
+#loginbox {width: 337px; height: 272px; background: url('../images/login_box.png'); display: none; position: absolute; font-size: 17px; }
 #loginbox form {margin: 75px 10px 10px 10px; font-size: 65%;}
-#loginbox input {width: 90px;}
+#loginbox input {width: 90px; font-size: 11px;}
+#loginbox input.checkbox {width: auto;}
 #loginbox table td {padding: 3px;}
 #loginbox img {margin-top: 15px;}
 
@@ -179,9 +180,9 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .hint .top    .right  {background-image: url('../images/hint_top_right.png'); height: 6px;}
 .hint img.close       {cursor: pointer; float: right; margin: -13px -3px 0px 0px;}
 
-.hint .middle .left   {border-left: solid 1px #C4C4C4; padding-top: 15px;}
+.hint .middle .left   {border-left: solid 1px #C4C4C4; padding-top: 15px; background-color: #FFFFFF;}
 .hint .middle .center {padding: 15px 5px 0px 5px; width: 256px;}
-.hint .middle .right  {border-right: solid 1px #C4C4C4; padding-top: 15px;}
+.hint .middle .right  {border-right: solid 1px #C4C4C4; padding-top: 15px; background-color: #FFFFFF;}
 
 .hint .bottom .left   {background-image: url('../images/hint_bottom_left.png'); height: 6px;}
 .hint .bottom .center {border-bottom: solid 1px #C4C4C4; height: 5px;}

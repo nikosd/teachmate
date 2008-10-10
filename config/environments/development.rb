@@ -11,7 +11,9 @@ config.whiny_nils = true
 # Show full error reports and disable caching
 config.action_controller.consider_all_requests_local = true
 config.action_view.debug_rjs                         = true
-config.action_controller.perform_caching             = false
+config.action_controller.perform_caching             = false #should be false
+config.action_view.cache_template_loading            = false #should be false
+# ActionController::Caching::Fragments::FileStore.new("#{RAILS_ROOT}/public/content/")
 # config.action_view.cache_template_extensions         = false #deprecated
 
 # Don't care if the mailer can't send
@@ -19,13 +21,5 @@ config.action_mailer.raise_delivery_errors = true
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.default_charset = 'utf-8'
-ActionMailer::Base.smtp_settings = {
-  :address        => "smtp.yandex.ru",
-  :port           => "25",
-  :domain         => "teachmate.org",
-  :authentication => :login,
-  :user_name      => "romansnitko",
-  :password       => "coincidence"
-}
   
 AVATARS_PATH = "#{RAILS_ROOT}/public/images/avatars"
