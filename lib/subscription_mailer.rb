@@ -16,6 +16,7 @@ class SubscriptionMailer
 
   def initialize(interval)
     @interval = interval
+    @start_time = Time.now
   end
 
   def find_search_queries
@@ -167,14 +168,22 @@ class SubscriptionMailer
   end
 
   def write_last_run(options)
-    file = File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run.log", 'w')
+    last_run_log = File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run.log", 'w')
+    main_log     = File.open("#{RAILS_ROOT}/log/subscription_mailer.log", 'a')
+
+    main_log.puts "Start time: #{@start_time}"
+    main_log.puts "Finish time: #{Time.now}"
+
     options.each do |k,v|
       if v
-        file.puts "#{k}: #{v}";
+        last_run_log.puts "#{k}: #{v}"
+        main_log.puts     "#{k}: #{v}"
         @last_run[k] = v
       end
-    end
-    file.close
+    end    
+    
+    last_run_log.close
+    main_log.puts('') and main_log.close
   end
 
 end
