@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates_date :birthdate, :before => Proc.new {Time.now.years_ago(5).to_date}, :after => '1 Jan 1900', :allow_nil => true
   
   validates_uniqueness_of :email, :allow_nil => true
-  validate                :validate_tags_string, :validate_tags, :validate_email
+  validate                :validate_tags_string, :validate_tags, :validate_email, :validate_bad_words
   validates_length_of     :more_info,  :maximum => 10240, :allow_nil => true
   validates_length_of     :notes,      :maximum => 100, :allow_nil => true
 
@@ -121,6 +121,32 @@ class User < ActiveRecord::Base
     errors.add(
       :learn_tags_string, "Too many tags, no more than 100 tags allowed"
     ) if @learn_tags_collection and @learn_tags_collection.length > 100
+  end
+
+  def validate_bad_words
+    bad_words = File.read("#{RAILS_ROOT}/config/bad_words.txt").split(' ')
+
+#     [:first_name].each do |field|
+#       bad_words.each do |bad_word|
+#         errors.add(
+#           field,
+#           "There's a restricted word in this field you cannot use"
+#         ) if read_attribute(field) and read_attribute(field).chars.downcase =~ /(\W|\A)#{bad_word}(\W|\Z)/
+#       end
+#     end
+
+    {:learn_tags_string => @learn_tags_string, :teach_tags_string => @teach_tags_string,
+     :first_name => first_name, :last_name => last_name, :notes => notes,
+     :city => city, :region => region, :country => country,
+    }.each do |k,v|
+      bad_words.each do |bad_word|
+        errors.add(
+          k,
+          "There's a restricted word in this field you cannot use"
+        ) if v and v.chars.downcase =~ /(\W|\A)#{bad_word}(\W|\Z)/
+      end
+    end
+
   end
 
   def downcase_location
