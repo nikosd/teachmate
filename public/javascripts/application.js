@@ -35,20 +35,20 @@ jQuery(function($) {
 
   $("#comments-box #my_comment a").bind("click", function(event) {
     $(this).parent().parent().empty();
-    $("#edit_comment").show("slow");
+    $("#edit_comment").slideDown(500);
     event.preventDefault();
   });
 
   $("a[@href*=show_comments]").bind("click", function(event) {
-    $("#comments").show("slow");
-    $(this).hide("slow");
+    $("#comments").slideDown(500);
+    $(this).hide();
     event.preventDefault();
   });
 
   $("a[@href^=/login]").toggle(
     function(event) {
-      $("#loginbox-bgrnd").css("left", event.pageX - 10).css("top", event.pageY + 15).show("slow");
-      $("#loginbox").css("left", event.pageX - 10).css("top", event.pageY + 15).show("slow");
+      $("#loginbox-bgrnd").css("left", event.pageX - 10).css("top", event.pageY + 15).slideDown(500);
+      $("#loginbox").css("left", event.pageX - 10).css("top", event.pageY + 15).slideDown(500);
       event.preventDefault();
     },
     function(event) {
@@ -60,7 +60,7 @@ jQuery(function($) {
   
   $(".locationCaption span").bind("click", function(event) {
     $(this).parent().hide();
-    $("#locationParams").show("slow");
+    $("#locationParams").slideDown(500);
   });
   
   //hints
@@ -70,7 +70,7 @@ jQuery(function($) {
     $("#mainpageLearnFieldHint").css("top", target.top - 140).css("left", target.left + 200);
     $("input[@name=learn]").focus(function(event) {
       if (!($.cookie('mainpageLearnFieldHint'))) {
-        $("#mainpageLearnFieldHint").show();
+        $("#mainpageLearnFieldHint").fadeIn(500);
       }
     });
   })
@@ -93,7 +93,7 @@ jQuery(function($) {
   optional("hiding all hints", $(".hint img.close"), function(obj){
     obj.bind("click", function(event) {
       var target = $(this).parent().parent().parent()
-      $(target).hide();
+      $(target).fadeOut(500);
       $.cookie($(target).attr('id'), 'disable');
     });
   })
