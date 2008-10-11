@@ -48,6 +48,11 @@ class SearchQuery < ActiveRecord::Base
 		@teach = Taggable::ClassMethods.split_tags_string(options[:learn])
 
     super()
+
+    self.learn_string = @learn.sort.join(", ") unless @learn.blank?
+    self.teach_string = @teach.sort.join(", ") unless @teach.blank?
+    self.location     = @location
+    
 	end
 
 	def run
@@ -140,10 +145,6 @@ class SearchQuery < ActiveRecord::Base
 	end
 
   def store_query
-    #switching learn/teach tags again to save the query
-    self.learn_string = @learn.sort.join(", ") unless @learn.blank?
-    self.teach_string = @teach.sort.join(", ") unless @teach.blank?
-    self.location     = @location
     if found_query = self.class.find(
       :first,
       :conditions => ['learn_string = (?) and teach_string = (?) and location = (?)', self.learn_string, self.teach_string, self.location]
