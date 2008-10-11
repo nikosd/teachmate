@@ -1,3 +1,5 @@
 #header {padding-top: 0px;}
 #sr-body {margin-top: 15px;}
 #profile>.tags-wrapper {padding-top: 10px;}
+
+#loginbox-bgrnd {behavior: url('../javascripts/iepngfix.htc');}

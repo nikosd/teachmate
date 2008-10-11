@@ -47,11 +47,13 @@ jQuery(function($) {
 
   $("a[@href^=/login]").toggle(
     function(event) {
+      $("#loginbox-bgrnd").css("left", event.pageX - 10).css("top", event.pageY + 15).show("slow");
       $("#loginbox").css("left", event.pageX - 10).css("top", event.pageY + 15).show("slow");
       event.preventDefault();
     },
     function(event) {
       $("#loginbox").fadeOut();
+      $("#loginbox-bgrnd").fadeOut();
       event.preventDefault();
     }
   );

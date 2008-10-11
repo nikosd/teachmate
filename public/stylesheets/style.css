@@ -62,7 +62,8 @@ td {vertical-align: top;}
 .aligned {font-size: 80%;}
 
 /*login box*/
-#loginbox {width: 337px; height: 272px; background: url('../images/login_box.png'); display: none; position: absolute; font-size: 17px; }
+#loginbox-bgrnd {width: 337px; height: 272px; background: url('../images/login_box.png'); display: none; position: absolute; font-size: 17px;}
+#loginbox {width: 337px; height: 272px; display: none; position: absolute; font-size: 17px; }
 #loginbox form {margin: 75px 10px 10px 10px; font-size: 65%;}
 #loginbox input {width: 90px; font-size: 11px;}
 #loginbox input.checkbox {width: auto;}
