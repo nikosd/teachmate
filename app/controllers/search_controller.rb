@@ -1,18 +1,3 @@
-module ActiveSupport
-  module Cache
-    class FileStore < Store
-      attr_reader :cache_path
-      
-      private
-        def real_file_path(name)
-          puts name
-          '%s/%s.cache' % [@cache_path, name.gsub('?', '.').gsub(':', '.')]
-        end 
-
-    end
-  end
-end
-
 class SearchController < ApplicationController
 
 	helper :users
@@ -28,7 +13,7 @@ class SearchController < ApplicationController
       :location  => @search.location
     }
 
-    unless read_fragment(:controller => 'search', :action => 'index', :learn => @search.teach_string)
+    unless read_fragment(@query_params)
       @search.run
       @users = @search.users if @search.errors.empty?
     end

@@ -1,3 +1,4 @@
+require 'advanced_file_store_caching'
 # Settings specified here will take precedence over those in config/environment.rb
 
 # In the development environment your application's code is reloaded on
@@ -9,7 +10,7 @@ config.cache_classes = false
 config.whiny_nils = true
 
 # Show full error reports and disable caching
-ActionController::Base.cache_store = :file_store,    "#{RAILS_ROOT}/public/cache/"
+ActionController::Base.cache_store = :advanced_file_store, "#{RAILS_ROOT}/public/cache/"
 config.action_controller.consider_all_requests_local = true
 config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = true #should be false

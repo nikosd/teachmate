@@ -1,0 +1,187 @@
+
+
+    
+
+      Sun Oct 12 15:12:48 +0400 2008
+
+      <div id="sr-header">
+
+        <h2>Search results</h2>
+              <div class="subscribe">
+          <span class="warning"></span>
+          <span class="green"></span>
+          <form action="/subscriptions" class="new_subscription" enctype="multipart/form-data" id="new_subscription" method="post"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="8029a450b8737e7eab83a1c3ac82f4091c927d4f" /></div>
+              <input id="search_query_learn" name="search_query[learn]" type="hidden" value="cooking, love people" />
+              <input id="search_query_teach" name="search_query[teach]" type="hidden" value="bass guitar" />
+              <input id="search_query_city" name="search_query[city]" type="hidden" value="" />
+              <input id="search_query_region" name="search_query[region]" type="hidden" value="" />
+              <input id="search_query_country" name="search_query[country]" type="hidden" value="" />
+              <input type="submit" class="submit" value="Subscribe"/>
+          </form>
+      </div>
+
+        <div style="clear: both;"></div>
+
+      </div>
+
+      <div id="sr-body">
+      
+        
+        <div class="item2">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/5">Arnold good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/6">Bill good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item2">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/7">Whitney good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/8">Julia good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item2">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/9">Sandy good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/10">Polly good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item2">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/11">Victor good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/12">Dan good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item2">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/13">Jim good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+        
+        <div class="item">
+          <table><tr>
+            <td class="avatar"><img alt="Avatar_default" class="avatar" src="/images/avatar_default.jpg?1215348883" /></td>
+            <td class="content">
+              <big><a href="/users/14">Henry good_user</a></big><br/>
+               <span class="gray1">can teach:</span> <strong>cooking</strong>, <strong>love people</strong> <br/> 
+               <span class="gray1">wants to learn:</span> <strong>bass guitar</strong>, piano, sports, kill all humans <br/> 
+              
+               <span class="green">Notes:</span> This is notes, that people can see on search results 
+            </td>
+          </tr></table>
+        </div>
+
+      
+
+      </div>
+      <div id="sr-pager">
+        <div class="pagination"><span class="disabled prev_page">&laquo; Previous</span> <span class="current">1</span> <a href="/search?city=&amp;country=&amp;learn=cooking%2C+love+people&amp;page=2&amp;region=&amp;teach=bass+guitar" rel="next">2</a> <a href="/search?city=&amp;country=&amp;learn=cooking%2C+love+people&amp;page=2&amp;region=&amp;teach=bass+guitar" class="next_page" rel="next">Next &raquo;</a></div>
+      </div>
+
+    
+
+	
