@@ -8,7 +8,7 @@ describe ActiveSupport::Cache do
   end
 
   it "should say hello" do
-    @cache.send(:real_file_path, @name).should have_text("#{@cache.cache_path}/#{File.join(*Digest::MD5.hexdigest(@name).scan(/(.{2})(.{2})(.*)/))}.cache")
+    @cache.send(:real_file_path, @name).should have_text("#{@cache.cache_path}/#{File.join(*Digest::MD5.hexdigest(@name).scan(/(.{2})(.{2})(.{2})(.*)/))}.cache")
   end
 
 end
