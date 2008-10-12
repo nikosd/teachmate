@@ -8,6 +8,8 @@ config.cache_classes = true
 # config.logger = SyslogLogger.new
 
 # Full error reports are disabled and caching is turned on
+CACHE_FILE_PATH = "#{RAILS_ROOT}/public/cache"
+ActionController::Base.cache_store = :advanced_file_store, CACHE_FILE_PATH
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
