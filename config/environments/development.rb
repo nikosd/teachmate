@@ -10,7 +10,8 @@ config.cache_classes = false
 config.whiny_nils = true
 
 # Show full error reports and disable caching
-ActionController::Base.cache_store = :advanced_file_store, "#{RAILS_ROOT}/public/cache/"
+CACHE_FILE_PATH = "#{RAILS_ROOT}/public/cache"
+ActionController::Base.cache_store = :advanced_file_store, CACHE_FILE_PATH
 config.action_controller.consider_all_requests_local = true
 config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = true #should be false

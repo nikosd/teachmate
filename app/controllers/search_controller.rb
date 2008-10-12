@@ -29,7 +29,7 @@ class SearchController < ApplicationController
         *Digest::MD5.hexdigest(fragment_cache_key(fragment)
       ).scan(/(.{2})(.{2})(.{2})(.*)/)) + '.cache'
 
-      cache_file_ctime = File.ctime("#{RAILS_ROOT}/public/cache/#{cache_file}")
+      cache_file_ctime = File.ctime("#{CACHE_FILE_PATH}/#{cache_file}")
 
       if cache_file_ctime < expiry_time
         expire_fragment(fragment)
