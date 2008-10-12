@@ -84,7 +84,11 @@ class SearchQuery < ActiveRecord::Base
     city_query_part     = ' AND city = :city'       and placeholders.merge!({:city => @city})       if @city
     region_query_part   = ' AND region = :region'   and placeholders.merge!({:region => @region})   if @region
     country_query_part  = ' AND country = :country' and placeholders.merge!({:country => @country}) if @country
-    me_query_part       = ' AND users.id != :id'    and placeholders.merge!({:id  => @me})          if @me
+    
+    # Can't have excluding user id now, because of caching
+    # me_query_part     = ' AND users.id != :id'    and placeholders.merge!({:id  => @me})          if @me
+    me_query_part = ''
+    
     location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
 
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
