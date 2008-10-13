@@ -3,3 +3,33 @@
 #profile>.tags-wrapper {padding-top: 10px;}
 
 #loginbox-bgrnd {behavior: url('../javascripts/iepngfix.htc');}
+
+
+/* hints styles */
+.hint {font-size: 10px; width: 280px; display: none; position: absolute;}
+.hint .center {text-align: left; width: 268px;}
+.hint .top, .hint .middle, .hint .bottom {clear: both;}
+.hint .left, .hint .center, .hint .right {float: left;}
+.hint .left, .hint .right {width: 6px;}
+.hint .top, .hint .bottom {height: 5px; font-size: 1px;}
+.hint .center, .hint .middle {background-color: #FFFFFF;}
+
+.hint .top    .left   {background-image: url('../images/hint_top_left.png'); height: 6px;}
+.hint .top    .center {border-top: solid 1px #C4C4C4; height: 5px;}
+.hint .top    .right  {background-image: url('../images/hint_top_right.png'); height: 6px;}
+.hint img.close       {cursor: pointer; float: right; margin: -13px -3px 0px 0px;}
+
+.hint .middle .left   {border-left: solid 1px #C4C4C4; padding-top: 15px; background-color: #FFFFFF;}
+.hint .middle .center {padding: 15px 5px 0px 5px; width: 256px;}
+.hint .middle .right  {border-right: solid 1px #C4C4C4; padding-top: 15px; background-color: #FFFFFF;}
+
+.hint .bottom .left   {background-image: url('../images/hint_bottom_left.png'); height: 6px;}
+.hint .bottom .center {border-bottom: solid 1px #C4C4C4; height: 5px;}
+.hint .bottom .right  {background-image: url('../images/hint_bottom_right.png'); height: 6px;}
+.hint img.arrow       {margin: -2px 0px 0px 20px;}
+
+.height100 .hint {height: 100px;}
+.height100 .hint .middle .left, .height100 .hint .middle .center, .height100 .hint .middle .right {height: 88px;} /* -12px */
+
+.userMessageForm .hint {height: 150px;}
+.userMessageForm .hint .middle .left, .userMessageForm .hint .middle .center, .userMessageForm .hint .middle .right {height: 138px;} /* -12px */

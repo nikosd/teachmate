@@ -173,7 +173,7 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .hint .top, .hint .middle, .hint .bottom {clear: both;}
 .hint .left, .hint .center, .hint .right {float: left;}
 .hint .left, .hint .right {width: 6px;}
-.hint .top, .hint .bottom {height: 5px;}
+.hint .top, .hint .bottom {height: 5px; font-size: 1px;}
 .hint .center, .hint .middle {background-color: #FFFFFF;}
 
 .hint .top    .left   {background-image: url('../images/hint_top_left.png'); height: 6px;}
