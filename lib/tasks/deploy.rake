@@ -1,12 +1,66 @@
 namespace(:deploy) do
-
-  APP_NAME = "teachmate"
-  SERVER = 'teachmate-test'
-  USER   = 'deploy'
-  DEPLOY_ROOT = "/var/www/#{APP_NAME}"
   
+  # common options
+  APP_NAME = "teachmate"
+  USER   = 'deploy'
+  COMMIT = (ENV['tag'] || ENV['commit'] || 'HEAD')
+
+  # test env only
+  TEST_SERVER = 'teachmate-test'
+  TEST_DEPLOY_ROOT = "/var/www/#{APP_NAME}"
+  TEST_REMOTE_REPO = "/var/repos/tm.git"
+  TEST_REMOTE_REPO_NAME = "test"
+
+  # production env only
+  SERVER = 'teachmate-test'
+  DEPLOY_ROOT = "/var/www/#{APP_NAME}"
+  REMOTE_REPO = "/var/repos/tm.git"
+  REMOTE_REPO_NAME = "origin"
+
+  def set_options(env)
+    if env == :test
+      @server           = TEST_SERVER
+      @deploy_root      = TEST_DEPLOY_ROOT
+      @remote_repo      = TEST_REMOTE_REPO
+      @remote_repo_name = TEST_REMOTE_REPO_NAME
+    elsif env == :production
+      @server           = SERVER
+      @deploy_root      = DEPLOY_ROOT
+      @remote_repo      = REMOTE_REPO
+      @remote_repo_name = REMOTE_REPO_NAME
+    end
+  end
+  
+  namespace(:test) do
+    task :new do
+      set_options(:test)
+      new
+    end
+    task :revert do
+      set_options(:test)
+      revert
+    end
+    task :stop do
+      set_options(:test)
+      stop
+    end
+  end
+
   task :new do
-    COMMIT = (ENV['tag'] || ENV['commit'] || 'HEAD')
+    set_options(:test)
+    new
+  end
+  task :revert do
+    set_options(:test)
+    revert
+  end
+  task :stop do
+    set_options(:test)
+    stop
+  end
+
+  def new
+    
 
     begin
       puts "pushing git repo..."
@@ -17,10 +71,10 @@ namespace(:deploy) do
         current_rev = COMMIT
       end
 
-      `git push`
-      `git push --tags`
+      `git push #{@remote_repo_name}`
+      `git push --tags #{@remote_repo_name}`
 
-      remote "cloning repo to release dir", "git fetch /var/repos/tm.git && git fetch --tags /var/repos/tm.git"
+      remote "cloning repo to release dir", "git fetch #{@remote_repo} && git fetch --tags #{@remote_repo}"
       
       unless remote("", "git rev-parse HEAD").chomp == current_rev
         remote "storing previous commit id",  "git rev-parse HEAD > previous_release.log" 
@@ -36,18 +90,18 @@ namespace(:deploy) do
     end
   end
 
-  task :revert do
+  def revert
     prev = remote("", 'cat previous_release.log') 
     remote "reverting to previous release", "git checkout #{prev}"
   end
 
-  task :stop do
+  def stop
     remote "stopping mongrels", "mongrel_cluster_ctl stop"
   end
 
   def remote(message, code)
     puts "#{message}..." unless message.empty?
-    `ssh #{SERVER} -l #{USER} \"cd #{DEPLOY_ROOT}/release && #{code}"`
+    `ssh #{@server} -l #{USER} \"cd #{@deploy_root}/release && #{code}"`
   end
 
 end
