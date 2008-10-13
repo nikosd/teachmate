@@ -177,7 +177,13 @@
       
       <div class="left"></div>
       <div class="center">
-        
+      <%= image_tag('hint_close_button.png', :class => 'close', :alt => '[x]') %>
+      <% form_tag '/send-message', :method => "post", :html => {:multipart => true} do -%>
+        <textarea style="width: 90%; height: 160px;" name="message[body]"></textarea>
+        <span class="gray1">Message will be sent to user's email with your email in "from" field</span>
+        <input type="hidden" name="message[recipient]" value="<%= @user.id %>">
+        <p><input type="submit" value="Send message"/></p>
+      <% end -%>
       </div>
       <div class="right"></div>
     </div>

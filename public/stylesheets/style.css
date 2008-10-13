@@ -193,5 +193,5 @@ table.subscription td {background-color: #F5F5F5; padding: 5px;}
 .height100 .hint {height: 100px;}
 .height100 .hint .middle .left, .height100 .hint .middle .center, .height100 .hint .middle .right {height: 88px;} /* -12px */
 
-.userMessageForm .hint {height: 150px;}
-.userMessageForm .hint .middle .left, .userMessageForm .hint .middle .center, .userMessageForm .hint .middle .right {height: 138px;} /* -12px */
+.userMessageForm .hint {height: 250px;}
+.userMessageForm .hint .middle .left, .userMessageForm .hint .middle .center, .userMessageForm .hint .middle .right {height: 238px;} /* -12px */

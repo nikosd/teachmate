@@ -77,17 +77,16 @@ jQuery(function($) {
 
   optional("message form in user profile", $("#userMessageLink"), function(obj) {
     var target = obj.offset();
-    $("#userMessageForm").css("top", target.top - 140).css("left", target.left + 200);
-    $("#userMessageLink").toggle(
-      function(event) {
-        $("#userMessageForm").show();
-        event.preventDefault();
-      },
-      function(event) {
-        $("#userMessageForm").hide();
-        event.preventDefault();
+    $("#userMessageForm").css("top", target.top + 10).css("left", target.left + 100);
+    $("#userMessageLink").bind("click", function(event) {
+      if ($("#userMessageForm").is(":visible")) {
+        $("#userMessageForm").fadeOut(300);
       }
-    );
+      else {
+        $("#userMessageForm").slideDown(500);
+      }
+      event.preventDefault();
+    });
   })
   
   optional("hiding all hints", $(".hint img.close"), function(obj){
