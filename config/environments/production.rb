@@ -1,4 +1,3 @@
-require 'advanced_file_store_caching'
 config.cache_classes = true
 
 # Use a different logger for distributed setups

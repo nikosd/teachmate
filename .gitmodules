@@ -18,8 +18,4 @@
 	path = vendor/plugins/rspec-rails
 	url = git://github.com/dchelimsky/rspec-rails.git
 
-[submodule "vendor/plugins/jrails"]
-	path = vendor/plugins/jrails
-	url = git://github.com/aaronchi/jrails.git
-
 # fixture_scenarious, rspec_plugin, validates_date_time are included in the main repo

@@ -15,7 +15,7 @@ namespace(:deploy) do
   SERVER = 'teachmate.org'
   DEPLOY_ROOT = "/var/www/#{APP_NAME}"
   REMOTE_REPO = "/var/repos/tm.git"
-  REMOTE_REPO_NAME = "origin"
+  REMOTE_REPO_NAME = ""
 
   def set_options(env)
     if env == :test
