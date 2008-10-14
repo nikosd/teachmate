@@ -1,22 +1,22 @@
+# common options
+APP_NAME = "teachmate"
+USER   = 'deploy'
+COMMIT = (ENV['tag'] || ENV['commit'] || 'HEAD')
+ON     = (ENV['ON'] || 'true')
+
+# test env only
+TEST_SERVER = 'teachmate-test'
+TEST_DEPLOY_ROOT = "/var/www/#{APP_NAME}"
+TEST_REMOTE_REPO = "/var/repos/tm.git"
+TEST_REMOTE_REPO_NAME = "test"
+
+# production env only
+SERVER = 'teachmate.org'
+DEPLOY_ROOT = "/var/www/#{APP_NAME}"
+REMOTE_REPO = "/var/repos/tm.git"
+REMOTE_REPO_NAME = ""
+
 namespace(:deploy) do
-  
-  # common options
-  APP_NAME = "teachmate"
-  USER   = 'deploy'
-  COMMIT = (ENV['tag'] || ENV['commit'] || 'HEAD')
-  OFF = nil
-
-  # test env only
-  TEST_SERVER = 'teachmate-test'
-  TEST_DEPLOY_ROOT = "/var/www/#{APP_NAME}"
-  TEST_REMOTE_REPO = "/var/repos/tm.git"
-  TEST_REMOTE_REPO_NAME = "test"
-
-  # production env only
-  SERVER = 'teachmate.org'
-  DEPLOY_ROOT = "/var/www/#{APP_NAME}"
-  REMOTE_REPO = "/var/repos/tm.git"
-  REMOTE_REPO_NAME = ""
 
   def set_options(env)
     if env == :test
@@ -65,6 +65,10 @@ namespace(:deploy) do
     set_options(:production)
     stop
   end
+  task :maintenance do
+    set_options(:production)
+    maintenance
+  end
 
   def new
     
@@ -108,7 +112,7 @@ namespace(:deploy) do
   end
 
   def maintenance
-    if OFF.nil?
+    if ON == 'true'
       remote "creating link to _maintenance.html file", "cd public; ln -s _maintenance.html maintenance.html"
     else
       remote "removing link to _maintenance.html file", "rm public/maintenance.html"
