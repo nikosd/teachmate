@@ -47,15 +47,15 @@ namespace(:deploy) do
   end
 
   task :new do
-    set_options(:test)
+    set_options(:production)
     new
   end
   task :revert do
-    set_options(:test)
+    set_options(:production)
     revert
   end
   task :stop do
-    set_options(:test)
+    set_options(:production)
     stop
   end
 
