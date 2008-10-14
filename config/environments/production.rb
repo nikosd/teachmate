@@ -4,7 +4,7 @@ config.cache_classes = true
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
-CACHE_FILE_PATH = "#{RAILS_ROOT}/public/cache"
+CACHE_FILE_PATH = "/var/www/teachmate/shared/cache"
 ActionController::Base.cache_store = :advanced_file_store, CACHE_FILE_PATH
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
