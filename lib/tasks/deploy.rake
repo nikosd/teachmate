@@ -12,7 +12,7 @@ namespace(:deploy) do
   TEST_REMOTE_REPO_NAME = "test"
 
   # production env only
-  SERVER = 'teachmate-test'
+  SERVER = 'teachmate.org'
   DEPLOY_ROOT = "/var/www/#{APP_NAME}"
   REMOTE_REPO = "/var/repos/tm.git"
   REMOTE_REPO_NAME = "origin"
