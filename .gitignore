@@ -8,4 +8,4 @@ milestones.yml
 spec/public
 config/mongrel_cluster.yml
 public/cache/
-public/images/avatars
+public/images/avatars/

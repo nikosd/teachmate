@@ -4,6 +4,7 @@ namespace(:deploy) do
   APP_NAME = "teachmate"
   USER   = 'deploy'
   COMMIT = (ENV['tag'] || ENV['commit'] || 'HEAD')
+  OFF = nil
 
   # test env only
   TEST_SERVER = 'teachmate-test'
@@ -30,6 +31,7 @@ namespace(:deploy) do
       @remote_repo_name = REMOTE_REPO_NAME
     end
   end
+
   
   namespace(:test) do
     task :new do
@@ -44,8 +46,13 @@ namespace(:deploy) do
       set_options(:test)
       stop
     end
+    task :maintenance do
+      set_options(:test)
+      maintenance
+    end
   end
 
+  
   task :new do
     set_options(:production)
     new
@@ -63,6 +70,7 @@ namespace(:deploy) do
     
 
     begin
+      puts "server is #{@server}"
       puts "pushing git repo..."
 
       if COMMIT =~ /^HEAD/
@@ -97,6 +105,14 @@ namespace(:deploy) do
 
   def stop
     remote "stopping mongrels", "mongrel_cluster_ctl stop"
+  end
+
+  def maintenance
+    if OFF.nil?
+      remote "creating link to _maintenance.html file", "cd public; ln -s _maintenance.html maintenance.html"
+    else
+      remote "removing link to _maintenance.html file", "rm public/maintenance.html"
+    end
   end
 
   def remote(message, code)
