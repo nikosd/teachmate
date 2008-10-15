@@ -38,13 +38,14 @@
           <% end %>
           
           <% unless my_profile? %>
+            <% if current_logged_in %>
           <p>
           <%= link_to(
             "send this user a message",
             send_message_path(:message => {:recipient => @user.id}), :id => 'userMessageLink'
           ) %>
           </p>
-          
+            <% end %>
           <% end %>
 
 				</td>
