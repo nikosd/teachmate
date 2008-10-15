@@ -8,8 +8,8 @@ class SearchController < ApplicationController
     @subscription = Subscription.new
 
     @query_params = {
-      :learn => @search.teach_string,
-      :teach => @search.learn_string,
+      :learn     => @search.teach_string,
+      :teach     => @search.learn_string,
       :location  => @search.location,
       :page      => params[:page]
     }
@@ -21,6 +21,8 @@ class SearchController < ApplicationController
     end
 
 	end
+
+  private
 
   def when_fragment_expired(fragment, expiry_time)
     if fragment_exist?(@query_params)

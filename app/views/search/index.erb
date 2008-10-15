@@ -46,7 +46,6 @@
 		</div>
 	</div>
 
-  <% cache(@query_params) do %>
 
     <% if !@search.errors.empty? %>
 
@@ -72,45 +71,49 @@
       </div>
     <% else %>
 
-      <div id="sr-header">
+      <% cache(@query_params) do %>
 
-        <h2>Search results</h2>
-        <%= render(:partial => 'subscriptions/subscribe_form') %>
-        <div style="clear: both;"></div>
+        <div id="sr-header">
 
-      </div>
+          <h2>Search results</h2>
+          <%= render(:partial => 'subscriptions/subscribe_form') %>
+          <div style="clear: both;"></div>
 
-      <div id="sr-body">
-      <% i = "" 
-         @users.each do |user| 
-         if i == "item2":	i = "item"
-         else i = "item2"
-         end
-        %>
-        
-        <div class="<%= i %>">
-          <table><tr>
-            <td class="avatar"><%= show_avatar(user) %></td>
-            <td class="content">
-              <big><%= link_to("#{full_name(user)}", user) %></big><br/>
-              <% skip_blank(show_tags(user, :teach)) { |tags| %> <span class="gray1">can teach:</span> <%= tags %><br/> <% } %>
-              <% skip_blank(show_tags(user, :learn)) { |tags| %> <span class="gray1">wants to learn:</span> <%= tags %><br/> <% } %>
-              <% skip_blank(location(user)) { |location| %> <%= location  %><br/><% } %>
-              <% skip_blank(user.notes) { |notes| %> <span class="green">Notes:</span> <%= notes %> <% } %>
-            </td>
-          </tr></table>
         </div>
 
-      <% end %>
+        <div id="sr-body">
+        <% i = "" 
+           @users.each do |user| 
+           if i == "item2":	i = "item"
+           else i = "item2"
+           end
+          %>
+          
+          <div class="<%= i %>">
+            <table><tr>
+              <td class="avatar"><%= show_avatar(user) %></td>
+              <td class="content">
+                <big><%= link_to("#{full_name(user)}", user) %></big><br/>
+                <% skip_blank(show_tags(user, :teach)) { |tags| %> <span class="gray1">can teach:</span> <%= tags %><br/> <% } %>
+                <% skip_blank(show_tags(user, :learn)) { |tags| %> <span class="gray1">wants to learn:</span> <%= tags %><br/> <% } %>
+                <% skip_blank(location(user)) { |location| %> <%= location  %><br/><% } %>
+                <% skip_blank(user.notes) { |notes| %> <span class="green">Notes:</span> <%= notes %> <% } %>
+              </td>
+            </tr></table>
+          </div>
 
-      </div>
-      <div id="sr-pager">
-        <%= will_paginate(@search.users) %>
-      </div>
+        <% end %>
+
+        </div>
+        <div id="sr-pager">
+          <%= will_paginate(@search.users) %>
+        </div>
+      
+      <% end %>	
 
     <% end %>
 
-	<% end %>	
+	
 
 
 

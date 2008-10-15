@@ -7,5 +7,5 @@ log/*
 milestones.yml
 spec/public
 config/mongrel_cluster.yml
-public/cache/
+public/cache
 public/images/avatars
