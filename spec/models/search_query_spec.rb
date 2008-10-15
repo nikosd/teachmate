@@ -238,7 +238,7 @@ describe SearchQuery, "special cases" do
   end
 
   it "should find all users if no tags submitted" do
-    sq = SearchQuery.new(:teach => '', :learn => '')
+    sq = SearchQuery.new(:teach => '', :learn => '', :city => 'san-francisco')
     sq.run
     sq.errors.should be_empty
     sq.users.should_not be_empty

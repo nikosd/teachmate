@@ -75,8 +75,12 @@
 
         <div id="sr-header">
 
-          <h2>Search results</h2>
-          <%= render(:partial => 'subscriptions/subscribe_form') %>
+          <% unless @query_params[:learn].blank? and @query_params[:teach].blank? %>
+            <h2>Search results</h2>
+            <%= render(:partial => 'subscriptions/subscribe_form') %>
+          <% else %>
+            <h2>All new users</h2>
+          <% end %>
           <div style="clear: both;"></div>
 
         </div>

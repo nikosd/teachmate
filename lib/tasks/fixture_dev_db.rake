@@ -33,7 +33,7 @@ namespace :db do
     bad_usernames = names.slice(21..25)
 
 		good_usernames.each { |name| User.create(:first_name => name, :last_name => "good_user",
-		:learn_tags_string => 'bass guitar, piano, sports, kill all humans', :teach_tags_string => 'cooking, love people', :notes => 'This is notes, that people can see on search results') }
+		:learn_tags_string => 'bass guitar, piano, sports, kill all humans', :teach_tags_string => 'cooking, love people', :notes => 'This is notes, that people can see on search results', :city => 'san-francisco') }
 
 		# This one creates user, who has only one of learn_tags
 		# and, therefore, should not be included in search results

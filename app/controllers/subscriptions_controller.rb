@@ -4,6 +4,7 @@ class SubscriptionsController < ApplicationController
 
   before_filter :set_return_to, :except => [:create]
   before_filter :should_be_logged_in, :only => [:index, :destroy]
+  before_filter :no_blank_query, :only => [:create]
 
   # When the request comes
   # 1. Check if the user is logged in.
@@ -93,6 +94,10 @@ class SubscriptionsController < ApplicationController
       redirect_to_stored and return(false) # when it's false, caller 'returns' and breaks the create method
     end
     return true
+  end
+
+  def no_blank_query
+    render(:file => 'public/403.html') if params[:search_query][:learn].blank? and params[:search_query][:teach].blank?
   end
 
 end

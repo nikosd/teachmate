@@ -160,6 +160,7 @@ class SearchQuery < ActiveRecord::Base
   end
 
   def find_all(location_query_part, placeholders)
+    location_query_part.sub!(/\A\s*AND\s/, '')
     @users 	= User.paginate(:all,
       :page => @page, :per_page => @per_page,
       :conditions => 

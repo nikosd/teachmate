@@ -74,6 +74,15 @@ describe SubscriptionsController, "adding new subscription" do
     response.should redirect_to('http://test.host/search?learn=subscription+learn&city=Bad,cityname')
   end
 
+  it "should not subscribe user to an empty search query" do
+    post(
+      'create',
+      :search_query => {:learn => '', :city => 'Bad,cityname'},
+      :user         => {:email =>'hello@email.com'}
+    )
+    response.should render_template('public/403.html')
+  end
+
   it "should display error if email is already used" do
     User.create(:email => 'email@in.use')
     post(
