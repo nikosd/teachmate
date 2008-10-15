@@ -163,12 +163,6 @@ describe SearchQuery, "with bad params" do
     search.errors.on(:teach).should_not be_nil
   end
 
-  it "should add error to base if search query is empty" do
-    search = SearchQuery.new(:teach => '')
-    search.run
-    search.errors.on(:base).should_not be_nil
-  end
-
   it "should find nothing if the first teach_tag doesn't match any users" do
     search = SearchQuery.new(:learn => 'bad tag, cooking', :per_page => 50)
     search.run
@@ -235,13 +229,19 @@ describe SearchQuery, "special cases" do
     search.run
   end
 
-  it "should assign emty array to @teach and @learn after find, if they're nil" do
+  it "should assign empty array to @teach and @learn after find, if they're nil" do
     SearchQuery.new(
       :teach => "assigning empty array test"
     ).store_query
 
     SearchQuery.find_by_learn_string("assigning empty array test").teach.should == []
+  end
 
+  it "should find all users if no tags submitted" do
+    sq = SearchQuery.new(:teach => '', :learn => '')
+    sq.run
+    sq.errors.should be_empty
+    sq.users.should_not be_empty
   end
 
 end

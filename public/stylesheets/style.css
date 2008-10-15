@@ -75,7 +75,7 @@ td {vertical-align: top;}
 .locationCaption span {color: #0046AF; border-bottom: dotted 1px #0046AF; cursor: pointer;}
 
 /*mainpage*/
-#bigsearch {font-size: 130%; width: 400px; margin-top: 100px;}
+#bigsearch {font-size: 130%; width: 400px; margin-top: 65px;}
 #bigsearch input {font-size: 130%; padding: 5px;}
 #bigsearch input.text {width: 100%; margin: 0.3em 0px 0.3em 0px;}
 #bigsearch p {margin-bottom: 1.3em;}

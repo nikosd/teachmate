@@ -59,7 +59,7 @@ class SearchQuery < ActiveRecord::Base
 
     errors.add(:learn, "Too many tags") and return if @teach.length > 3
     errors.add(:teach, "Too many tags") and return if @learn.length > 100
-    errors.add_to_base("Search query can't be blank") and return if @learn.empty? and @teach.empty?
+    
 
 		search_tags = Tag.find(:all, :include => [:learn_taggings],
 		:conditions => ["string in (?)", (@learn+@teach)])
@@ -84,12 +84,12 @@ class SearchQuery < ActiveRecord::Base
     city_query_part     = ' AND city = :city'       and placeholders.merge!({:city => @city})       if @city
     region_query_part   = ' AND region = :region'   and placeholders.merge!({:region => @region})   if @region
     country_query_part  = ' AND country = :country' and placeholders.merge!({:country => @country}) if @country
-    
     # Can't have excluding user id now, because of caching
     # me_query_part     = ' AND users.id != :id'    and placeholders.merge!({:id  => @me})          if @me
     me_query_part = ''
-    
     location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
+
+    find_all(location_query_part, placeholders) and return if @learn.empty? and @teach.empty?
 
     unless @teach_tags.empty? #Unless user left "I want to learn" blank
 
@@ -157,6 +157,17 @@ class SearchQuery < ActiveRecord::Base
     else
       self.save
     end
+  end
+
+  def find_all(location_query_part, placeholders)
+    @users 	= User.paginate(:all,
+      :page => @page, :per_page => @per_page,
+      :conditions => 
+      ["#{location_query_part}",
+      {:teach_users => @teach_users, :learn_tags => @learn_tags}.merge!(placeholders)],
+      :order => 'users.created_at DESC'
+      )
+      @tags = []
   end
   
   def after_find
