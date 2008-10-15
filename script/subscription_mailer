@@ -1,2 +1,2 @@
 #!/bin/bash
-cd /var/www/teachmate/release/script/subscription_mailer; rake subscription:mail RAILS_ENV=production
+cd /var/www/teachmate/release; rake subscription:mail RAILS_ENV=production
