@@ -46,10 +46,8 @@
 		</form>
   </div>
 
+<% unless cookies[:mainpageLearnFieldHint] == 'disable' %>
 <!-- Hints -->
-<script>
-
-</script>
 <div class="height100">
   <div class="hint" id="mainpageLearnFieldHint">
     <div class="top">
@@ -77,3 +75,4 @@
     <%= image_tag('hint_arrow.png', :class => 'arrow') %>
   </div>
 </div>
+<% end %>
