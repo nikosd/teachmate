@@ -17,13 +17,13 @@ class UsersController < ApplicationController
     # getting all tags now
     @teach_tags = Tag.find(
       :all,
-      :conditions => ["teach_taggings.user_id == (?)", @user.id],
+      :conditions => ["teach_taggings.user_id == #{@user.id}"],
       :include => [:teach_taggings],
       :order   => 'string'
     )
     @learn_tags = Tag.find(
       :all,
-      :conditions => ["learn_taggings.user_id == (?)", @user.id],
+      :conditions => ["learn_taggings.user_id == #{@user.id}"],
       :include => [:learn_taggings],
       :order   => 'string'
     )
