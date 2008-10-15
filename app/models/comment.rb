@@ -4,9 +4,11 @@ class Comment < ActiveRecord::Base
   validates_presence_of :body
 
   class <<self
-    def find_for_user(user_id)
+    def find_for_user(user)
       
-      comments     = User.find(user_id).comments
+      comments = user.comments
+      return [] if comments.blank?
+
       author_ids   = comments.map {|s| s.author_id} 
       authors = User.find(:all, :conditions => ['id in (?)', author_ids])
       

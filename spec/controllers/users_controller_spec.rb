@@ -16,9 +16,9 @@ describe UsersController do
 	end
 
   it "should show all comments to user profile" do
-    Comment.should_receive(:find_for_user).once.and_return(['one', 'two', 'three'])
+    1.upto(3) {|i| Comment.create(:author_id => i, :user_id => 14, :body => 'hello') }
 
-    id = User.find(:first, :order => "id DESC")
+    id = User.find(:first, :order => "id DESC").id
     post 'show', :id => id, :show_comments => true
     assigns[:comments].should have(3).elements
     response.should render_template('users/show')

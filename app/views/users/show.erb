@@ -50,10 +50,11 @@
 				</td>
 			</tr>
 		</table>
-		
+
+    		
 		<div class="tags-wrapper">
 
-      <% skip_blank(taglist(@user.teach_tags, :teach)) do |teach_tags| %>
+      <% skip_blank(taglist(@teach_tags, :teach)) do |teach_tags| %>
 			<table>
 				<tr>
 					<td class="left"><span class="match-teach">Can teach:</span></td>
@@ -64,7 +65,7 @@
 			</table>
       <% end %>
       
-      <% skip_blank(taglist(@user.learn_tags, :learn)) do |learn_tags| %>
+      <% skip_blank(taglist(@learn_tags, :learn)) do |learn_tags| %>
 			<table>
 				<tr>
 					<td class="left">Wants to learn:</td>

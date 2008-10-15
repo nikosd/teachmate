@@ -20,11 +20,11 @@ describe SearchHelper do
 
   it "should display no more than 10 tags for each user" do
   
-    user = User.create(:teach_tags_string => "cooking, love people, tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10", :city => 'Los-Angeles')
+    user = User.create(:teach_tags_string => "cooking, love people, tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11", :city => 'Los-Angeles')
     @search = SearchQuery.new(:learn => 'cooking', :city => 'Los-Angeles')
     @search.run
     
-    show_tags(@search.users[0], :teach).split(', ').length.should == 10
+    show_tags(@search.users[0], :teach).split(', ').length.should == 11 # 11 because there's extra , in [more...]
 
   end
 

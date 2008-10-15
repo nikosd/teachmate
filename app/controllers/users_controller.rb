@@ -13,7 +13,22 @@ class UsersController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found") and return
     end
-    @comments = Comment.find_for_user(@user.id)
+
+    # getting all tags now
+    @teach_tags = Tag.find(
+      :all,
+      :conditions => ["teach_taggings.user_id == (?)", @user.id],
+      :include => [:teach_taggings],
+      :order   => 'string'
+    )
+    @learn_tags = Tag.find(
+      :all,
+      :conditions => ["learn_taggings.user_id == (?)", @user.id],
+      :include => [:learn_taggings],
+      :order   => 'string'
+    )
+
+    @comments = Comment.find_for_user(@user)
     @new_comment  = Comment.new
 
   end
