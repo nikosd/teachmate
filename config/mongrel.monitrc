@@ -7,8 +7,8 @@ set alert roman@snitko.ru
 check process mongrel_deployers_8000
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8000.pid
-  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --clean --only 8000"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --only 8000"
+  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8000"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8000"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
@@ -16,8 +16,8 @@ check process mongrel_deployers_8000
 check process mongrel_deployers_8001
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8001.pid
-  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --clean --only 8001"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --only 8001"
+  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8001"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8001"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
@@ -25,8 +25,8 @@ check process mongrel_deployers_8001
 check process mongrel_deployers_8002
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8000.pid
-  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --clean --only 8002"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --only 8002"
+  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8002"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8002"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
@@ -34,8 +34,8 @@ check process mongrel_deployers_8002
 check process mongrel_deployers_8003
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8000.pid
-  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --clean --only 8003"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --only 8003"
+  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8003"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8003"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
@@ -43,8 +43,8 @@ check process mongrel_deployers_8003
 check process mongrel_deployers_8004
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8000.pid
-  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --clean --only 8004"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --only 8004"
+  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8004"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8004"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
@@ -52,8 +52,8 @@ check process mongrel_deployers_8004
 check process mongrel_deployers_8005
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8000.pid
-  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --clean --only 8005"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/productin.conf --only 8005"
+  start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8005"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8005"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
