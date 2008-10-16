@@ -64,10 +64,12 @@
     <% elsif @users.blank? %>
       <div class="aligned">
         <h2 class="warning">No one was found on your request</h2>
-        <p>You might want to subscribe to this search request,
-        so that you could track users that fit your request.</p>  
 
-        <%= render(:partial => 'subscriptions/subscribe_form') unless @query_params[:learn].blank? and @query_params[:teach].blank? %>
+        <% unless @query_params[:learn].blank? and @query_params[:teach].blank? %>
+          <p>You might want to subscribe to this search request,
+          so that you could track users that fit your request.</p>  
+          <%= render(:partial => 'subscriptions/subscribe_form')  %>
+        <% end %>
       </div>
     <% else %>
 
