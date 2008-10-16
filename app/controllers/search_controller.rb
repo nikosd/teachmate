@@ -13,6 +13,7 @@ class SearchController < ApplicationController
       :location  => @search.location,
       :page      => params[:page]
     }
+
     @query_params.delete(:page) if @query_params[:page].to_i == 1
 
     when_fragment_expired(@query_params, 1.minutes.ago) do  
@@ -36,6 +37,8 @@ class SearchController < ApplicationController
       if cache_file_ctime < expiry_time
         expire_fragment(fragment)
         yield
+      else
+        @cached = true
       end
 
     else

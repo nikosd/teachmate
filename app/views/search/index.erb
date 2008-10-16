@@ -61,7 +61,7 @@
         <% end %>
       </div>
 
-    <% elsif @users.blank? %>
+    <% elsif @cached.nil? and @users.blank? %>
       <div class="aligned">
         <h2 class="warning">No one was found on your request</h2>
 
