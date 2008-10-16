@@ -145,7 +145,7 @@
       %>
 
 
-      <% if !did_comment and current_logged_in %>
+      <% if !did_comment and current_logged_in and !my_profile? %>
         <p class="warning"><%= flash[:err_message] %></p>
         <a name="comment_form"></a>
         <% form_for @new_comment, :method => "post", :html => {:multipart => true} do |f| %>
