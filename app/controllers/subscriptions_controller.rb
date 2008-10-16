@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
       
       if params[:user]
         return unless should_be_captcha_validated
-        @user = User.new(:email => params[:user][:email])
+        @user = User.new(:email => params[:user][:email], :status => 'disabled')
         @user.errors.add(:email, "can't be blank") if @user.email.blank?
         if @user.errors.empty? and @user.save
           session[:user] = @user.id
