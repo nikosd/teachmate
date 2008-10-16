@@ -67,7 +67,7 @@
         <p>You might want to subscribe to this search request,
         so that you could track users that fit your request.</p>  
 
-        <%= render(:partial => 'subscriptions/subscribe_form') %>
+        <%= render(:partial => 'subscriptions/subscribe_form') unless @query_params[:learn].blank? and @query_params[:teach].blank? %>
       </div>
     <% else %>
 
