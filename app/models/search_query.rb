@@ -131,8 +131,11 @@ class SearchQuery < ActiveRecord::Base
   private
 
   def find_all(location_query_part, placeholders)
-    location_query_part.sub!(/\A\s*AND\s/, '')
-    users_created_at_query_part = ' AND users.created_at > :one_day_ago'
+    unless location_query_part.blank?
+      location_query_part.sub!(/\A\s*AND\s/, '')
+      location_query_part.sub!(/\Z/, ' AND ')
+    end
+    users_created_at_query_part = 'users.created_at > :one_day_ago'
     placeholders.merge!({:one_day_ago => 1.days.ago})
 
     @users 	= User.paginate(:all,
