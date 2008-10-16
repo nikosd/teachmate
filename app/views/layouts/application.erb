@@ -1,19 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <!--
   Author: Roman Snitko (http://snitko.ru),
   special thanks to Oleg Andreev.
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<%= stylesheet_link_tag 'style' %>
   <%= javascript_include_tag 'jquery', 'jquery.dimensions', 'jquery.cookie', 'application' %>
-	<!--[if IE 5]><%= stylesheet_link_tag 'ie' %><![endif]-->
-	<!--[if IE 6]><%= stylesheet_link_tag 'ie' %><![endif]-->
-	<!--[if IE 7]><%= javascript_include_tag 'IEmarginFix' %> <![endif]-->
-	<!--[if IE 8]><%= javascript_include_tag 'IEmarginFix' %><![endif]-->
+	<!--[if IE]><%= stylesheet_link_tag 'ie' %><![endif]-->
 
 	<% if @title %>
   <title><%= @title %> &mdash; TeachMate.org</title>
