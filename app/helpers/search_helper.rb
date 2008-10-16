@@ -6,7 +6,7 @@ module SearchHelper
 		@search.tags.each do |tag|
 			tag.send("#{tagtype.to_s}_taggings").each do |tagging|
 				if tagging.user_id == user.id  
-          tag.string = tag.string.slice(0..24) + '...' if tag.string.length > 25
+          tag.string = tag.string.chars.slice(0..24) + '...' if tag.string.length > 25
           if @search.send("#{tagtype.to_s}_tags").include?(tag)
             tags_matched << "<strong>#{tag.string}</strong>" unless tags_matched.size > 10
           else
