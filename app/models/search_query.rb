@@ -89,62 +89,21 @@ class SearchQuery < ActiveRecord::Base
     me_query_part = ''
     location_query_part = "#{city_query_part}#{region_query_part}#{country_query_part}"
 
-    find_all(location_query_part, placeholders) and return if @learn.empty? and @teach.empty?
 
-    unless @teach_tags.empty? #Unless user left "I want to learn" blank
-
-      @teach_users = 
-      @teach_tags.inject(nil) do |users, next_tag|
-
-        if users.nil?: users_query_part = '' and users = [] # if running the first query
-        elsif users.empty?: @users = [] and return  # if running n-th time and no users found in previous run
-        else
-          users_query_part = ' AND teach_taggings.user_id in (:users)'
-          location_query_part = nil
-        end
-
-        find_params = {
-          :include => [:teach_taggings],
-          :conditions => ["teach_taggings.tag_id = :next_tag #{users_query_part}#{location_query_part}#{me_query_part}",
-          {:next_tag => next_tag.id, :users => users}.merge!(placeholders)]
-        }
-
-        # Only paginate on request for the last teach_tag
-        if @learn_tags.empty? and (@teach_tags.index(next_tag) == @teach_tags.length - 1)
-          User.paginate(
-            :all, 
-            find_params.merge({:page => @page, :per_page => @per_page, :order => 'users.created_at DESC'})
-          )
-        else
-          User.find(:all, find_params)
-        end
+    # Here's where all SEARCH happens
+    find_all(location_query_part, placeholders) if @learn.empty? and @teach.empty? #shows all users
+    unless @teach_tags.empty?
+      if learn_query_parts = find_teachers(location_query_part, placeholders)
+        location_query_part       = learn_query_parts[:location_query_part]
+        teach_taggings_condition  = learn_query_parts[:teach_taggings_condition]
       end
+    end
+    find_learners(location_query_part, placeholders, teach_taggings_condition) unless @learn_tags.empty?
 
-      @tags  = @teach_tags
-      @users = @teach_users 
-      teach_taggings_condition = "teach_taggings.user_id in (:teach_users) AND "
-      location_query_part = nil
-  
-    end
-    
-    unless @learn_tags.empty? #Unless user left "I can teach" blank
-      @users 	= User.paginate(:all,
-              :page => @page, :per_page => @per_page,
-              :include => [:teach_taggings, :learn_taggings],
-              :conditions => 
-              ["#{teach_taggings_condition}learn_taggings.tag_id in (:learn_tags)#{location_query_part}",
-              {:teach_users => @teach_users, :learn_tags => @learn_tags}.merge!(placeholders)],
-              :order => 'users.created_at DESC'
-              )
-      @tags = @learn_tags
-    end
-
-    unless @teach_tags.empty? and @learn_tags.empty?
-      @tags = Tag.find(:all, :include => [:teach_taggings, :learn_taggings],
-              :conditions => ["teach_taggings.user_id in (:users) OR 
-              learn_taggings.user_id in (:users)", 
-              {:users => @users}])
-    end
+    @tags = Tag.find(:all, :include => [:teach_taggings, :learn_taggings],
+            :conditions => ["teach_taggings.user_id in (:users) OR 
+            learn_taggings.user_id in (:users)", 
+            {:users => @users}])
 
 	end
 
@@ -159,6 +118,18 @@ class SearchQuery < ActiveRecord::Base
     end
   end
 
+  def after_find
+    @city, @region, @country = self.location.split(',') if self.location and self.location != ',,'
+		@learn = self.learn_string.split(", ") if self.learn_string
+		@teach = self.teach_string.split(", ") if self.teach_string
+
+    @learn = [] if @learn.nil?
+    @teach = [] if @teach.nil?
+  end
+
+
+  private
+
   def find_all(location_query_part, placeholders)
     location_query_part.sub!(/\A\s*AND\s/, '')
     @users 	= User.paginate(:all,
@@ -168,16 +139,52 @@ class SearchQuery < ActiveRecord::Base
       {:teach_users => @teach_users, :learn_tags => @learn_tags}.merge!(placeholders)],
       :order => 'users.created_at DESC'
       )
-      @tags = []
   end
-  
-  def after_find
-    @city, @region, @country = self.location.split(',') if self.location and self.location != ',,'
-		@learn = self.learn_string.split(", ") if self.learn_string
-		@teach = self.teach_string.split(", ") if self.teach_string
 
-    @learn = [] if @learn.nil?
-    @teach = [] if @teach.nil?
+  def find_teachers(location_query_part, placeholders, me_query_part = nil)
+    @teach_users = 
+    @teach_tags.inject(nil) do |users, next_tag|
+
+      if users.nil?: users_query_part = '' and users = [] # if running the first query
+      elsif users.empty?: @users = [] and return  # if running n-th time and no users found in previous run
+      else
+        users_query_part = ' AND teach_taggings.user_id in (:users)'
+        location_query_part = nil
+      end
+
+      find_params = {
+        :include => [:teach_taggings],
+        :conditions => ["teach_taggings.tag_id = :next_tag #{users_query_part}#{location_query_part}#{me_query_part}",
+        {:next_tag => next_tag.id, :users => users}.merge!(placeholders)]
+      }
+
+      # Only paginate on request for the last teach_tag
+      if @learn_tags.empty? and (@teach_tags.index(next_tag) == @teach_tags.length - 1)
+        User.paginate(
+          :all, 
+          find_params.merge({:page => @page, :per_page => @per_page, :order => 'users.created_at DESC'})
+        )
+      else
+        User.find(:all, find_params)
+      end
+    end
+
+    @tags  = @teach_tags
+    @users = @teach_users 
+    {:teach_taggings_condition => "teach_taggings.user_id in (:teach_users) AND ",
+    :location_query_part => nil}
+  end
+
+  def find_learners(location_query_part, placeholders, teach_taggings_condition)
+    @users 	= User.paginate(:all,
+            :page => @page, :per_page => @per_page,
+            :include => [:teach_taggings, :learn_taggings],
+            :conditions => 
+            ["#{teach_taggings_condition}learn_taggings.tag_id in (:learn_tags)#{location_query_part}",
+            {:teach_users => @teach_users, :learn_tags => @learn_tags}.merge!(placeholders)],
+            :order => 'users.created_at DESC'
+            )
+    @tags = @learn_tags
   end
 
 end
