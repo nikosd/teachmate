@@ -3,6 +3,7 @@ config.cache_classes = true
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
+config.log_level = :error
 
 CACHE_FILE_PATH = "/var/www/teachmate/shared/cache"
 ActionController::Base.cache_store = :advanced_file_store, CACHE_FILE_PATH
