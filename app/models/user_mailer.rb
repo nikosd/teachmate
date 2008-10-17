@@ -21,6 +21,7 @@ class UserMailer < ActionMailer::Base
       sender_description  += " #{sender.first_name}" if sender.first_name
       sender_description  += " #{sender.last_name}"  if sender.last_name
       sender_description  += " id ##{sender.id}"     if sender.first_name.blank? and sender.last_name.blank?
+      sender_description.lstrip!
 
       @subject      = "Message from teachmate #{sender_description}"
       @recipients   = options[:to]
