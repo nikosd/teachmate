@@ -9,7 +9,7 @@
             <li>No HTML allowed in any field.</li>
             <% unless current_logged_in %>
             <li>No field is required, except captcha.</li>
-            <li>No need to create and remember any password now, you can do it later at any time.</li>
+            <li>No need to create and remember any password now, you can do it any time later.</li>
             <% end %>
             <li><strong>Your profile will be disabled for public</strong> view, unless you fill <span class="green">I can teach</span> or <span class="green">I want to learn</span> field.</li>
           </ul>
@@ -42,7 +42,7 @@
 					<td class="desc">E-mail:</td>
 					<td class="right">
 						<%= f.text_field :email, {:class => "text"} %>
-						<%= caption(:email, "Won't be exposed to anyone. We'll use it to send there messages from other users (when someone wants to become your teachmate), to restore your password if you forget it, or to send you updates on your search results if you subscribe to any. Submitting it blank leaves you without these options, but it's still acceptable.") %>
+						<%= caption(:email, "Won't be exposed to anyone. We'll use it to send messages from other users (when someone wants to become your teachmate), to restore your password if you forget it, or to send you updates on your search results if you subscribe to any. Submitting it blank leaves you without these options, but it's still acceptable.") %>
 					</td>
 				</tr>
 
@@ -79,7 +79,7 @@
 					<td class="desc">City:</td>
 					<td class="right">
             <%= f.text_field :city, {:class => "text"} %>
-            <%= caption(:city, 'By convention, we suggest to input your city name in your native language. No comma symbols (,) allowed.') %>
+            <%= caption(:city, 'We suggest to input your city name in your native language. No comma symbols (,) allowed.') %>
 					</td>
 				</tr>
 
@@ -87,7 +87,7 @@
 					<td class="desc">State or region:</td>
 					<td class="right">
 						<%= f.text_field :region, {:class => "text"} %>
-            <%= caption(:region, 'Just like the city field, use your native language here. No comma symbols (,) allowed.') %>
+            <%= caption(:region, 'Just like in "city" field, use your native language here. No comma symbols (,) allowed.') %>
 					</td>
 				</tr>
 
@@ -135,7 +135,7 @@
 					<td class="desc">More info:</td>
 					<td class="right">
 						<%= text_area(:user, :more_info) %>
-            <%= caption(:more_info, 'Good place to tell public who you are, post links to your blog, photos or whataver might be of interest to your potential teachmate.') %>
+            <%= caption(:more_info, 'Good place to tell public who you are, post links to your blog, photos or whataver might be of interest to your potential teachmate. Everything that starts with http:// becomes a link.') %>
 					</td>
 				</tr>
 
