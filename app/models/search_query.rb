@@ -60,23 +60,28 @@ class SearchQuery < ActiveRecord::Base
     errors.add(:learn, "Too many tags") and return if @teach.length > 3
     errors.add(:teach, "Too many tags") and return if @learn.length > 100
     
+    # searching and sorting all tags
+    @teach_tags = @learn_tags = []
+    unless @learn.empty? and @teach.empty?
 
-		search_tags = Tag.find(:all, :include => [:learn_taggings],
-		:conditions => ["string in (?)", (@learn+@teach)])
+      search_tags = Tag.find(:all, :include => [:learn_taggings],
+      :conditions => ["string in (?)", (@learn+@teach)]) 
 
-    @learn_tags, @teach_tags = search_tags.inject([[],[]]) do |pair, tag|
-      pair[0] << tag if @learn.include?(tag.string)
-      pair[1] << tag if @teach.include?(tag.string)
-      pair
+      @learn_tags, @teach_tags = search_tags.inject([[],[]]) do |pair, tag|
+        pair[0] << tag if @learn.include?(tag.string)
+        pair[1] << tag if @teach.include?(tag.string)
+        pair
+      end
+
+      # If one of teach_tags is not found in the tag table, it means that
+      # there's no such user with it and, therefore the search result
+      # should be empty
+      @users = [] and return if @teach_tags.length < @teach.length
+
+      @learn_tags.uniq!
+      @teach_tags.uniq!
+
     end
-
-    # If one of teach_tags is not found in the tag table, it means that
-    # there's no such user with it and, therefore the search result
-    # should be empty
-    @users = [] and return if @teach_tags.length < @teach.length
-
-    @learn_tags.uniq!
-    @teach_tags.uniq!
 
     # Setting parts of search request
     # (they'll be empty, if no corresponding options are passed in).
@@ -131,17 +136,13 @@ class SearchQuery < ActiveRecord::Base
   private
 
   def find_all(location_query_part, placeholders)
-    unless location_query_part.blank?
-      location_query_part.sub!(/\A\s*AND\s/, '')
-      location_query_part.sub!(/\Z/, ' AND ')
-    end
-    users_created_at_query_part = 'users.created_at > :one_day_ago'
+    users_created_at_query_part = ' AND users.created_at > :one_day_ago'
     placeholders.merge!({:one_day_ago => 1.days.ago})
 
     @users 	= User.paginate(:all,
       :page => @page, :per_page => @per_page,
       :conditions => 
-      ["#{location_query_part}#{users_created_at_query_part}",
+      ["status IS NULL#{location_query_part}#{users_created_at_query_part}",
       {:teach_users => @teach_users, :learn_tags => @learn_tags}.merge!(placeholders)],
       :order => 'users.created_at DESC'
       )
