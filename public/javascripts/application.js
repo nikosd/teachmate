@@ -93,7 +93,7 @@ jQuery(function($) {
     obj.bind("click", function(event) {
       var target = $(this).parent().parent().parent()
       $(target).fadeOut(500);
-      $.cookie($(target).attr('id'), 'disable');
+      $.cookie($(target).attr('id'), 'disable', {expires: 356});
     });
   })
 
