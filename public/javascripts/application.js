@@ -75,6 +75,16 @@ jQuery(function($) {
     });
   })
 
+  optional("comments in user profile hint", $("#comment-form textarea"), function(obj) {
+    var target = obj.offset();
+    $("#profileCommentHint").css("top", target.top - 140).css("left", target.left + 200);
+    $("#comment-form textarea").focus(function(event) {
+      if (!($.cookie('profileCommentHint'))) {
+        $("#profileCommentHint").fadeIn(500);
+      }
+    });
+  })
+
   optional("message form in user profile", $("#userMessageLink"), function(obj) {
     var target = obj.offset();
     $("#userMessageForm").css("top", target.top + 10).css("left", target.left + 100);

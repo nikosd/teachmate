@@ -135,29 +135,28 @@
             <% end %>
           </div>
 
-        </div>
-
-
-
-        <% end
-      else @comments.empty?
-        %> <h2>Nobody left comments here yet</h2> <%
-      end
-      %>
-
-
-      <% if !did_comment and current_logged_in and !my_profile? %>
-        <p class="warning"><%= flash[:err_message] %></p>
-        <a name="comment_form"></a>
-        <% form_for @new_comment, :method => "post", :html => {:multipart => true} do |f| %>
-        <div id="comment-form">
-          <h3>Leave your own comment:</h3>
-          <%= f.text_area :body %>
-          <%= f.hidden_field :user_id, :value => params[:id] %>
-          <input type="submit" class="submit" value="Post comment"/>
-        </div>
         <% end %>
+        </div>
+
+
+
+    <% else %>
+    <h2>Nobody left comments here yet</h2>    
+    <% end %>
+
+
+    <% if !did_comment and current_logged_in and !my_profile? %>
+      <p class="warning"><%= flash[:err_message] %></p>
+      <a name="comment_form"></a>
+      <% form_for @new_comment, :method => "post", :html => {:multipart => true} do |f| %>
+      <div id="comment-form">
+        <h3>Leave your own comment:</h3>
+        <%= f.text_area :body %>
+        <%= f.hidden_field :user_id, :value => params[:id] %>
+        <input type="submit" class="submit" value="Post comment"/>
+      </div>
       <% end %>
+    <% end %>
 
 		</div>
 
@@ -181,10 +180,10 @@
       <div class="left"></div>
       <div class="center">
       <%= image_tag('hint_close_button.png', :class => 'close', :alt => '[x]') %>
-      <% form_tag '/send-message', :method => "post", :html => {:multipart => true} do -%>
-        <textarea style="width: 90%; height: 160px;" name="message[body]"></textarea>
+      <% form_tag '/send-message', :method => "post" do -%>
+        <textarea style="width: 90%; height: 160px;" rows="0" cols="0" name="message[body]"></textarea>
         <span class="gray1">Message will be sent to user's email with your email in "from" field</span>
-        <input type="hidden" name="message[recipient]" value="<%= @user.id %>">
+        <input type="hidden" name="message[recipient]" value="<%= @user.id %>"/>
         <p><input type="submit" value="Send message"/></p>
       <% end -%>
       </div>
@@ -198,3 +197,32 @@
     </div>
   </div>
 </div>
+
+<% unless cookies[:profileCommentHint] == 'disable' %>
+  <div class="height100">
+    <div class="hint" id="profileCommentHint">
+      <div class="top">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+      </div>
+
+      <div class="middle">
+        
+        <div class="left"></div>
+        <div class="center">
+          <%= image_tag('hint_close_button.png', :class => 'close', :alt => '[x]') %>
+          Please <strong>post only your review or opinion about the user</strong>. If you want this user to be your teachmate, use "send this user a message" at the top of the page link and send him message privately.
+        </div>
+        <div class="right"></div>
+      </div>
+
+      <div class="bottom">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+      </div>
+      <%= image_tag('hint_arrow.png', :class => 'arrow') %>
+    </div>
+  </div>
+<% end %>
