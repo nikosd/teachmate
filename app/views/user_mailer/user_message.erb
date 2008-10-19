@@ -1,7 +1,7 @@
 Teachmate.org user <%=@sender_description%> sent you this message:
 
 --------------------------------------------------------------------
-<%=@message%>
+<%=word_wrap(@message, 55)%>
 --------------------------------------------------------------------
 
 You can see the sender's profile here: http://teachmate.org<%=url_for(@sender)%>
