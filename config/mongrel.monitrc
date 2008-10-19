@@ -71,7 +71,7 @@ check process mongrel_deployers_8007
   group deployers
   with pidfile /var/www/teachmate/release/log/mongrel.8007.pid
   start program = "/var/lib/gems/1.8/bin/mongrel_rails::start -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --clean --only 8007"
-  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8006"
+  stop program = "/var/lib/gems/1.8/bin/mongrel_rails::stop -C /var/www/teachmate/release/config/mongrel_cluster/production.conf --only 8007"
   if totalmem is greater than 60.0 MB for 4 cycles then restart
   if cpu is greater than 80% for 4 cycles then restart
   if 20 restarts within 20 cycles then timeout
