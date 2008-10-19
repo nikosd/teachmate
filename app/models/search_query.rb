@@ -136,8 +136,10 @@ class SearchQuery < ActiveRecord::Base
   private
 
   def find_all(location_query_part, placeholders)
-    users_created_at_query_part = ' AND users.created_at > :one_day_ago'
-    placeholders.merge!({:one_day_ago => 1.days.ago})
+    if NEW_FACES_SEARCH_INTERVAL
+      users_created_at_query_part = ' AND users.created_at > :time_ago'
+      placeholders.merge!({:time_ago => NEW_FACES_SEARCH_INTERVAL})
+    end
 
     @users 	= User.paginate(:all,
       :page => @page, :per_page => @per_page,

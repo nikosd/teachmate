@@ -1,3 +1,4 @@
 #!/bin/sh
 date=`date -I`
+rm *.sql.bz2
 mysqldump --opt --user=teachmate_admin --password=A7A51BRTl1eh7xL teachmate_production | bzip2 -c > /var/backups/teachmate/db/db_backup_$date.sql.bz2
