@@ -1,4 +1,9 @@
 #!/bin/sh
+
+# backup mysql db
 date=`date -I`
-rm *.sql.bz2
+rm /var/backups/teachmate/db/*.sql.bz2
 mysqldump --opt --user=teachmate_admin --password=A7A51BRTl1eh7xL teachmate_production | bzip2 -c > /var/backups/teachmate/db/db_backup_$date.sql.bz2
+
+# backup avatars dir
+rsync -atr /var/www/teachmate/shared/public/images/avatars/* /var/backups/teachmate/avatars/
