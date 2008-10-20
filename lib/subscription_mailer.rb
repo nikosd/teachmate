@@ -159,7 +159,7 @@ class SubscriptionMailer
     # defaults
     @last_run = {:checked => 0, :left => 0}
     
-    last_run_log = File.readlines("#{RAILS_ROOT}/log/subscription_mailer_last_run.log")
+    last_run_log = File.readlines("#{RAILS_ROOT}/log/subscription_mailer_last_run")
     last_run_log.each do |element|
       option = element.chomp.split(': ')
       @last_run.merge!({option[0].to_sym => option[1].to_i}) unless option.blank?
@@ -168,7 +168,7 @@ class SubscriptionMailer
   end
 
   def write_last_run(options)
-    last_run_log = File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run.log", 'w')
+    last_run_log = File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run", 'w')
     main_log     = File.open("#{RAILS_ROOT}/log/subscription_mailer.log", 'a')
 
     main_log.puts "Start time: #{@start_time}"
