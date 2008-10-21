@@ -132,7 +132,7 @@ describe SubscriptionMailer do
 
 
   after(:each) do
-    File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run.log", 'w').close
+    File.open("#{RAILS_ROOT}/log/subscription_mailer_last_run", 'w').close
   end
 
 end
