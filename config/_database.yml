@@ -1,0 +1,13 @@
+# This file contains DB settings for development/test environments.
+# Copy it and rename to database.yml
+# Production settings are not included in the repo for security reasons.
+
+development:
+  adapter: sqlite3
+  database: db/teachmate_dev.db
+  timeout: 5000
+
+test:
+  adapter: sqlite3
+  database: db/teachmate_test.db
+  timeout: 5000
