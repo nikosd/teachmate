@@ -73,8 +73,6 @@
       </div>
     <% else %>
 
-      <% cache(@query_params) do %>
-
         <div id="sr-header">
 
           <% unless @query_params[:learn].blank? and @query_params[:teach].blank? %>
@@ -86,6 +84,8 @@
           <div style="clear: both;"></div>
 
         </div>
+
+        <% cache(@query_params) do %>
 
         <div id="sr-body">
         <% i = "" 
@@ -115,7 +115,7 @@
           <%= will_paginate(@search.users) %>
         </div>
       
-      <% end %>	
+        <% end %>	
 
     <% end %>
 
