@@ -105,13 +105,19 @@ describe SearchQuery, "special cases" do
 	end
 
   it "should save my query if it's not already in DB, otherwise just get the existing query ID" do
-    query = SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people", :city => "San-Francisco", :region => "CA", :country => "US")
+    query = SearchQuery.new(:learn => "cooking")
     query.store_query
-    new_query = SearchQuery.new(:teach => "bass guitar, piano", :learn => "cooking, love people", :city => "San-Francisco", :region => "CA", :country => "US")
+    new_query = SearchQuery.new(:learn => "cooking")
     new_query.store_query
 
     new_query.id.should == query.id
-    query.location.should have_text('san-francisco,ca,us')
+    
+    query = SearchQuery.new(:teach => "piano, violin", :learn => "cooking, bass guitar", :location => 'san-francisco, ca, us')
+    query.store_query
+    new_query = SearchQuery.new(:teach => "piano, violin", :learn => "cooking, bass guitar", :location => 'san-francisco, ca, us')
+    new_query.store_query
+
+    new_query.id.should == query.id
   end
 
   it "should set city, region and country attributes after finding query in DB" do
@@ -130,63 +136,6 @@ describe SearchQuery, "special cases" do
     query.learn.should have_text(['bass guitar', 'piano'])
     query.teach.should have_text(['cooking', 'love people'])
   end
-
-end
-
-describe SearchQuery, "with bad params" do
-
-  scenario :search, :root => false
-
-  it "should add errors if there's too much learn tags" do
-    search = 
-    SearchQuery.new(
-      :teach => "bass guitar, piano",
-      :learn => "cooking, love people, blablah, blah",
-      :per_page => 50
-    )
-    search.run
-    search.errors.on(:learn).should_not be_nil
-  end
-
-  it "should add errors if there's too much learn tags" do
-    one_hundred = []
-    1.upto(101) {|n| one_hundred << n}
-    one_hundred = one_hundred.join(', ')
-    
-    search = 
-    SearchQuery.new(
-      :teach => one_hundred,
-      :learn => "cooking, love people",
-      :per_page => 50
-    )
-    search.run
-    search.errors.on(:teach).should_not be_nil
-  end
-
-  it "should find nothing if the first teach_tag doesn't match any users" do
-    search = SearchQuery.new(:learn => 'bad tag, cooking', :per_page => 50)
-    search.run
-    search.users.should have(0).users
-  end
-
-  it "should not save each location element if its value contains ,(comma)" do
-    search = SearchQuery.new(
-      :learn => 'bad tag, cooking',
-      :city => 'City,with a wrong name',
-      :region => 'region,with a wrong name',
-      :country => 'country,with a wrong name'
-    )
-    search.store_query
-    search.errors.on(:city).should_not be_nil
-    search.errors.on(:region).should_not be_nil
-    search.errors.on(:country).should_not be_nil
-  end
-
-end
-
-describe SearchQuery, "special cases" do
-
-  scenario :search, :root => false
 
   it "should search find users only by their teach_tags" do
     search = 
@@ -242,6 +191,59 @@ describe SearchQuery, "special cases" do
     sq.run
     sq.errors.should be_empty
     sq.users.should_not be_empty
+  end
+
+
+
+end
+
+describe SearchQuery, "with bad params" do
+
+  scenario :search, :root => false
+
+  it "should add errors if there's too much learn tags" do
+    search = 
+    SearchQuery.new(
+      :teach => "bass guitar, piano",
+      :learn => "cooking, love people, blablah, blah",
+      :per_page => 50
+    )
+    search.run
+    search.errors.on(:learn).should_not be_nil
+  end
+
+  it "should add errors if there's too much learn tags" do
+    one_hundred = []
+    1.upto(101) {|n| one_hundred << n}
+    one_hundred = one_hundred.join(', ')
+    
+    search = 
+    SearchQuery.new(
+      :teach => one_hundred,
+      :learn => "cooking, love people",
+      :per_page => 50
+    )
+    search.run
+    search.errors.on(:teach).should_not be_nil
+  end
+
+  it "should find nothing if the first teach_tag doesn't match any users" do
+    search = SearchQuery.new(:learn => 'bad tag, cooking', :per_page => 50)
+    search.run
+    search.users.should have(0).users
+  end
+
+  it "should not save each location element if its value contains ,(comma)" do
+    search = SearchQuery.new(
+      :learn => 'bad tag, cooking',
+      :city => 'City,with a wrong name',
+      :region => 'region,with a wrong name',
+      :country => 'country,with a wrong name'
+    )
+    search.store_query
+    search.errors.on(:city).should_not be_nil
+    search.errors.on(:region).should_not be_nil
+    search.errors.on(:country).should_not be_nil
   end
 
 end

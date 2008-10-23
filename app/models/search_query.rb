@@ -113,9 +113,14 @@ class SearchQuery < ActiveRecord::Base
 	end
 
   def store_query
+    conditions = []
+    conditions.push('learn_string = (:learn_string)') unless self.learn_string.blank?
+    conditions.push('teach_string = (:teach_string)') unless self.teach_string.blank?
+    conditions.push('location = (:location)') unless self.location.blank?
+
     if found_query = self.class.find(
       :first,
-      :conditions => ['learn_string = (?) and teach_string = (?) and location = (?)', self.learn_string, self.teach_string, self.location]
+      :conditions => [conditions.join(' and '), {:learn_string => self.learn_string, :teach_string => self.teach_string, :location => self.location}]
     ) then
       self.id = found_query.id
     else

@@ -22,4 +22,9 @@ describe Subscription do
     subscription.errors.on(:user).should be 
   end
 
+  it "should not create a subscription with the same search_query_id" do
+    Subscription.create(:user_id => @user_id, :search_query_id => 1).errors.should be_empty
+    Subscription.create(:user_id => @user_id, :search_query_id => 1).errors.should_not be_empty
+  end
+
 end

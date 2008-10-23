@@ -48,8 +48,8 @@ describe SubscriptionsController, "adding new subscription" do
 
   it "should warn user, if he's already subscribed to that query" do
     session[:user] = @user_id
-    post 'create', :search_query => {:learn => 'already subscribed', :teach =>'already subscribed'}
-    post 'create', :search_query => {:learn => 'already subscribed', :teach =>'already subscribed'}
+    post 'create', :search_query => {:learn => 'already subscribed'}
+    post 'create', :search_query => {:learn => 'already subscribed'}
     assigns[:subscription].errors.on(:search_query_id).should be
     response.flash[:subscription_error].should be
   end
