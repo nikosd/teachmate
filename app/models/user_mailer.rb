@@ -39,8 +39,11 @@ class UserMailer < ActionMailer::Base
 
       if search_query.users.size > 10
         number_of_users = 10
+        users_caption = "Today we had more than 10 new users on your request.\nHere's last 10 of them:"
       else
         number_of_users = options[:content][:found_users].size
+        plural = 's' if number_of_users > 1
+        users_caption = "Today we had #{number_of_users} new user#{plural} on your request:"
       end
 
       @subject    = "Updates on you search query from TeachMate.org"
@@ -50,7 +53,8 @@ class UserMailer < ActionMailer::Base
       @body       = {:search_query => {
           :learn => search_query.learn_string,
           :teach => search_query.teach_string,
-          :location => search_query_location
+          :location => search_query_location,
+          :users_caption => users_caption
         },
         :users => options[:content][:found_users],
         :number_of_users => number_of_users  

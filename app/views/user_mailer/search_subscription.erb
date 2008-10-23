@@ -1,7 +1,8 @@
-You are subscribed to updates the following search query
+You are subscribed to updates for the following search query
 
 <% skip_blank(@search_query[:learn]) { |learn| %>   I want to learn: <%=learn + "\n"%><% } %><% skip_blank(@search_query[:teach]) { |teach| %>   I can teach: <%=teach + "\n"%> <% } %><% skip_blank(@search_query[:location]) { |location| %>   In: <%=location + "\n"%> <% } %>
-Here's today's last <%=@number_of_users%>:
+<%= @users_caption %>
+Here's today's last <%=@number_of_users%> new user<%=@users_plural%>}:
 <% @users.each do |u| %>
    <%= full_name(u) %> 
    http://teachmate.org/users/<%=u.id%>
