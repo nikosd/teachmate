@@ -54,8 +54,8 @@ class UserMailer < ActionMailer::Base
           :learn => search_query.learn_string,
           :teach => search_query.teach_string,
           :location => search_query_location,
-          :users_caption => users_caption
         },
+        :users_caption => users_caption,
         :users => options[:content][:found_users],
         :number_of_users => number_of_users  
       }

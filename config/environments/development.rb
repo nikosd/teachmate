@@ -14,8 +14,8 @@ CACHE_FILE_PATH = "#{RAILS_ROOT}/public/cache"
 ActionController::Base.cache_store = :advanced_file_store, CACHE_FILE_PATH
 config.action_controller.consider_all_requests_local = true
 config.action_view.debug_rjs                         = true
-config.action_controller.perform_caching             = true #should be false
-config.action_view.cache_template_loading            = true #should be false
+config.action_controller.perform_caching             = false #should be false
+config.action_view.cache_template_loading            = false #should be false
 # config.action_view.cache_template_extensions         = false #deprecated
 
 # Don't care if the mailer can't send
