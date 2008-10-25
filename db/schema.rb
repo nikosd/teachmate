@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "status"
   end
 
-  add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["openid"], :name => "index_users_on_openid", :unique => true
 
 end
