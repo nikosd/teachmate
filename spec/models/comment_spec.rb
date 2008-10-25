@@ -7,7 +7,10 @@ describe Comment do
   it "should find all comments and their authors" do
     comments = Comment.find_for_user(User.find_by_email('email@comment.com'))
     comments.should have(3).elements
-    comments.each { |s| s.should include(:element, :author) }
+    comments.each do |s|
+      s[:element].should_not be_nil
+      s[:author].should_not  be_nil
+    end
   end
 
 end

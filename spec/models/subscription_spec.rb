@@ -11,7 +11,11 @@ describe Subscription do
   it "should find all subscriptions with learn/teach strings for a particular user" do
     subscriptions = Subscription.find_for_user(@user_id)
     subscriptions.should have(3).elements
-    subscriptions.each { |s| s.should include(:learn_string, :teach_string, :element) }
+    subscriptions.each do |s|
+      s[:learn_string].should_not be_nil
+      s[:teach_string].should_not be_nil
+      s[:element].should_not      be_nil
+    end
   end
 
   it "should not allow more than 10 subscriptions for 1 user" do
