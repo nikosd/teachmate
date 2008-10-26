@@ -1,0 +1,29 @@
+Author: Roman Snitko
+http://snitko.ru
+
+== GETTING THE CODE AND SETTING UP
+
+  1. clone repo from github
+  2. git submodule update
+  3. mv config/_database.rb config/database.rb
+
+== DEPENDENCIES
+
+  1. Currently TeachMate runs on Rails 2.1.2, but I'm pretty sure
+     it will work on 2.0.2
+
+  2. You will need rspec gem installed.
+     If you're using Rails 2.1.2 you will need rspec 1.1.11
+     If you're using Rails 2.0.2 i can tell you it wokred fine with rspec 1.1.4
+
+  3. rmagick gem
+
+== CONTRIBUTING
+
+  * If you're planning to add or enhance a feature please check through TODO first.
+  * When implementing, please make sure you write specs for your code.
+    I do not accept models/controllers/lib code without specs or at least regular tests for it.
+  * If you have any suggestions or questions you can find my contacts at http://snitko.ru
+
+  * You can contribute by just posting about TeachMate in your blog.
+    TeachMate could become extremely useful for people as it gets more users from all over the world.
