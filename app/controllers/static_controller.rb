@@ -11,4 +11,7 @@ class StaticController < ApplicationController
   def about
   end
 
+  def opensource
+  end
+
 end
