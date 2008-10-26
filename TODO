@@ -1,0 +1,58 @@
+This is a list of enhancements and features that is suggested to implement by the community.
+You can make up your own feature and work on it, but before that
+please check through this list -- you might find something you'd like to work on.
+
+Please send suggestions and comments to my email published here: http://snitko.ru
+
+Note, there are two sections: "enhancements" and "features".
+
+== ENHANCEMENTS
+
+  * Sorting search results by the time a tag is added *
+    Currently search is implemented in way that it sorts people it finds by the
+    time they signed up for TeachMate. This is okay, but still slightly wrong.
+    The good way would be to sort them by the time they created the tag that is mentioned
+    in the search request.
+
+  * Location autofill option *
+    Some people complained they didn't like autofilling their location in search form.
+    Probably we should do two things here:
+    1) Put a checkbox in the profile create/edit form near the location field that asks if
+    the user wants to autofill those fields in search form.
+    2) Put a simple button/link that autofills/removes location from search fields.
+
+  * Hint that pops up if user types a tag that is too long *
+    Totally a javascript/html task. Some people think tags delimiters are spaces,
+    so when they input their tags, they become really long. What's even worse is that nobody's
+    ever going to find them. That's why we need a little jQuery code to show a hint, when user
+    inputs, say, a tag of more than 20 characters. And, of course, a hint should jus say
+    something like "Are you sure this tag is really that long? Separate tags with commas (,) please!"
+    Showing hints feature and html-block for hints are already inplemented, see 
+    //hints section of 'application.js' and an example of hint block in 'app/views/static/index.erb'.
+
+  * Allow <a> and <img> tags in more_info in profile *
+
+  * Loading comments in user profile with ajax *
+    For now comments simply are loaded on on profile page anytime,
+    but are hidden until you click "Show comments". The smart thing would be to load them
+    with ajax.
+
+  * "Subscribe" button with ajax *
+    If you click "subscribe" button in search results when you're logged in,
+    the page is reloaded and then a message is displayed in place of the button.
+    We need to extend this behavior with the ajax-like, leaving page reloading for
+    the cases when javascript is turned off.
+
+== FEATURES
+
+    * Bookmarking User *
+    TeachMate needs a simple tool to save users you like and might want to contact
+    in future. "Friending" seems like a too complicated and wrong concept. It would be
+    a good idea to just have a small ajax-link in profile that adds people to "bookmarks".
+    And, therefore, there should be a small (like "managing subscriptions") to edit
+    these bookmarks.
+    
+    * Social networks links in profile *
+    Personally, I think it's a crap, but people like that stuff. So probably, we need fields in
+    create/edit profile to fill in social network accounts. I think small buttons with logos
+    and fields sliding down is the best way to do that.
