@@ -7,5 +7,6 @@ log/*
 milestones.yml
 spec/public
 config/database.yml
+config/session_secret_key.txt
 public/cache
 public/images/avatars
