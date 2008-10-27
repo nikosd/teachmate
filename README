@@ -5,7 +5,7 @@ http://snitko.ru
 
   1. clone repo from github
   2. git submodule update
-  3. mv config/_database.rb config/database.rb
+  3. mv config/_database.rb config/database.rb && mv config/_session_secret_key.txt config/session_secret_key.txt
 
 == DEPENDENCIES
 
