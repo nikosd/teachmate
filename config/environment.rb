@@ -36,7 +36,7 @@ Rails::Initializer.run do |config|
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
-  secret_sesison_key = File.read("#{RAILS_ROOT}/config/secret_session_key.txt")
+  secret_sesison_key = File.read("#{RAILS_ROOT}/config/session_secret_key.txt")
   config.action_controller.session = {
     :session_key => '_src_session',
     :secret      => secret_sesison_key
