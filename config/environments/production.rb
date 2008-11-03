@@ -19,3 +19,4 @@ ActionMailer::Base.delivery_method = :sendmail
 ActionMailer::Base.default_charset = 'utf-8'
 
 AVATARS_PATH = "/var/www/teachmate/shared/public/images/avatars"
+SEARCH_CACHE_EXPIRE = 10 #minutes

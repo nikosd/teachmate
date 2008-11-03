@@ -16,7 +16,7 @@ class SearchController < ApplicationController
 
     @query_params.delete(:page) if @query_params[:page].to_i == 1
 
-    when_fragment_expired(@query_params, 1.minutes.ago) do  
+    when_fragment_expired(@query_params, SEARCH_CACHE_EXPIRE.minutes.ago) do  
       @search.run
       @users = @search.users if @search.errors.empty?
     end
