@@ -23,3 +23,4 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 AVATARS_PATH = "#{RAILS_ROOT}/spec/public/avatars"
+SEARCH_CACHE_EXPIRE = 1 #minutes
